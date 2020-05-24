@@ -1,0 +1,45 @@
+{
+  "private": true,
+  "license": "MIT",
+  "homepage": "https://unified-doc.netlify.com",
+  "repository": "unified-doc/unified-doc",
+  "bugs": "https://github.com/unified-doc/unified-doc/issues",
+  "workspaces": [
+    "packages/*"
+  ],
+  "author": "Chris Zhou <chrisrzhou@pm.me>",
+  "scripts": {
+    "build": "yarn clean; yarn workspaces run build",
+    "clean": "rm -rf packages/**/node_modules",
+    "format": "xo --fix; tsc",
+    "test": "jest packages"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^26.0.1",
+    "husky": "^4.2.5",
+    "jest": "^26.0.1",
+    "microbundle": "^0.12.0",
+    "typescript": "^3.8.3",
+    "xo": "^0.30.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "yarn format && yarn test && yarn build"
+    }
+  },
+  "prettier": {
+    "bracketSpacing": true,
+    "jsxBracketSameLine": true,
+    "trailingComma": "all",
+    "useTabs": false
+  },
+  "xo": {
+    "env": [
+      "browser",
+      "jest"
+    ],
+    "prettier": true
+  }
+}

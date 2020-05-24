@@ -1,0 +1,30 @@
+{
+  "name": "unified-doc-parse-text",
+  "version": "0.1.0",
+  "description": "parse text content into a hast tree with a single text node",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "index.js",
+  "typings": "types/index.d.ts",
+  "keywords": [
+    "unified",
+    "doc",
+    "parse",
+    "text",
+    "document",
+    "content",
+    "file",
+    "unist",
+    "hast",
+    "html"
+  ],
+  "homepage": "https://unified-doc.netlify.com/",
+  "repository": "https://github.com/chrisrzhou/unified-doc/tree/master/packages/unified-doc-parse-text",
+  "bugs": "https://github.com/chrisrzhou/unified-doc/issues",
+  "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
+  "scripts": {
+    "build": "microbundle build",
+    "prepare": "yarn build"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "unified-doc",
+  "version": "0.1.0",
+  "description": "unified document APIs",
+  "license": "MIT",
+  "keywords": [
+    "unified",
+    "doc",
+    "document",
+    "content",
+    "file",
+    "unist",
+    "hast",
+    "html",
+    "markdown",
+    "text",
+    "parse",
+    "render"
+  ],
+  "homepage": "https://unified-doc.netlify.com",
+  "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc",
+  "bugs": "https://github.com/unified-doc/unified-doc/issues",
+  "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
+  "contributors": [
+    "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)"
+  ],
+  "files": [
+    "index.js",
+    "types/index.d.ts"
+  ],
+  "types": "types/index.d.ts",
+  "dependencies": {
+    "deepmerge": "^4.2.2",
+    "hast-util-sanitize": "^2.0.2",
+    "mime-types": "^2.1.27",
+    "rehype-parse": "^6.0.2",
+    "remark-parse": "^8.0.2",
+    "remark-rehype": "^7.0.0",
+    "unified": "^9.0.0"
+  }
+}

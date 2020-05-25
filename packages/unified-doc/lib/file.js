@@ -1,13 +1,13 @@
 import mime from 'mime-types';
 
-import { DEFAULT_MIME_TYPE } from './enums';
+import { mimeTypes } from './enums';
 
-export function createFile(content, filename) {
-  const type = mime.lookup(filename) || DEFAULT_MIME_TYPE;
+export function create(content, filename) {
+  const type = mime.lookup(filename) || mimeTypes.DEFAULT;
   return new File([content], filename, { type });
 }
 
-export function readFileContent(file) {
+export function getContent(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
@@ -18,4 +18,8 @@ export function readFileContent(file) {
     reader.addEventListener('error', reject);
     reader.readAsText(file);
   });
+}
+
+export function saveFile(type) {
+  // Original, html, text, hast
 }

@@ -7,8 +7,6 @@ import remark2rehype from 'remark-rehype';
 import unified from 'unified';
 import text from 'unified-doc-parse-text';
 
-import { readFileContent } from './file';
-
 const createPlugin = (transform) => (...args) => (tree) =>
   transform(tree, ...args);
 
@@ -27,17 +25,5 @@ export function createProcessor(file, options = {}) {
 
   processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
 
-  async function parse() {
-    const content = await readFileContent(file);
-    return processor.parse(content);
-  }
-
-  function process() {
-    return processor.processSync(file);
-  }
-
-  return {
-    parse,
-    process,
-  };
+  return processor;
 }

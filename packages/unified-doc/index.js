@@ -1,51 +1,59 @@
-import { saveAs } from 'file-saver';
+import toHtml from 'hast-util-to-html';
 
-import { saveTypes } from './lib/enums';
-import { getContent } from './lib/file';
+import { fileTypes, mimeTypes } from './lib/enums';
+import { fromContent, getContent, updateExtension } from './lib/file';
 import { createProcessor } from './lib/processor';
 
-export { saveTypes };
+export { fileTypes };
 
-export default class Doc {
-  constructor(file, compiler, options = {}) {
-    this.content = null;
-    this.file = file;
-    this.options = options;
-    this.processor = createProcessor(this.file, compiler, this.options);
+export default async function unifiedDoc(args = {}) {
+  const file = args.file || fromContent(args.content, args.filename);
+  const content = args.content || (await getContent(file));
+  const processor = createProcessor(file, args.compiler);
+
+  // TODO: implement
+  function annotate(_annotations) {
+    return [];
   }
 
-  async initialize() {
-    this.content = await getContent(this.file);
+  function parse() {
+    return processor.parse(content);
   }
 
-  compile() {
-    return this.processor.processSync(this.content);
-  }
-
-  parse() {
-    return this.processor.parse(this.content);
-  }
-
-  save(type) {
-    switch (type) {
-      case saveTypes.HAST: {
-        const hast = this.parse();
-        saveAs(new File([JSON.stringify(hast, null, 2)], this.file.name));
+  function exportFile(fileType) {
+    switch (fileType) {
+      case fileTypes.UNI: {
+        const uniContent = { hast: parse() };
+        return new File(
+          [JSON.stringify(uniContent, null, 2)],
+          updateExtension(this.file.name, fileTypes.UNI),
+          { type: mimeTypes.UNI },
+        );
       }
-      case saveTypes.HTML:
-      case saveTypes.FILE:
-      default: {
-        saveAs(this.file);
+      case fileTypes.HTML: {
+        const htmlContent = toHtml(parse());
+        return new File(
+          [htmlContent],
+          updateExtension(this.file.name, fileTypes.HTML),
+          { type: mimeTypes.HTML },
+        );
       }
+      default:
+        return this.file;
     }
   }
 
-  // Future APIs
-  annotate(annotations) {
+  // TODO: implement
+  function search(_query) {
     return [];
   }
 
-  search(query) {
-    return [];
-  }
+  return {
+    annotate,
+    content,
+    exportFile,
+    file,
+    parse,
+    search,
+  };
 }

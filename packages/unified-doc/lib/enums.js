@@ -1,11 +1,11 @@
-export const mimeTypes = {
-  DEFAULT: 'application/octet-stream',
-  JSON: 'application/json',
-  HTML: 'text/html',
+export const fileTypes = {
+  HTML: 'html',
+  UNI: 'uni',
 };
 
-export const saveTypes = {
-  FILE: 'file',
-  HAST: 'hast',
-  HTML: 'html',
+export const mimeTypes = {
+  DEFAULT: 'text/plain',
+  JSON: 'application/json',
+  HTML: 'text/html',
+  UNI: 'text/uni', // TODO: confirm with unified team!
 };

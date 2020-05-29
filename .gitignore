@@ -12,4 +12,5 @@ node_modules
 
 # project
 dist
+cypress/screenshots
 cypress/videos

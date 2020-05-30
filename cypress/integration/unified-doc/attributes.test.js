@@ -1,15 +1,14 @@
 import unifiedDoc from '../../../packages/unified-doc';
 
-describe('file', () => {
+describe('attributes', () => {
   it('sets the file when input content is provided', async () => {
     const doc = await unifiedDoc({
       content: '> **some** markdown content',
       filename: 'doc.md',
     });
-    expect(doc.file).to.be.an.instanceof(File);
-    expect(doc.file.name).to.equal('doc.md');
-    expect(doc.file.type).to.equal('text/markdown');
-    expect(await doc.file.text()).to.equal('> **some** markdown content');
+    expect(doc.extname).to.equal('.md');
+    expect(doc.filename).to.equal('doc.md');
+    expect(doc.stem).to.equal('doc');
   });
 
   it('sets the file when input file is provided', async () => {
@@ -18,9 +17,8 @@ describe('file', () => {
         type: 'text/markdown',
       }),
     });
-    expect(doc.file).to.be.an.instanceof(File);
-    expect(doc.file.name).to.equal('doc.md');
-    expect(doc.file.type).to.equal('text/markdown');
-    expect(await doc.file.text()).to.equal('> **some** markdown content');
+    expect(doc.extname).to.equal('.md');
+    expect(doc.filename).to.equal('doc.md');
+    expect(doc.stem).to.equal('doc');
   });
 });

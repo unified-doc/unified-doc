@@ -51,8 +51,9 @@
     ],
     "prettier": true,
     "rules": {
+      "capitalized-comments": "off",
       "no-unused-vars": [
-        2,
+        "error",
         { "argsIgnorePattern": "^_" }
       ],
       "no-warning-comments": "off",

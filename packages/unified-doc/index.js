@@ -1,46 +1,51 @@
 import toHtml from 'hast-util-to-html';
 
 import { fileTypes, mimeTypes } from './lib/enums';
-import { fromContent, getContent, updateExtension } from './lib/file';
+import { toFile, toVfile } from './lib/vfile';
 import { createProcessor } from './lib/processor';
 
 export { fileTypes };
 
-export default async function unifiedDoc(args = {}) {
-  const file = args.file || fromContent(args.content, args.filename);
-  const content = args.content || (await getContent(file));
-  const processor = createProcessor(file, args.compiler);
+export default async function unifiedDoc(options = {}) {
+  const { compiler, content, filename, file } = options;
+  const vfile = await toVfile({
+    content,
+    file,
+    filename,
+  });
+  const processor = createProcessor({
+    compiler,
+    vfile,
+  });
 
   // TODO: implement
   function annotate(_annotations) {
     return [];
   }
 
-  function parse() {
-    return processor.parse(content);
-  }
-
-  function exportFile(fileType) {
+  function _export(fileType) {
     switch (fileType) {
       case fileTypes.UNI: {
         const uniContent = { hast: parse() };
         return new File(
           [JSON.stringify(uniContent, null, 2)],
-          updateExtension(this.file.name, fileTypes.UNI),
+          `${vfile.stem}.${fileTypes.UNI}`,
           { type: mimeTypes.UNI },
         );
       }
       case fileTypes.HTML: {
         const htmlContent = toHtml(parse());
-        return new File(
-          [htmlContent],
-          updateExtension(this.file.name, fileTypes.HTML),
-          { type: mimeTypes.HTML },
-        );
+        return new File([htmlContent], `${vfile.stem}.${fileTypes.HTML}`, {
+          type: mimeTypes.HTML,
+        });
       }
       default:
-        return this.file;
+        return toFile(vfile);
     }
+  }
+
+  function parse() {
+    return processor.parse(vfile);
   }
 
   // TODO: implement
@@ -48,12 +53,20 @@ export default async function unifiedDoc(args = {}) {
     return [];
   }
 
+  function text() {
+    return vfile.toString();
+  }
+
   return {
+    // attributes
+    extname: vfile.extname,
+    filename: vfile.basename,
+    stem: vfile.stem,
+    // methods
     annotate,
-    content,
-    exportFile,
-    file,
+    export: _export,
     parse,
     search,
+    text,
   };
 }

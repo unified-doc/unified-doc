@@ -1,3 +1,3 @@
 describe('createProcessor', () => {
-  it('should parse file', () => {});
+  it('parses file', () => {});
 });

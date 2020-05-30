@@ -1,29 +1,28 @@
 import unifiedDoc from '../../../packages/unified-doc';
 
-describe('exportFile', () => {
+describe('export', () => {
   it('exports the current file as is', async () => {
     const doc = await unifiedDoc({
       content: '> **some** markdown content',
       filename: 'doc.md',
     });
-    const exportedFile = doc.exportFile();
-    expect(exportedFile).to.be.an.instanceof(File);
-    expect(exportedFile.name).to.equal('doc.md');
-    expect(exportedFile.type).to.equal('text/markdown');
-    expect(await exportedFile.text()).to.equal('> **some** markdown content');
+    const file = doc.export();
+    expect(file).to.be.an.instanceof(File);
+    expect(file.name).to.equal('doc.md');
+    expect(file.type).to.equal('text/markdown');
+    expect(await file.text()).to.equal('> **some** markdown content');
   });
 
-  // TODO: confirm remark-rehype behaviors and add test back
-  it.skip('exports the current file as .html', async () => {
+  it('exports the current file as .html', async () => {
     const doc = await unifiedDoc({
       content: '> **some** markdown content',
       filename: 'doc.md',
     });
-    const exportedFile = doc.exportFile('html');
-    expect(exportedFile).to.be.an.instanceof(File);
-    expect(exportedFile.name).to.equal('doc.html');
-    expect(exportedFile.type).to.equal('text/html');
-    expect(await exportedFile.text()).to.equal('adf');
+    const file = doc.export('html');
+    expect(file).to.be.an.instanceof(File);
+    expect(file.name).to.equal('doc.html');
+    expect(file.type).to.equal('text/html');
+    expect(await file.text()).to.equal('adf');
   });
 
   it('exports the current file as .uni', async () => {
@@ -31,11 +30,11 @@ describe('exportFile', () => {
       content: '> **some** markdown content',
       filename: 'doc.md',
     });
-    const exportedFile = doc.exportFile('uni');
-    expect(exportedFile).to.be.an.instanceof(File);
-    expect(exportedFile.name).to.equal('doc.uni');
-    expect(exportedFile.type).to.equal('text/uni');
-    expect(await exportedFile.text()).to.equal(
+    const file = doc.export('uni');
+    expect(file).to.be.an.instanceof(File);
+    expect(file.name).to.equal('doc.uni');
+    expect(file.type).to.equal('text/uni');
+    expect(await file.text()).to.equal(
       JSON.stringify(
         {
           hast: {

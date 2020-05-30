@@ -7,23 +7,26 @@ import remark2rehype from 'remark-rehype';
 import unified from 'unified';
 import text from 'unified-doc-parse-text';
 
+import { inferMimeType } from './vfile';
+
 const createPlugin = (transform) => (...args) => (tree) =>
   transform(tree, ...args);
 
-export function createProcessor(file, options = {}) {
-  const { sanitizeSchema = {} } = options;
+export function createProcessor(options = {}) {
+  const { compiler, sanitizeSchema = {}, vfile } = options;
+  const mimeType = inferMimeType(vfile);
 
   const processor = unified();
-  // Assign parsers with relevant mime-types
-  if (file.type.includes('markdown')) {
+  if (mimeType.includes('markdown')) {
     processor.use(markdown).use(remark2rehype);
-  } else if (file.type.includes('html')) {
+  } else if (mimeType.includes('html')) {
     processor.use(html);
   } else {
     processor.use(text);
   }
 
   processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
+  processor.use(compiler);
 
   return processor;
 }

@@ -13,6 +13,7 @@ describe('init', () => {
       'stem',
       // methods
       'annotate',
+      'compile',
       'export',
       'parse',
       'search',

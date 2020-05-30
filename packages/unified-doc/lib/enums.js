@@ -1,6 +1,6 @@
-export const fileTypes = {
-  HTML: 'html',
-  UNI: 'uni',
+export const extensionTypes = {
+  HTML: '.html',
+  UNI: '.uni',
 };
 
 export const mimeTypes = {

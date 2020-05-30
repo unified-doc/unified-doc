@@ -1,20 +1,28 @@
-import toHtml from 'hast-util-to-html';
+import stringify from 'rehype-stringify';
 
-import { fileTypes, mimeTypes } from './lib/enums';
+import { extensionTypes } from './lib/enums';
 import { toFile, toVfile } from './lib/vfile';
 import { createProcessor } from './lib/processor';
 
-export { fileTypes };
+export { extensionTypes };
 
 export default async function unifiedDoc(options = {}) {
-  const { compiler, content, filename, file } = options;
+  const {
+    compiler = stringify,
+    compilerOptions,
+    content,
+    filename = 'file',
+    file,
+  } = options;
   const vfile = await toVfile({
+    compiler,
     content,
     file,
     filename,
   });
   const processor = createProcessor({
     compiler,
+    compilerOptions,
     vfile,
   });
 
@@ -23,29 +31,17 @@ export default async function unifiedDoc(options = {}) {
     return [];
   }
 
-  function _export(fileType) {
-    switch (fileType) {
-      case fileTypes.UNI: {
-        const uniContent = { hast: parse() };
-        return new File(
-          [JSON.stringify(uniContent, null, 2)],
-          `${vfile.stem}.${fileTypes.UNI}`,
-          { type: mimeTypes.UNI },
-        );
-      }
-      case fileTypes.HTML: {
-        const htmlContent = toHtml(parse());
-        return new File([htmlContent], `${vfile.stem}.${fileTypes.HTML}`, {
-          type: mimeTypes.HTML,
-        });
-      }
-      default:
-        return toFile(vfile);
-    }
+  function compile() {
+    return processor.processSync(vfile);
+  }
+
+  function _export(extensionType) {
+    const hast = parse();
+    return toFile(vfile, hast, extensionType);
   }
 
   function parse() {
-    return processor.parse(vfile);
+    return processor.runSync(processor.parse(vfile));
   }
 
   // TODO: implement
@@ -64,6 +60,7 @@ export default async function unifiedDoc(options = {}) {
     stem: vfile.stem,
     // methods
     annotate,
+    compile,
     export: _export,
     parse,
     search,

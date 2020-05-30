@@ -18,11 +18,13 @@ describe('export', () => {
       content: '> **some** markdown content',
       filename: 'doc.md',
     });
-    const file = doc.export('html');
+    const file = doc.export('.html');
     expect(file).to.be.an.instanceof(File);
     expect(file.name).to.equal('doc.html');
     expect(file.type).to.equal('text/html');
-    expect(await file.text()).to.equal('adf');
+    expect(await file.text()).to.equal(
+      '<blockquote>\n<p><strong>some</strong> markdown content</p>\n</blockquote>',
+    );
   });
 
   it('exports the current file as .uni', async () => {
@@ -30,122 +32,21 @@ describe('export', () => {
       content: '> **some** markdown content',
       filename: 'doc.md',
     });
-    const file = doc.export('uni');
+    const file = doc.export('.uni');
+    const text = await file.text();
+    const content = JSON.parse(text);
     expect(file).to.be.an.instanceof(File);
     expect(file.name).to.equal('doc.uni');
     expect(file.type).to.equal('text/uni');
-    expect(await file.text()).to.equal(
-      JSON.stringify(
-        {
-          hast: {
-            type: 'root',
-            children: [
-              {
-                type: 'blockquote',
-                children: [
-                  {
-                    type: 'paragraph',
-                    children: [
-                      {
-                        type: 'strong',
-                        children: [
-                          {
-                            type: 'text',
-                            value: 'some',
-                            position: {
-                              start: {
-                                line: 1,
-                                column: 5,
-                                offset: 4,
-                              },
-                              end: {
-                                line: 1,
-                                column: 9,
-                                offset: 8,
-                              },
-                              indent: [],
-                            },
-                          },
-                        ],
-                        position: {
-                          start: {
-                            line: 1,
-                            column: 3,
-                            offset: 2,
-                          },
-                          end: {
-                            line: 1,
-                            column: 11,
-                            offset: 10,
-                          },
-                          indent: [],
-                        },
-                      },
-                      {
-                        type: 'text',
-                        value: ' markdown content',
-                        position: {
-                          start: {
-                            line: 1,
-                            column: 11,
-                            offset: 10,
-                          },
-                          end: {
-                            line: 1,
-                            column: 28,
-                            offset: 27,
-                          },
-                          indent: [],
-                        },
-                      },
-                    ],
-                    position: {
-                      start: {
-                        line: 1,
-                        column: 3,
-                        offset: 2,
-                      },
-                      end: {
-                        line: 1,
-                        column: 28,
-                        offset: 27,
-                      },
-                      indent: [],
-                    },
-                  },
-                ],
-                position: {
-                  start: {
-                    line: 1,
-                    column: 1,
-                    offset: 0,
-                  },
-                  end: {
-                    line: 1,
-                    column: 28,
-                    offset: 27,
-                  },
-                  indent: [],
-                },
-              },
-            ],
-            position: {
-              start: {
-                line: 1,
-                column: 1,
-                offset: 0,
-              },
-              end: {
-                line: 1,
-                column: 28,
-                offset: 27,
-              },
-            },
-          },
-        },
-        null,
-        2,
-      ),
-    );
+    expect(text).to.have.string('blockquote');
+    expect(text).to.have.string('strong');
+    expect(text).to.not.have.string('some markdown');
+    expect(text).to.have.string('markdown content');
+    expect(content).to.have.property('hast');
+    expect(content).to.have.nested.property('hast.type');
+    expect(content).to.have.nested.property('hast.children');
+    expect(content).to.have.nested.property('hast.position.start');
+    expect(content).to.have.nested.property('hast.position.end');
+    expect(content.hast.type).to.equal('root');
   });
 });

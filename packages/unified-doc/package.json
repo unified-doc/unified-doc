@@ -35,6 +35,7 @@
     "hast-util-to-html": "^7.1.1",
     "mime-types": "^2.1.27",
     "rehype-parse": "^6.0.2",
+    "rehype-stringify": "^7.0.0",
     "remark-parse": "^8.0.2",
     "remark-rehype": "^7.0.0",
     "unified": "^9.0.0",
@@ -43,5 +44,9 @@
   "scripts": {
     "build": "microbundle build",
     "prepare": "yarn build"
+  },
+  "devDependencies": {
+    "react": "^16.13.1",
+    "rehype-react": "^5.0.1"
   }
 }

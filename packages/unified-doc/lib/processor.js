@@ -13,8 +13,8 @@ const createPlugin = (transform) => (...args) => (tree) =>
   transform(tree, ...args);
 
 export function createProcessor(options = {}) {
-  const { compiler, sanitizeSchema = {}, vfile } = options;
-  const mimeType = inferMimeType(vfile);
+  const { compiler, compilerOptions, sanitizeSchema = {}, vfile } = options;
+  const mimeType = inferMimeType(vfile.basename);
 
   const processor = unified();
   if (mimeType.includes('markdown')) {
@@ -26,7 +26,7 @@ export function createProcessor(options = {}) {
   }
 
   processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
-  processor.use(compiler);
+  processor.use(compiler, compilerOptions);
 
   return processor;
 }

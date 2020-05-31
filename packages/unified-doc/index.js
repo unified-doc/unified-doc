@@ -1,8 +1,5 @@
-import { extensionTypes } from './lib/enums';
 import { createVfile, toFile } from './lib/vfile';
 import { createProcessor } from './lib/processor';
-
-export { extensionTypes };
 
 export default async function unifiedDoc(options = {}) {
   const {

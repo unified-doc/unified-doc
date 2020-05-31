@@ -24,11 +24,11 @@ Yields a `hast` tree where the input content string is represented as a single t
 
 ```js
 const parsed = {
-  type: "root",
+  type: 'root',
   children: [
     {
-      type: "text",
-      value: "\na to the \nb to the \n\nc to the d",
+      type: 'text',
+      value: 'a to the b to the c',
       position: {
         start: {
           column: 1,
@@ -36,13 +36,25 @@ const parsed = {
           offset: 0,
         },
         end: {
-          column: 11,
-          line: 5,
-          offset: 32,
+          column: 20,
+          line: 1,
+          offset: 19,
         },
       },
     },
   ],
+  position: {
+    start: {
+      column: 1,
+      line: 1,
+      offset: 0,
+    },
+    end: {
+      column: 20,
+      line: 1,
+      offset: 19,
+    },
+  },
 };
 ```
 

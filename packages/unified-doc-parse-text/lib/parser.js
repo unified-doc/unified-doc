@@ -8,6 +8,18 @@ export default function parser(doc) {
 
   const lines = doc.split(/\n/g);
   const lastLine = lines[lines.length - 1];
+  const position = {
+    start: {
+      column: 1,
+      line: 1,
+      offset: 0,
+    },
+    end: {
+      column: lastLine.length + 1,
+      line: lines.length,
+      offset: doc.length,
+    },
+  };
 
   return {
     type: 'root',
@@ -15,19 +27,9 @@ export default function parser(doc) {
       {
         type: 'text',
         value: doc,
-        position: {
-          start: {
-            column: 1,
-            line: 1,
-            offset: 0,
-          },
-          end: {
-            column: lastLine.length + 1,
-            line: lines.length,
-            offset: doc.length,
-          },
-        },
+        position,
       },
     ],
+    position,
   };
 }

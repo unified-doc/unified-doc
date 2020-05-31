@@ -1,3 +1,6 @@
 # todos
 
-- Implement/rearchitect annotations.  Consider interoperability with `mark.js` or check out various annotation/mark/highlighting APIs.
+- Implement/rearchitect annotations.  Checkout `unified-highlighter` and `mark.js` for ideas.
+- Ship `unified-doc-react` package that implements APIs in `unified-doc`
+- Update docs.
+- Check with `unified` team about the `.uni` file extension and `text/uni` mime type.

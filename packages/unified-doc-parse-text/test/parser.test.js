@@ -29,6 +29,18 @@ describe('parser', () => {
           },
         },
       ],
+      position: {
+        start: {
+          column: 1,
+          line: 1,
+          offset: 0,
+        },
+        end: {
+          column: 20,
+          line: 1,
+          offset: 19,
+        },
+      },
     });
   });
 
@@ -53,6 +65,18 @@ describe('parser', () => {
           },
         },
       ],
+      position: {
+        start: {
+          column: 1,
+          line: 1,
+          offset: 0,
+        },
+        end: {
+          column: 11,
+          line: 5,
+          offset: 32,
+        },
+      },
     });
   });
 });

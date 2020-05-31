@@ -35,6 +35,7 @@ export function createProcessor(options = {}) {
 
   plugins.forEach((plugin) => {
     if (Array.isArray(plugin)) {
+      // @ts-ignore TODO: check best practices for applying plugin+options dynamically
       processor.use(...plugin);
     } else {
       processor.use(plugin);
@@ -42,6 +43,7 @@ export function createProcessor(options = {}) {
   });
 
   if (Array.isArray(compiler)) {
+    // @ts-ignore TODO: check best practices for applying plugin+options dynamically
     processor.use(...compiler);
   } else {
     processor.use(compiler);

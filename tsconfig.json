@@ -1,7 +1,17 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "checkJs": true,
     "esModuleInterop": true,
-    "noEmit": true
+    "lib": ["dom", "es6"],
+    "noEmit": true,
+    "paths": {
+      "~/*": ["./*"],
+    },
+    "resolveJsonModule": true,
+    "types": ["cypress", "node"]
   },
+  "exclude": ["**/dist", "**/node_modules"]
 }

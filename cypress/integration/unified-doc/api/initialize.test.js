@@ -1,6 +1,8 @@
-import unifiedDoc from '../../../packages/unified-doc';
+import unifiedDoc from '../../../../packages/unified-doc';
 
-describe('init', () => {
+import { getNamespace } from '../../../utils';
+
+describe(getNamespace(__filename), () => {
   it('initializes the correct public API attributes and methods', async () => {
     const doc = await unifiedDoc({
       filename: 'doc.md',

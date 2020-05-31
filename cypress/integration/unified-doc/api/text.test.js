@@ -1,7 +1,9 @@
-import unifiedDoc from '../../../packages/unified-doc';
-import { markdownContent as content } from '../../fixtures/content';
+import unifiedDoc from '../../../../packages/unified-doc';
 
-describe('text', () => {
+import { markdownContent as content } from '../../../fixtures/content';
+import { getNamespace } from '../../../utils';
+
+describe(getNamespace(__filename), () => {
   it('sets the text content correctly when input content is provided', async () => {
     const doc = await unifiedDoc({
       content,

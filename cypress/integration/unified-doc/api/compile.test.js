@@ -1,10 +1,12 @@
 import { createElement } from 'react';
 import rehype2react from 'rehype-react';
 
-import unifiedDoc from '../../../packages/unified-doc';
-import { markdownContent as content } from '../../fixtures/content';
+import unifiedDoc from '../../../../packages/unified-doc';
 
-describe('compile', () => {
+import { markdownContent as content } from '../../../fixtures/content';
+import { getNamespace } from '../../../utils';
+
+describe(getNamespace(__filename), () => {
   it('compiles serialized HTML if no compiler is provided', async () => {
     const doc = await unifiedDoc({
       file: new File([content], 'doc.md'),
@@ -24,7 +26,9 @@ describe('compile', () => {
     });
     const compiled = doc.compile();
     expect(compiled.contents).to.be.equal(content);
+    // @ts-ignore TODO: remove once official typing is fixed
     expect(compiled.result.type).to.equal('div');
+    // @ts-ignore TODO: remove once official typing is fixed
     expect(compiled.result).to.have.property('props');
   });
 
@@ -35,7 +39,9 @@ describe('compile', () => {
     });
     const compiled = doc.compile();
     expect(compiled.contents).to.be.an.instanceOf(Buffer);
+    // @ts-ignore TODO: remove once official typing is fixed
     expect(compiled.result.type).to.equal('div');
+    // @ts-ignore TODO: remove once official typing is fixed
     expect(compiled.result).to.have.property('props');
   });
 });

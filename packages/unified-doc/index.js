@@ -12,7 +12,6 @@ export default async function unifiedDoc(options = {}) {
     sanitizeSchema = {},
   } = options;
   const vfile = await createVfile({
-    compiler,
     content,
     file,
     filename,

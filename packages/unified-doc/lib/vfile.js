@@ -4,7 +4,11 @@ import _vfile from 'vfile';
 
 import { extensionTypes, mimeTypes } from './enums';
 
-export async function createVfile({ content, file, filename }) {
+export async function createVfile({
+  content = null,
+  file = null,
+  filename = null,
+}) {
   const basename = file ? file.name : filename;
   const contents = file ? Buffer.from(await file.arrayBuffer()) : content;
   return _vfile({ basename, contents });

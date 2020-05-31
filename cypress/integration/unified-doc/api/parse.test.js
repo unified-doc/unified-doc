@@ -1,8 +1,10 @@
-import unifiedDoc from '../../../packages/unified-doc';
-import { markdownContent } from '../../fixtures/content';
+import unifiedDoc from '../../../../packages/unified-doc';
+
+import { markdownContent } from '../../../fixtures/content';
+import { getNamespace } from '../../../utils';
 
 // only test the for a valid hast tree since hast is implemented/tested in "unified"
-describe('parse', () => {
+describe(getNamespace(__filename), () => {
   it('parses text file extension into a hast tree', async () => {
     const doc = await unifiedDoc({
       content: '<blockquote><strong>some</strong>content</blockquote>',

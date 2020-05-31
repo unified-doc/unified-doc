@@ -1,3 +1,4 @@
-declare namespace unifiedDoc {}
+type Options = any;
+type Document = any;
 
-export = unifiedDoc;
+export default function unifiedDoc(options: Options): Document;

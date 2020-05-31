@@ -1,7 +1,9 @@
-import unifiedDoc from '../../../packages/unified-doc';
-import { markdownContent as content } from '../../fixtures/content';
+import unifiedDoc from '../../../../packages/unified-doc';
 
-describe('export', () => {
+import { markdownContent as content } from '../../../fixtures/content';
+import { getNamespace } from '../../../utils';
+
+describe(getNamespace(__filename), () => {
   it('exports file as is', async () => {
     const doc = await unifiedDoc({
       content,

@@ -1,8 +1,12 @@
 {
   "name": "unified-doc",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0-beta.2",
   "description": "unified document APIs",
   "license": "MIT",
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "index.js",
+  "typings": "types/index.d.ts",
   "keywords": [
     "unified",
     "doc",
@@ -30,11 +34,10 @@
   "contributors": [
     "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)"
   ],
-  "files": [
-    "index.js",
-    "types/index.d.ts"
-  ],
-  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "microbundle build",
+    "prepare": "yarn build"
+  },
   "dependencies": {
     "deepmerge": "^4.2.2",
     "hast-util-sanitize": "^2.0.2",
@@ -46,10 +49,6 @@
     "remark-rehype": "^7.0.0",
     "unified": "^9.0.0",
     "vfile": "^4.1.1"
-  },
-  "scripts": {
-    "build": "microbundle build",
-    "prepare": "yarn build"
   },
   "devDependencies": {
     "react": "^16.13.1",

@@ -51,6 +51,7 @@
     ],
     "prettier": true,
     "rules": {
+      "@typescript-eslint/prefer-readonly-parameter-types": "off",
       "capitalized-comments": "off",
       "no-unused-vars": [
         "error",

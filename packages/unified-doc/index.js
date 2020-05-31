@@ -4,7 +4,6 @@ import { createProcessor } from './lib/processor';
 export default async function unifiedDoc(options = {}) {
   const {
     compiler,
-    compilerOptions,
     content,
     plugins = [],
     filename = 'file',
@@ -18,7 +17,6 @@ export default async function unifiedDoc(options = {}) {
   });
   const processor = createProcessor({
     compiler,
-    compilerOptions,
     plugins,
     sanitizeSchema,
     vfile,

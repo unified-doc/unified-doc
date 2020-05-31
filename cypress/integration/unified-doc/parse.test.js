@@ -22,7 +22,6 @@ describe('parse', () => {
       filename: 'doc.md',
     });
     const hast = doc.parse();
-    console.log(hast);
     expect(hast.children[0].type).to.equal('element');
     expect(hast.children[0].tagName).to.equal('blockquote');
     expect(hast.children[0].children[0].type).to.equal('text');

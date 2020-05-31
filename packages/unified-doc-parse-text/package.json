@@ -25,6 +25,7 @@
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
   "scripts": {
     "build": "microbundle build",
+    "start": "microbundle watch",
     "prepare": "yarn build"
   }
 }

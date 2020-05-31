@@ -11,6 +11,7 @@ node_modules
 *.swo
 
 # project
+package-lock.json
 dist
 cypress/screenshots
 cypress/videos

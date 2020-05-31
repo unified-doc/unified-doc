@@ -1,7 +1,16 @@
 {
   "compilerOptions": {
+    "allowJs": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "checkJs": true,
     "esModuleInterop": true,
-    "noEmit": true
+    "noEmit": true,
+    "paths": {
+      "@packages/*": ["./packages/*"],
+    },
+    "resolveJsonModule": true,
   },
+  "include": ["packages"],
+  "exclude": ["**/dist", "**/node_modules"]
 }

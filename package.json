@@ -20,6 +20,7 @@
     "@babel/core": "^7.9.6",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.6",
+    "@types/jest": "^25.2.3",
     "babel-jest": "^26.0.1",
     "cypress": "^4.6.0",
     "eslint-plugin-cypress": "^2.11.1",
@@ -35,7 +36,9 @@
     }
   },
   "jest": {
-    "testPathIgnorePatterns": ["cypress"]
+    "testPathIgnorePatterns": [
+      "cypress"
+    ]
   },
   "prettier": {
     "bracketSpacing": true,
@@ -57,7 +60,9 @@
       "capitalized-comments": "off",
       "no-unused-vars": [
         "error",
-        { "argsIgnorePattern": "^_" }
+        {
+          "argsIgnorePattern": "^_"
+        }
       ],
       "no-warning-comments": "off",
       "padding-line-between-statements": "off"

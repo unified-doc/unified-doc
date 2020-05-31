@@ -13,14 +13,12 @@ import { inferMimeType } from './vfile';
 const createPlugin = (transform) => (...args) => (tree) =>
   transform(tree, ...args);
 
-export function createProcessor(options = {}) {
-  const {
-    compiler = stringify,
-    plugins = [],
-    sanitizeSchema = {},
-    vfile,
-  } = options;
-
+export function createProcessor({
+  compiler = stringify,
+  plugins = [],
+  sanitizeSchema = {},
+  vfile,
+}) {
   const processor = unified();
   const mimeType = inferMimeType(vfile.basename);
   if (mimeType.includes('markdown')) {
@@ -35,6 +33,7 @@ export function createProcessor(options = {}) {
 
   plugins.forEach((plugin) => {
     if (Array.isArray(plugin)) {
+      // @ts-ignore TODO: confirm best practices for supporting array-based plugin+option
       processor.use(...plugin);
     } else {
       processor.use(plugin);
@@ -42,6 +41,7 @@ export function createProcessor(options = {}) {
   });
 
   if (Array.isArray(compiler)) {
+    // @ts-ignore TODO: confirm best practices for supporting array-based plugin+option
     processor.use(...compiler);
   } else {
     processor.use(compiler);

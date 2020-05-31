@@ -71,9 +71,7 @@ describe('createProcessor', () => {
       compiler: [rehype2react, { createElement }],
       vfile,
     }).processSync(vfile);
-    // @ts-ignore TODO: uncomment after vfile typing is fixed formally
     expect(compiled.result.type).toEqual('div');
-    // @ts-ignore TODO: uncomment after vfile typing is fixed formally
     expect(compiled.result.props).toHaveProperty('children');
     expect(compiled.contents).toEqual(content);
   });

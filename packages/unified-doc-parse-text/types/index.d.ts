@@ -1,1 +1,3 @@
-export default function parse(): void;
+declare namespace unifiedDocParseText {}
+
+export = unifiedDocParseText;

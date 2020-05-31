@@ -1,21 +1,25 @@
 import { createVfile, toFile } from './lib/vfile';
 import { createProcessor } from './lib/processor';
 
-export default async function unifiedDoc({
-  compiler,
-  content,
-  plugins = [],
-  filename = 'file',
-  file,
-  sanitizeSchema = {},
-}) {
+export default async function unifiedDoc(options = {}) {
+  const {
+    compiler,
+    compilerOptions,
+    content,
+    plugins = [],
+    filename = 'file',
+    file,
+    sanitizeSchema = {},
+  } = options;
   const vfile = await createVfile({
+    compiler,
     content,
     file,
     filename,
   });
   const processor = createProcessor({
     compiler,
+    compilerOptions,
     plugins,
     sanitizeSchema,
     vfile,

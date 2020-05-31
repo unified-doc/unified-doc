@@ -1105,6 +1105,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
+"@jsdevtools/rehype-toc@3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@jsdevtools/rehype-toc/-/rehype-toc-3.0.1.tgz#94dd7df9fe97a4de17285b4123a2b184a60ffe9a"
+  integrity sha512-HzLFICsh4PBwOb2PpGh8GN2uF20d+0KnfIkPAf251Lr+EwUtwS0IYyT9vMtRAR6Gi24eqRnXFRJOzLpRr4b4kg==
+
 "@mapbox/hast-util-table-cell-style@^0.1.3":
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/@mapbox/hast-util-table-cell-style/-/hast-util-table-cell-style-0.1.3.tgz#5b7166ae01297d72216932b245e4b2f0b642dca6"
@@ -7611,6 +7616,13 @@ rehype-stringify@^7.0.0:
   dependencies:
     hast-util-to-html "^7.0.0"
     xtend "^4.0.0"
+
+rehype-toc@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/rehype-toc/-/rehype-toc-3.0.1.tgz#930899eb0b8c9f3db6cec3216903d11021a3d607"
+  integrity sha512-2HCByrWB1ULeFaBwPhSlcZUJec4HNPv/qPaEJAn7BMpIcAWRJy8mYlw7Rd9Ki5JBd8F494bBmHYLqcFIXPel6g==
+  dependencies:
+    "@jsdevtools/rehype-toc" "3.0.1"
 
 remark-parse@^8.0.2:
   version "8.0.2"

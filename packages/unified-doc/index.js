@@ -1,20 +1,20 @@
-import stringify from 'rehype-stringify';
-
 import { extensionTypes } from './lib/enums';
-import { toFile, toVfile } from './lib/vfile';
+import { createVfile, toFile } from './lib/vfile';
 import { createProcessor } from './lib/processor';
 
 export { extensionTypes };
 
 export default async function unifiedDoc(options = {}) {
   const {
-    compiler = stringify,
+    compiler,
     compilerOptions,
     content,
+    plugins = [],
     filename = 'file',
     file,
+    sanitizeSchema = {},
   } = options;
-  const vfile = await toVfile({
+  const vfile = await createVfile({
     compiler,
     content,
     file,
@@ -23,6 +23,8 @@ export default async function unifiedDoc(options = {}) {
   const processor = createProcessor({
     compiler,
     compilerOptions,
+    plugins,
+    sanitizeSchema,
     vfile,
   });
 

@@ -1,14 +1,20 @@
 import toHtml from 'hast-util-to-html';
 import mime from 'mime-types';
-import vfile from 'vfile';
+import _vfile from 'vfile';
 
 import { extensionTypes, mimeTypes } from './enums';
+
+export async function createVfile({ content, file, filename }) {
+  const basename = file ? file.name : filename;
+  const contents = file ? Buffer.from(await file.arrayBuffer()) : content;
+  return _vfile({ basename, contents });
+}
 
 export function inferMimeType(filename) {
   return mime.lookup(filename) || mimeTypes.DEFAULT;
 }
 
-export function toFile(vf, hast, extensionType) {
+export function toFile(vfile, hast, extensionType) {
   let content;
   let extension;
   let mimeType;
@@ -26,20 +32,20 @@ export function toFile(vf, hast, extensionType) {
       mimeType = mimeTypes.HTML;
       break;
     }
+    case extensionTypes.TEXT: {
+      content = vfile.toString();
+      extension = extensionTypes.TEXT;
+      mimeType = mimeTypes.TEXT;
+      break;
+    }
     default: {
-      content = vf.contents;
-      extension = vf.extname;
-      mimeType = inferMimeType(vf.basename);
+      content = vfile.contents;
+      extension = vfile.extname;
+      mimeType = inferMimeType(vfile.basename);
     }
   }
 
-  const filename = `${vf.stem}${extension}`;
+  const filename = `${vfile.stem}${extension}`;
 
   return new File([content], filename, { type: mimeType });
-}
-
-export async function toVfile({ content, file, filename }) {
-  const basename = file ? file.name : filename;
-  const contents = file ? Buffer.from(await file.arrayBuffer()) : content;
-  return vfile({ basename, contents });
 }

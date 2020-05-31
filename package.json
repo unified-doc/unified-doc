@@ -12,9 +12,9 @@
     "build": "yarn clean; yarn workspaces run build",
     "clean": "rm -rf packages/**/node_modules",
     "cypress:open": "cypress open",
-    "cypress:run": "cypress run",
     "lint": "xo --fix; tsc",
-    "test": "jest packages"
+    "test": "jest --watch",
+    "test:run": "jest; cypress run"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",
@@ -31,8 +31,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "yarn format && yarn test && yarn cypress:run && yarn build"
+      "pre-push": "yarn format && yarn test:run && yarn build"
     }
+  },
+  "jest": {
+    "testPathIgnorePatterns": ["cypress"]
   },
   "prettier": {
     "bracketSpacing": true,

@@ -7,15 +7,21 @@
     "unified",
     "doc",
     "document",
-    "content",
     "file",
-    "unist",
-    "hast",
+    "content",
     "html",
     "markdown",
     "text",
     "parse",
-    "render"
+    "compile",
+    "export",
+    "annotate",
+    "highlight",
+    "nlp",
+    "search",
+    "unist",
+    "hast",
+    "vfile"
   ],
   "homepage": "https://unified-doc.netlify.com",
   "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc",
@@ -47,6 +53,7 @@
   },
   "devDependencies": {
     "react": "^16.13.1",
-    "rehype-react": "^5.0.1"
+    "rehype-react": "^5.0.1",
+    "rehype-toc": "^3.0.1"
   }
 }

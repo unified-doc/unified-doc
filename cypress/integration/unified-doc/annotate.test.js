@@ -1,3 +1,3 @@
 describe('annotate', () => {
-  it('will be implemented', () => {});
+  it.skip('will be implemented', () => {});
 });

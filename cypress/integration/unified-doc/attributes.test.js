@@ -1,9 +1,10 @@
 import unifiedDoc from '../../../packages/unified-doc';
+import { markdownContent as content } from '../../fixtures/content';
 
 describe('attributes', () => {
   it('sets the file when input content is provided', async () => {
     const doc = await unifiedDoc({
-      content: '> **some** markdown content',
+      content,
       filename: 'doc.md',
     });
     expect(doc.extname).to.equal('.md');
@@ -13,7 +14,7 @@ describe('attributes', () => {
 
   it('sets the file when input file is provided', async () => {
     const doc = await unifiedDoc({
-      file: new File(['> **some** markdown content'], 'doc.md', {
+      file: new File([content], 'doc.md', {
         type: 'text/markdown',
       }),
     });

@@ -13,8 +13,8 @@
     "parse",
     "text",
     "document",
-    "content",
     "file",
+    "content",
     "unist",
     "hast",
     "html"

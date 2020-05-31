@@ -1,6 +1,25 @@
-import vfile from 'vfile';
+import _vfile from 'vfile';
 
-import { inferMimeType, toFile, toVfile } from '../lib/vfile';
+import { markdownContent as content } from './fixtures/content';
+import { createVfile, inferMimeType, toFile } from '../lib/vfile';
+
+describe('createVfile', () => {
+  it('creates vfile if content and filename is provided', async () => {
+    const vfile = await createVfile({
+      content,
+      filename: 'doc.md',
+    });
+    expect(vfile.basename).toEqual('doc.md');
+    expect(vfile.extname).toEqual('.md');
+    expect(vfile.stem).toEqual('doc');
+    expect(vfile.contents).toEqual(content);
+    expect(vfile.toString()).toEqual(content);
+  });
+
+  it('creates vfile if file is provided', async () => {
+    // jest does not support File.arrayBuffer method.  Test this in cypress.
+  });
+});
 
 // only test default and some mime types since other behaviors are implemented/tested in "mime" package.
 describe('inferMimeType', () => {
@@ -21,9 +40,9 @@ describe('inferMimeType', () => {
 
 describe('toFile', () => {
   it('creates file for a given vfile and infers mimetype', () => {
-    const file1 = toFile(vfile({ basename: 'doc.md' }));
-    const file2 = toFile(vfile({ basename: 'no-extension' }));
-    const file3 = toFile(vfile({ basename: 'file-with.bad-extension' }));
+    const file1 = toFile(_vfile({ basename: 'doc.md' }));
+    const file2 = toFile(_vfile({ basename: 'no-extension' }));
+    const file3 = toFile(_vfile({ basename: 'file-with.bad-extension' }));
     expect(file1).toBeInstanceOf(File);
     expect(file1.name).toEqual('doc.md');
     expect(file1.type).toEqual('text/markdown');
@@ -34,23 +53,5 @@ describe('toFile', () => {
     expect(file3.name).toEqual('file-with.bad-extension');
     expect(file3.type).toEqual('text/plain');
     // jest does not support File.text method.  Test this in cypress.
-  });
-});
-
-describe('toVfile', () => {
-  it('creates vfile if content and filename is provided', async () => {
-    const vf = await toVfile({
-      content: '> **some** markdown content',
-      filename: 'doc.md',
-    });
-    expect(vf.basename).toEqual('doc.md');
-    expect(vf.extname).toEqual('.md');
-    expect(vf.stem).toEqual('doc');
-    expect(vf.contents).toEqual('> **some** markdown content');
-    expect(vf.toString()).toEqual('> **some** markdown content');
-  });
-
-  it('creates vfile if file is provided', async () => {
-    // jest does not support File.arrayBuffer method.  Test this in cypress.
   });
 });

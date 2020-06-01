@@ -49,20 +49,21 @@ describe(getNamespace(__filename), () => {
         content,
         filename: 'doc.html',
       });
-
-      const { contents: textContents } = createProcessor({
-        vfile: textVfile,
-      }).processSync(textVfile);
-      const { contents: markdownContents } = createProcessor({
-        vfile: markdownVfile,
-      }).processSync(markdownVfile);
-      const { contents: htmlContents } = createProcessor({
-        vfile: htmlVfile,
-      }).processSync(htmlVfile);
-
-      expect(textContents).to.equal(content);
-      expect(markdownContents).to.contain('<blockquote>');
-      expect(htmlContents).to.contain(content);
+      expect(
+        createProcessor({
+          vfile: textVfile,
+        }).processSync(textVfile).contents,
+      ).to.equal(content);
+      expect(
+        createProcessor({
+          vfile: markdownVfile,
+        }).processSync(markdownVfile).contents,
+      ).to.contain('<blockquote>');
+      expect(
+        createProcessor({
+          vfile: htmlVfile,
+        }).processSync(htmlVfile).contents,
+      ).to.contain(content);
     });
 
     it('compiles result using a custom compiler (react)', async () => {
@@ -92,19 +93,17 @@ describe(getNamespace(__filename), () => {
         content: htmlContent,
         filename: 'doc.html',
       });
-
-      const { contents: sanitized } = createProcessor({
-        vfile: vfileSanitized,
-      }).processSync(vfileSanitized);
-      const { contents: customSanitized } = createProcessor({
-        sanitizeSchema: { attributes: { '*': ['style'] } },
-        vfile: vfileCustomSanitized,
-      }).processSync(vfileCustomSanitized);
-
-      expect(sanitized).to.equal('<div>text</div>');
-      expect(customSanitized).to.equal(
-        '<div style="background: red;">text</div>',
-      );
+      expect(
+        createProcessor({
+          vfile: vfileSanitized,
+        }).processSync(vfileSanitized).contents,
+      ).to.equal('<div>text</div>');
+      expect(
+        createProcessor({
+          sanitizeSchema: { attributes: { '*': ['style'] } },
+          vfile: vfileCustomSanitized,
+        }).processSync(vfileCustomSanitized).contents,
+      ).to.equal('<div style="background: red;">text</div>');
     });
 
     it('applies plugins (supports either plugin or [plugin, options])', async () => {
@@ -116,19 +115,18 @@ describe(getNamespace(__filename), () => {
         content,
         filename: 'doc.md',
       });
-
-      const compiled1 = createProcessor({
-        plugins: [toc],
-        vfile: vfile1,
-      }).processSync(vfile1);
-      const compiled2 = createProcessor({
-        plugins: [[toc, { cssClasses: { toc: 'custom-toc' } }]],
-        vfile: vfile2,
-      }).processSync(vfile2);
-
-      expect(compiled1.contents).to.contain('class="toc"');
-      expect(compiled2.contents).not.to.contain('class="toc"');
-      expect(compiled2.contents).to.contain('class="custom-toc"');
+      expect(
+        createProcessor({
+          plugins: [toc],
+          vfile: vfile1,
+        }).processSync(vfile1).contents,
+      ).to.contain('class="toc"');
+      expect(
+        createProcessor({
+          plugins: [[toc, { cssClasses: { toc: 'custom-toc' } }]],
+          vfile: vfile2,
+        }).processSync(vfile2).contents,
+      ).to.contain('class="custom-toc"');
     });
   });
 });

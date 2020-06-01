@@ -1,39 +1,57 @@
 import unifiedDoc from '../../../../packages/unified-doc';
 
-import { markdownContent as content } from '../../../fixtures/content';
+import { markdownContent } from '../../../fixtures/content';
 import { getNamespace } from '../../../utils';
 
 describe(getNamespace(__filename), () => {
-  it('exports file as is', async () => {
+  it('returns source file if provided', async () => {
+    const sourceFile = new File([markdownContent], 'doc.md', {
+      type: 'text/markdown',
+    });
     const doc = await unifiedDoc({
-      content,
+      content: sourceFile,
       filename: 'doc.md',
     });
-    const file = doc.export();
+    const file = doc.file();
+    expect(file).to.equal(sourceFile);
     expect(file).to.be.an.instanceof(File);
     expect(file.name).to.equal('doc.md');
     expect(file.type).to.equal('text/markdown');
-    expect(await file.text()).to.equal(content);
+    expect(await file.text()).to.equal(markdownContent);
   });
 
-  it('exports file as .txt', async () => {
+  it('returns file as source extension', async () => {
     const doc = await unifiedDoc({
-      content,
+      content: new File([markdownContent], 'doc.md', {
+        type: 'text/markdown',
+      }),
       filename: 'doc.md',
     });
-    const file = doc.export('.txt');
+    const file = doc.file();
+    expect(file).to.be.an.instanceof(File);
+    expect(file.name).to.equal('doc.md');
+    expect(file.type).to.equal('text/markdown');
+    expect(await file.text()).to.equal(markdownContent);
+  });
+
+  it('returns file as .txt', async () => {
+    const doc = await unifiedDoc({
+      content: new File([markdownContent], 'doc.md'),
+      filename: 'doc.md',
+    });
+    const file = doc.file('.txt');
     expect(file).to.be.an.instanceof(File);
     expect(file.name).to.equal('doc.txt');
     expect(file.type).to.equal('text/plain');
-    expect(await file.text()).to.equal(content);
+    expect(await file.text()).to.equal(markdownContent);
   });
 
-  it('exports file as .html', async () => {
+  it('returns file as .html', async () => {
     const doc = await unifiedDoc({
-      content,
+      content: new File([markdownContent], 'doc.md'),
       filename: 'doc.md',
     });
-    const file = doc.export('.html');
+    const file = doc.file('.html');
     expect(file).to.be.an.instanceof(File);
     expect(file.name).to.equal('doc.html');
     expect(file.type).to.equal('text/html');
@@ -42,12 +60,12 @@ describe(getNamespace(__filename), () => {
     );
   });
 
-  it('exports file as .uni', async () => {
+  it('returns file as .uni', async () => {
     const doc = await unifiedDoc({
-      content,
+      content: new File([markdownContent], 'doc.md'),
       filename: 'doc.md',
     });
-    const file = doc.export('.uni');
+    const file = doc.file('.uni');
     const text = await file.text();
     const parsedText = JSON.parse(text);
     expect(file).to.be.an.instanceof(File);

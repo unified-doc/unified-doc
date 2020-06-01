@@ -7,12 +7,10 @@ export default async function unifiedDoc(options = {}) {
     content,
     plugins = [],
     filename = 'file',
-    file,
     sanitizeSchema = {},
   } = options;
   const vfile = await createVfile({
     content,
-    file,
     filename,
   });
   const processor = createProcessor({
@@ -31,9 +29,10 @@ export default async function unifiedDoc(options = {}) {
     return processor.processSync(vfile);
   }
 
-  function _export(extensionType) {
-    const hast = parse();
-    return toFile(vfile, hast, extensionType);
+  function file(extensionType) {
+    return !extensionType && content instanceof File
+      ? content
+      : toFile(vfile, parse(), extensionType);
   }
 
   function parse() {
@@ -57,7 +56,7 @@ export default async function unifiedDoc(options = {}) {
     // methods
     annotate,
     compile,
-    export: _export,
+    file,
     parse,
     search,
     text,

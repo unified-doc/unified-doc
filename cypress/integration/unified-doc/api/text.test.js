@@ -1,23 +1,24 @@
 import unifiedDoc from '../../../../packages/unified-doc';
 
-import { markdownContent as content } from '../../../fixtures/content';
+import { markdownContent } from '../../../fixtures/content';
 import { getNamespace } from '../../../utils';
 
 describe(getNamespace(__filename), () => {
-  it('sets the text content correctly when input content is provided', async () => {
+  it('sets the text content correctly when content is provided as a string', async () => {
     const doc = await unifiedDoc({
-      content,
+      content: markdownContent,
       filename: 'doc.md',
     });
-    expect(doc.text()).to.equal(content);
+    expect(doc.text()).to.equal(markdownContent);
   });
 
-  it('sets the text content correctly when input file is provided', async () => {
+  it('sets the text content correctly when content is provided as a file', async () => {
     const doc = await unifiedDoc({
-      file: new File([content], 'doc.md', {
+      content: new File([markdownContent], 'doc.md', {
         type: 'text/markdown',
       }),
+      filename: 'doc.md',
     });
-    expect(doc.text()).to.equal(content);
+    expect(doc.text()).to.equal(markdownContent);
   });
 });

@@ -4,16 +4,15 @@
 
 ## Install
 
-```bash
+```sh
 npm install unified-doc-parse-text
 ```
 
 ## Use
 
 ```js
-import html from "rehype-stringify";
-import unified from "unified";
 import text from "unified-doc-parse-text";
+import unified from "unified";
 
 const processor = unified().use(text);
 
@@ -28,7 +27,7 @@ const parsed = {
   children: [
     {
       type: 'text',
-      value: 'a to the b to the c',
+      value: '\na to the \nb to the \n\nc to the d',
       position: {
         start: {
           column: 1,

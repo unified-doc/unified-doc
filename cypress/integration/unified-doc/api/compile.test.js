@@ -3,13 +3,14 @@ import rehype2react from 'rehype-react';
 
 import unifiedDoc from '../../../../packages/unified-doc';
 
-import { markdownContent as content } from '../../../fixtures/content';
+import { markdownContent } from '../../../fixtures/content';
 import { getNamespace } from '../../../utils';
 
 describe(getNamespace(__filename), () => {
   it('compiles serialized HTML if no compiler is provided', async () => {
     const doc = await unifiedDoc({
-      file: new File([content], 'doc.md'),
+      content: new File([markdownContent], 'doc.md'),
+      filename: 'doc.md',
     });
     const compiled = doc.compile();
     expect(compiled.contents).to.have.string('blockquote');
@@ -18,24 +19,11 @@ describe(getNamespace(__filename), () => {
     expect(compiled.contents).to.have.string('markdown content');
   });
 
-  it('transforms to React given a source content', async () => {
+  it('transforms to React given a react compiler', async () => {
     const doc = await unifiedDoc({
       compiler: [rehype2react, { createElement }],
-      content,
+      content: new File([markdownContent], 'doc.md'),
       filename: 'doc.md',
-    });
-    const compiled = doc.compile();
-    expect(compiled.contents).to.be.equal(content);
-    // @ts-ignore TODO: remove once official typing is fixed
-    expect(compiled.result.type).to.equal('div');
-    // @ts-ignore TODO: remove once official typing is fixed
-    expect(compiled.result).to.have.property('props');
-  });
-
-  it('transforms to React given a source file', async () => {
-    const doc = await unifiedDoc({
-      compiler: [rehype2react, { createElement }],
-      file: new File([content], 'doc.md'),
     });
     const compiled = doc.compile();
     expect(compiled.contents).to.be.an.instanceOf(Buffer);

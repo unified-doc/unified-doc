@@ -9,10 +9,9 @@ interface Node extends UnistNode {
 
 export interface Options {
   compiler?: Plugin | Plugin[];
-  content?: string;
+  content?: string | File;
   plugins?: Plugin[] | Plugin[][];
-  filename?: string;
-  file?: File;
+  filename: string;
   sanitizeSchema?: object;
 }
 
@@ -24,7 +23,7 @@ export interface Document {
   // methods
   annotate: (annotations: any[]) => any[];
   compile: () => VFile;
-  export: (extension?: string) => File;
+  file: (extension?: string) => File;
   parse: () => Node;
   search: () => any[];
   text: () => string;

@@ -25,7 +25,8 @@ describe(getNamespace(__filename), () => {
 
     it('creates vfile if file is provided', async () => {
       const vfile = await createVfile({
-        file: new File([content], 'doc.md'),
+        content: new File([content], 'doc.md'),
+        filename: 'doc.md',
       });
       expect(vfile.basename).to.equal('doc.md');
       expect(vfile.extname).to.equal('.md');

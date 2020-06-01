@@ -15,7 +15,7 @@ describe(getNamespace(__filename), () => {
       // methods
       'annotate',
       'compile',
-      'export',
+      'file',
       'parse',
       'search',
       'text',

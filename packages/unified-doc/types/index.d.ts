@@ -1,3 +1,4 @@
+import { Annotation } from 'unified-doc-util-annotate';
 import { Plugin } from 'unified';
 import { Node as UnistNode } from 'unist';
 import { VFile } from 'vfile';
@@ -21,11 +22,11 @@ export interface Document {
   filename: string;
   stem: string;
   // methods
-  annotate: (annotations: any[]) => any[];
+  annotate: (annotations: Annotation[]) => any[];
   compile: () => VFile;
   file: (extension?: string) => File;
   parse: () => Node;
-  search: () => any[];
+  search: (query: string) => any[];
   text: () => string;
 }
 

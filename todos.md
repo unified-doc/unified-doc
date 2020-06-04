@@ -1,5 +1,8 @@
 # todos
 
+- skip using `File` object to enable dom-free (check `vfile` interface for ideas).  If dom-free, move back to `jest` tests.
+- Add `mimeType` attribute.
+- Work on `unified-doc-cli` that uses `unified-doc`.
 - Implement/rearchitect annotations.  Checkout `unified-highlighter` and `mark.js` for ideas.
 - Ship `unified-doc-react` package that implements APIs in `unified-doc`
 - Update docs.

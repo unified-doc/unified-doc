@@ -1,3 +1,6 @@
+import utilAnnotate from 'unified-doc-util-annotate';
+import utilSearch from 'unified-doc-util-search';
+
 import { createVfile, toFile } from './lib/vfile';
 import { createProcessor } from './lib/processor';
 
@@ -21,7 +24,8 @@ export default async function unifiedDoc(options = {}) {
   });
 
   // TODO: implement
-  function annotate(_annotations) {
+  function annotate(annotations) {
+    utilAnnotate(parse(), { annotations });
     return [];
   }
 
@@ -40,7 +44,8 @@ export default async function unifiedDoc(options = {}) {
   }
 
   // TODO: implement
-  function search(_query) {
+  function search(query) {
+    utilSearch(parse(), { query });
     return [];
   }
 

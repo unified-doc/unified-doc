@@ -5,7 +5,6 @@
     "baseUrl": ".",
     "checkJs": true,
     "esModuleInterop": true,
-    "lib": ["dom", "es6"],
     "noEmit": true,
     "paths": {
       "~/*": ["./*"],

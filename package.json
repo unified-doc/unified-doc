@@ -16,7 +16,9 @@
   },
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
-    "unified-doc-parse-text": "file:packages/unified-doc-parse-text"
+    "unified-doc-parse-text": "file:packages/unified-doc-parse-text",
+    "unified-doc-util-annotate": "file:packages/unified-doc-util-annotate",
+    "unified-doc-util-search": "file:packages/unified-doc-util-search"
   },
   "devDependencies": {
     "cypress": "^4.7.0",
@@ -53,6 +55,7 @@
     "rules": {
       "@typescript-eslint/prefer-readonly-parameter-types": "off",
       "capitalized-comments": "off",
+      "import/no-extraneous-dependencies": "off",
       "no-unused-vars": [
         "error",
         {

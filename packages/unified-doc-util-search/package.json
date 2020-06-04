@@ -1,0 +1,26 @@
+{
+  "name": "unified-doc-util-search",
+  "version": "0.1.1-beta.0",
+  "description": "unified document hast util to search text nodes",
+  "license": "MIT",
+  "homepage": "https://unified-doc.netlify.com",
+  "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-search",
+  "bugs": "https://github.com/unified-doc/unified-doc/issues",
+  "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
+  "keywords": [
+    "unified",
+    "doc",
+    "util",
+    "search",
+    "document",
+    "file",
+    "content",
+    "unist",
+    "hast",
+    "nlp"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "index.js",
+  "typings": "types/index.d.ts"
+}

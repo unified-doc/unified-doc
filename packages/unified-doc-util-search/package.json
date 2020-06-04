@@ -1,6 +1,6 @@
 {
   "name": "unified-doc-util-search",
-  "version": "0.1.1-beta.0",
+  "version": "0.1.2-beta.0",
   "description": "unified document hast util to search text nodes",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",

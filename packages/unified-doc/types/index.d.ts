@@ -8,6 +8,14 @@ interface Node extends UnistNode {
   children: Node[];
 }
 
+export interface File {
+  content: string;
+  extension: string;
+  name: string;
+  stem: string;
+  type: string;
+}
+
 export interface Options {
   compiler?: Plugin | Plugin[];
   content?: string | File;

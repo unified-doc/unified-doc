@@ -1,17 +1,15 @@
-import parser from '../../../../packages/unified-doc-parse-text/lib/parser';
+import parser from '../lib/parser';
 
-import { getNamespace } from '../../../utils';
-
-describe(getNamespace(__filename), () => {
+describe('parser', () => {
   it('should parse a file with empty content', () => {
-    expect(parser('')).to.deep.equal({
+    expect(parser('')).toEqual({
       type: 'root',
       children: [],
     });
   });
 
   it('should parse a file with a single line of content', () => {
-    expect(parser('a to the b to the c')).to.deep.equal({
+    expect(parser('a to the b to the c')).toEqual({
       type: 'root',
       children: [
         {
@@ -47,7 +45,7 @@ describe(getNamespace(__filename), () => {
   });
 
   it('should parse a file with many lines of content', () => {
-    expect(parser('\na to the \nb to the \n\nc to the d')).to.deep.equal({
+    expect(parser('\na to the \nb to the \n\nc to the d')).toEqual({
       type: 'root',
       children: [
         {

@@ -13,16 +13,15 @@ npm install
 # clean all packages (rm dist + node_modules)
 npm run clean
 
-# watch/rebuild all packages
+# watch all packages with microbundle
 npm run dev
 
-# lint all packages (xo + tsc)
+# lint all packages with xo + prettier + tsc
 npm run lint
 
-# test all packages with cypress (make sure 'dev' script is running)
-npm run test # visually
-npm run test:run # headlessly
+# test all packages with jest
+npm run test
 
-# build all packages
+# build all packages with microbundle
 npm run build
 ```

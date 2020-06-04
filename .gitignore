@@ -13,5 +13,3 @@ node_modules
 # project
 package-lock.json
 dist
-cypress/screenshots
-cypress/videos

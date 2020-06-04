@@ -11,8 +11,8 @@
     "clean": "lerna exec --parallel 'rm -rf dist node_modules'",
     "dev": "lerna exec --parallel microbundle watch",
     "lint": "xo --fix; tsc",
-    "test": "cypress open",
-    "test:run": "cypress run"
+    "test": "jest --watch",
+    "test:run": "jest"
   },
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
@@ -21,9 +21,11 @@
     "unified-doc-util-search": "file:packages/unified-doc-util-search"
   },
   "devDependencies": {
-    "cypress": "^4.7.0",
-    "eslint-plugin-cypress": "^2.11.1",
+    "@babel/preset-env": "^7.10.2",
+    "@types/jest": "^25.2.3",
+    "babel-jest": "^26.0.1",
     "husky": "^4.2.5",
+    "jest": "^26.0.1",
     "lerna": "^3.22.0",
     "microbundle": "^0.12.0",
     "react": "^16.13.1",
@@ -34,7 +36,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint; npm run clean; npm run build; npm run test:run"
+      "pre-push": "npm run lint; npm run test:run; npm run clean; npm run build"
     }
   },
   "prettier": {
@@ -46,10 +48,7 @@
   "xo": {
     "env": [
       "browser",
-      "cypress/globals"
-    ],
-    "plugins": [
-      "cypress"
+      "jest"
     ],
     "prettier": true,
     "rules": {

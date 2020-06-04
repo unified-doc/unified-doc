@@ -1,18 +1,7 @@
 import toHtml from 'hast-util-to-html';
 import mime from 'mime-types';
-import _vfile from 'vfile';
 
 import { extensionTypes, mimeTypes } from './enums';
-
-export async function createVfile({ content = null, filename }) {
-  return _vfile({
-    basename: filename,
-    contents:
-      content instanceof File
-        ? Buffer.from(await content.arrayBuffer())
-        : content,
-  });
-}
 
 export function inferMimeType(filename) {
   return mime.lookup(filename) || mimeTypes.DEFAULT;
@@ -21,35 +10,39 @@ export function inferMimeType(filename) {
 export function toFile(vfile, hast, extensionType) {
   let content;
   let extension;
-  let mimeType;
+  let type;
 
   switch (extensionType) {
     case extensionTypes.UNI: {
       content = JSON.stringify({ hast }, null, 2);
       extension = extensionTypes.UNI;
-      mimeType = mimeTypes.UNI;
+      type = mimeTypes.UNI;
       break;
     }
     case extensionTypes.HTML: {
       content = toHtml(hast);
       extension = extensionTypes.HTML;
-      mimeType = mimeTypes.HTML;
+      type = mimeTypes.HTML;
       break;
     }
     case extensionTypes.TEXT: {
       content = vfile.toString();
       extension = extensionTypes.TEXT;
-      mimeType = mimeTypes.TEXT;
+      type = mimeTypes.TEXT;
       break;
     }
     default: {
       content = vfile.contents;
       extension = vfile.extname;
-      mimeType = inferMimeType(vfile.basename);
+      type = inferMimeType(vfile.basename);
     }
   }
 
-  const filename = `${vfile.stem}${extension}`;
-
-  return new File([content], filename, { type: mimeType });
+  return {
+    content,
+    extension,
+    name: `${vfile.stem}${extension}`,
+    stem: vfile.stem,
+    type,
+  };
 }

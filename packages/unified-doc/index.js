@@ -1,10 +1,12 @@
+import _vfile from 'vfile';
+
 import utilAnnotate from 'unified-doc-util-annotate';
 import utilSearch from 'unified-doc-util-search';
 
-import { createVfile, toFile } from './lib/vfile';
+import { toFile } from './lib/vfile';
 import { createProcessor } from './lib/processor';
 
-export default async function unifiedDoc(options = {}) {
+export default function unifiedDoc(options = {}) {
   const {
     compiler,
     content,
@@ -12,9 +14,9 @@ export default async function unifiedDoc(options = {}) {
     filename = 'file',
     sanitizeSchema = {},
   } = options;
-  const vfile = await createVfile({
-    content,
-    filename,
+  const vfile = _vfile({
+    contents: content,
+    basename: filename,
   });
   const processor = createProcessor({
     compiler,
@@ -54,11 +56,6 @@ export default async function unifiedDoc(options = {}) {
   }
 
   return {
-    // attributes
-    extname: vfile.extname,
-    filename: vfile.basename,
-    stem: vfile.stem,
-    // methods
     annotate,
     compile,
     file,

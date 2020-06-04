@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import rehype2react from 'rehype-react';
 
-import unifiedDoc from '../..';
+import unifiedDoc from '~/unified-doc';
 
 import { markdownContent } from '../fixtures/content';
 

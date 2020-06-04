@@ -1,4 +1,4 @@
-import unifiedDoc from '../..';
+import unifiedDoc from '~/unified-doc';
 
 describe('initialize', () => {
   it('initializes the public API methods', () => {

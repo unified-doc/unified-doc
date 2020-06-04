@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "noEmit": true,
     "paths": {
-      "~/*": ["./*"],
+      "~/*": ["./packages/*"],
     },
     "resolveJsonModule": true
   },

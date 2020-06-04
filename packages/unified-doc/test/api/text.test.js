@@ -1,4 +1,4 @@
-import unifiedDoc from '../..';
+import unifiedDoc from '~/unified-doc';
 
 import { markdownContent } from '../fixtures/content';
 

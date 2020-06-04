@@ -4,7 +4,7 @@ import stringify from 'rehype-stringify';
 import toc from 'rehype-toc';
 import _vfile from 'vfile';
 
-import { createProcessor } from '../../lib/processor';
+import { createProcessor } from '~/unified-doc/lib/processor';
 
 import { markdownContent } from '../fixtures/content';
 

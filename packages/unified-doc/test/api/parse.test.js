@@ -1,5 +1,6 @@
-import { markdownContent } from '../fixtures/content';
 import unifiedDoc from '../..';
+
+import { markdownContent } from '../fixtures/content';
 
 // only test the for a valid hast tree since hast is implemented/tested in "unified"
 describe('parse', () => {

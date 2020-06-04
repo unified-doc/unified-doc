@@ -4,8 +4,9 @@ import stringify from 'rehype-stringify';
 import toc from 'rehype-toc';
 import _vfile from 'vfile';
 
-import { markdownContent } from '../fixtures/content';
 import { createProcessor } from '../../lib/processor';
+
+import { markdownContent } from '../fixtures/content';
 
 describe('processor', () => {
   describe(createProcessor.name, () => {
@@ -18,8 +19,9 @@ describe('processor', () => {
         basename: 'doc.md',
         contents: markdownContent,
       });
-      const { contents } = createProcessor({ vfile }).processSync(vfile);
-      expect(contents).toContain('<blockquote>');
+      expect(createProcessor({ vfile }).processSync(vfile).contents).toContain(
+        '<blockquote>',
+      );
     });
 
     it('accepts compilers in array-form', () => {
@@ -27,11 +29,12 @@ describe('processor', () => {
         basename: 'doc.md',
         contents: markdownContent,
       });
-      const { contents } = createProcessor({
-        compiler: [stringify],
-        vfile,
-      }).processSync(vfile);
-      expect(contents).toContain('<blockquote>');
+      expect(
+        createProcessor({
+          compiler: [stringify],
+          vfile,
+        }).processSync(vfile).contents,
+      ).toContain('<blockquote>');
     });
 
     it('compiles based on file extension', () => {
@@ -39,24 +42,26 @@ describe('processor', () => {
         basename: 'doc.txt',
         contents: markdownContent,
       });
-      const markdownVfile = _vfile({
-        basename: 'doc.md',
-        contents: markdownContent,
-      });
-      const htmlVfile = _vfile({
-        basename: 'doc.html',
-        contents: markdownContent,
-      });
       expect(
         createProcessor({
           vfile: textVfile,
         }).processSync(textVfile).contents,
       ).toEqual(markdownContent);
+
+      const markdownVfile = _vfile({
+        basename: 'doc.md',
+        contents: markdownContent,
+      });
       expect(
         createProcessor({
           vfile: markdownVfile,
         }).processSync(markdownVfile).contents,
       ).toContain('<blockquote>');
+
+      const htmlVfile = _vfile({
+        basename: 'doc.html',
+        contents: markdownContent,
+      });
       expect(
         createProcessor({
           vfile: htmlVfile,
@@ -83,11 +88,8 @@ describe('processor', () => {
     it('applies sanitize schema', () => {
       const htmlContent =
         '<div classname="red" style="background: red;">text</div>';
+
       const vfileSanitized = _vfile({
-        basename: 'doc.html',
-        contents: htmlContent,
-      });
-      const vfileCustomSanitized = _vfile({
         basename: 'doc.html',
         contents: htmlContent,
       });
@@ -96,6 +98,11 @@ describe('processor', () => {
           vfile: vfileSanitized,
         }).processSync(vfileSanitized).contents,
       ).toEqual('<div>text</div>');
+
+      const vfileCustomSanitized = _vfile({
+        basename: 'doc.html',
+        contents: htmlContent,
+      });
       expect(
         createProcessor({
           sanitizeSchema: { attributes: { '*': ['style'] } },
@@ -109,16 +116,17 @@ describe('processor', () => {
         basename: 'doc.md',
         contents: markdownContent,
       });
-      const vfile2 = _vfile({
-        basename: 'doc.md',
-        contents: markdownContent,
-      });
       expect(
         createProcessor({
           plugins: [toc],
           vfile: vfile1,
         }).processSync(vfile1).contents,
       ).toContain('class="toc"');
+
+      const vfile2 = _vfile({
+        basename: 'doc.md',
+        contents: markdownContent,
+      });
       expect(
         createProcessor({
           plugins: [[toc, { cssClasses: { toc: 'custom-toc' } }]],

@@ -59,6 +59,7 @@ const parsed = {
 
 ## API
 
+### `processor.use(parse)
 ```ts
 export default function parse(): void;
 ```

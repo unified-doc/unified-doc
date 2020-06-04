@@ -18,24 +18,21 @@ export interface File {
 
 export interface Options {
   compiler?: Plugin | Plugin[];
-  content?: string | File;
-  plugins?: Plugin[] | Plugin[][];
+  content?: string | Buffer | File;
   filename: string;
+  plugins?: Plugin[] | Plugin[][];
   sanitizeSchema?: object;
 }
 
-export interface Document {
-  // attributes
-  extname: string;
-  filename: string;
-  stem: string;
-  // methods
+export interface Doc {
+  // TODO: define typing
   annotate: (annotations: Annotation[]) => any[];
   compile: () => VFile;
   file: (extension?: string) => File;
   parse: () => Node;
+  // TODO: define typing
   search: (query: string) => any[];
   text: () => string;
 }
 
-export default function unifiedDoc(options: Options): Document;
+export default function unifiedDoc(options: Options): Doc;

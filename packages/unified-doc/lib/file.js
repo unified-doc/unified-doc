@@ -7,28 +7,28 @@ export function inferMimeType(filename) {
   return mime.lookup(filename) || mimeTypes.DEFAULT;
 }
 
-export function toFile(vfile, hast, extensionType) {
+export function vFile2File(vfile, hast, extensionType) {
   let content;
   let extension;
   let type;
 
   switch (extensionType) {
-    case extensionTypes.UNI: {
-      content = JSON.stringify({ hast }, null, 2);
-      extension = extensionTypes.UNI;
-      type = mimeTypes.UNI;
-      break;
-    }
     case extensionTypes.HTML: {
       content = toHtml(hast);
-      extension = extensionTypes.HTML;
-      type = mimeTypes.HTML;
+      extension = extensionType;
+      type = inferMimeType(extensionType);
       break;
     }
     case extensionTypes.TEXT: {
       content = vfile.toString();
-      extension = extensionTypes.TEXT;
-      type = mimeTypes.TEXT;
+      extension = extensionType;
+      type = inferMimeType(extensionType);
+      break;
+    }
+    case extensionTypes.UNI: {
+      content = JSON.stringify({ hast }, null, 2);
+      extension = extensionTypes.UNI;
+      type = mimeTypes.UNI;
       break;
     }
     default: {

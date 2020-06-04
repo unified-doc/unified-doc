@@ -2,16 +2,16 @@
   "private": true,
   "name": "unified-doc",
   "license": "MIT",
-  "homepage": "https://unified-doc.netlify.com",
+  "homepage": "https://github.com/unified-doc",
   "repository": "unified-doc/unified-doc",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me>",
   "scripts": {
     "build": "lerna exec --parallel microbundle",
-    "clean": "lerna exec --parallel 'rm -rf dist node_modules'",
     "dev": "lerna exec --parallel microbundle watch",
+    "clean": "lerna exec --parallel 'rm -rf dist node_modules'",
     "lint": "xo --fix; tsc",
-    "test": "jest --watch",
+    "test": "jest --watch packages",
     "test:run": "jest"
   },
   "dependencies": {
@@ -47,7 +47,6 @@
   },
   "xo": {
     "env": [
-      "browser",
       "jest"
     ],
     "prettier": true,

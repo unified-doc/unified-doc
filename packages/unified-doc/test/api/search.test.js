@@ -1,8 +1,9 @@
-import { markdownContent } from '../fixtures/content';
 import unifiedDoc from '../..';
 
+import { markdownContent } from '../fixtures/content';
+
 describe('search', () => {
-  it('test', () => {
+  it('TODO: will be implemented', () => {
     const doc = unifiedDoc({
       content: markdownContent,
       filename: 'doc.md',

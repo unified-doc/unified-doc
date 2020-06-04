@@ -1,4 +1,3 @@
-export default function annotate(hast, { annotations }) {
-  console.log(hast, annotations);
-  return hast;
+export default function annotate(_hast, { annotations: _annotations }) {
+  return _hast;
 }

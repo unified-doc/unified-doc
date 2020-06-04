@@ -2,6 +2,10 @@ import parser from '../lib/parser';
 
 describe('parser', () => {
   it('should parse a file with empty content', () => {
+    expect(parser()).toEqual({
+      type: 'root',
+      children: [],
+    });
     expect(parser('')).toEqual({
       type: 'root',
       children: [],

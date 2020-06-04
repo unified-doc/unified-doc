@@ -1,8 +1,9 @@
-import { markdownContent } from '../fixtures/content';
 import unifiedDoc from '../..';
 
+import { markdownContent } from '../fixtures/content';
+
 describe('file', () => {
-  it('returns file as source extension', () => {
+  it('returns the source file (string content) if no extension is provided', () => {
     const doc = unifiedDoc({
       content: markdownContent,
       filename: 'doc.md',
@@ -15,7 +16,20 @@ describe('file', () => {
     expect(file.type).toEqual('text/markdown');
   });
 
-  it('returns file as .txt', () => {
+  it('returns the source file (Buffer content) if no extension is provided', () => {
+    const doc = unifiedDoc({
+      content: Buffer.from(markdownContent),
+      filename: 'doc.md',
+    });
+    const file = doc.file();
+    expect(file.content).toEqual(Buffer.from(markdownContent));
+    expect(file.extension).toEqual('.md');
+    expect(file.name).toEqual('doc.md');
+    expect(file.stem).toEqual('doc');
+    expect(file.type).toEqual('text/markdown');
+  });
+
+  it('returns a valid text file when ".txt" extension is provided', () => {
     const doc = unifiedDoc({
       content: markdownContent,
       filename: 'doc.md',
@@ -28,7 +42,7 @@ describe('file', () => {
     expect(file.type).toEqual('text/plain');
   });
 
-  it('returns file as .html', () => {
+  it('returns a valid html file when ".html" extension is provided', () => {
     const doc = unifiedDoc({
       content: markdownContent,
       filename: 'doc.md',
@@ -43,7 +57,7 @@ describe('file', () => {
     expect(file.type).toEqual('text/html');
   });
 
-  it('returns file as .uni', () => {
+  it('returns the unified file when ".uni" extension is provided', () => {
     const doc = unifiedDoc({
       content: markdownContent,
       filename: 'doc.md',

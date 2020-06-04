@@ -1,4 +1,3 @@
-export default function search(hast, { query }) {
-  console.log(hast, query);
-  return hast;
+export default function search(_hast, { query: _query }) {
+  return _hast;
 }

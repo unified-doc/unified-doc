@@ -1,23 +1,24 @@
-import _vfile from 'vfile';
-
 import utilAnnotate from 'unified-doc-util-annotate';
 import utilSearch from 'unified-doc-util-search';
+import _vfile from 'vfile';
 
-import { toFile } from './lib/vfile';
+import { vFile2File } from './lib/file';
 import { createProcessor } from './lib/processor';
 
 export default function unifiedDoc(options = {}) {
   const {
     compiler,
     content,
-    plugins = [],
     filename = 'file',
+    plugins = [],
     sanitizeSchema = {},
   } = options;
+
   const vfile = _vfile({
     contents: content,
     basename: filename,
   });
+
   const processor = createProcessor({
     compiler,
     plugins,
@@ -36,9 +37,7 @@ export default function unifiedDoc(options = {}) {
   }
 
   function file(extensionType) {
-    return !extensionType && content instanceof File
-      ? content
-      : toFile(vfile, parse(), extensionType);
+    return vFile2File(vfile, parse(), extensionType);
   }
 
   function parse() {

@@ -1,13 +1,7 @@
-import unifiedDoc from '~/unified-doc';
+describe('search - TODO: will be implemented', () => {
+  it('searches with the default search algorithm (regexp)', () => {});
 
-import { markdownContent } from '../fixtures';
+  it('searches with a custom search algorithm', () => {});
 
-describe('search', () => {
-  it('TODO: will be implemented', () => {
-    const doc = unifiedDoc({
-      content: markdownContent,
-      filename: 'doc.md',
-    });
-    doc.search();
-  });
+  it('applies snippet offsets left and right of the matched text', () => {});
 });

@@ -1,6 +1,6 @@
 # unified-doc-util-text-offsets
 
-Add text offsets to text nodes in a [`hast`][hast] tree.
+unified document hast utility to add text offsets to text nodes in a [`hast`][hast] tree.
 
 ## Install
 

@@ -40,6 +40,7 @@ export default function unifiedDoc(options = {}) {
 
   function search(algorithm = searchRegexp, options = {}) {
     const textOffsets = algorithm(text(), options);
+    console.log(textOffsets);
     const nodes = textOffsets.reduce((acc, textOffset) => {
       return [...acc, ...getNodes(textOffset)];
     }, []);

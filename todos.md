@@ -1,8 +1,11 @@
 # todos
 
 - Address `TODO` comments.
-- Work on `unified-doc-cli` that uses `unified-doc`.
+- Packages
+  - `unified-doc-cli`: CLI APIs (e.g. curls to fetch document and use unified-doc APIs)
+  - `unified-doc-dom`: various useful DOM-related APIs (e.g. annotating/highlighting, selecting text, creating/saving files, reading from files).
+  - `unified-doc-react`: React wrapper
+  - `unified-doc-vue`: Vue wrapper
 - Implement/rearchitect annotations.  Checkout `unified-highlighter` and `mark.js` for ideas.
-- Ship `unified-doc-react` package that implements APIs in `unified-doc`
 - Update docs.
 - Check with `unified` team about the `.uni` file extension and `text/uni` mime type.

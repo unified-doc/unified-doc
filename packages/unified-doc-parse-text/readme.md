@@ -1,6 +1,6 @@
 # unified-doc-parse-text
 
-[unified][unified] parser to parse text content into a [hast][hast] tree with a single text node.
+unified document parser to parse text content into a [hast][hast] tree with a single text node.
 
 ## Install
 
@@ -69,4 +69,3 @@ Simply use the plugin with any unified processor.
 <!-- Links -->
 
 [hast]: https://github.com/syntax-tree/hast
-[unified]: https://unifiedjs.com/

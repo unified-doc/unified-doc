@@ -6,7 +6,6 @@ describe('initialize', () => {
       filename: 'doc.md',
     });
     expect(Object.getOwnPropertyNames(doc)).toEqual([
-      'annotate',
       'compile',
       'file',
       'parse',

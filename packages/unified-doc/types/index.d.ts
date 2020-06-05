@@ -8,6 +8,8 @@ interface Node extends UnistNode {
   children: Node[];
 }
 
+export type TextOffset = [number, number];
+
 export interface File {
   content: string;
   extension: string;
@@ -24,6 +26,8 @@ export interface Options {
   sanitizeSchema?: object;
 }
 
+export function Algorithm(content: string, options: object): TextOffset;
+
 export interface Doc {
   // TODO: define typing
   annotate: (annotations: Annotation[]) => any[];
@@ -31,7 +35,7 @@ export interface Doc {
   file: (extension?: string) => File;
   parse: () => Node;
   // TODO: define typing
-  search: (query: string) => any[];
+  search: (algorithm?: Algorithm, options?: object) => any[];
   text: () => string;
 }
 

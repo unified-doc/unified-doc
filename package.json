@@ -17,8 +17,9 @@
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
     "unified-doc-parse-text": "file:packages/unified-doc-parse-text",
+    "unified-doc-search-regexp": "file:packages/unified-doc-search-regexp",
     "unified-doc-util-annotate": "file:packages/unified-doc-util-annotate",
-    "unified-doc-util-search": "file:packages/unified-doc-util-search"
+    "unified-doc-util-text-offsets": "file:packages/unified-doc-util-text-offsets"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.10.2",

@@ -1,6 +1,6 @@
 import unifiedDoc from '~/unified-doc';
 
-import { markdownContent } from '../fixtures/content';
+import { markdownContent } from '../fixtures';
 
 describe('search', () => {
   it('TODO: will be implemented', () => {
@@ -8,6 +8,6 @@ describe('search', () => {
       content: markdownContent,
       filename: 'doc.md',
     });
-    doc.search('some query');
+    doc.search();
   });
 });

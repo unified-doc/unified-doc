@@ -1,28 +1,29 @@
 {
-  "name": "unified-doc-util-annotate",
+  "name": "unified-doc-util-text-offsets",
   "version": "0.1.2-beta.0",
-  "description": "unified document hast util to annotate text nodes",
+  "description": "unified document hast util to add text offsets to text nodes",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",
-  "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-regexp",
+  "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-text-offsets",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
   "keywords": [
     "unified",
     "doc",
     "util",
-    "annotate",
+    "offsets",
     "document",
     "file",
     "content",
-    "highlight",
-    "mark",
     "unist",
     "hast",
-    "nlp"
+    "position"
   ],
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "source": "index.js",
-  "typings": "types/index.d.ts"
+  "typings": "types/index.d.ts",
+  "dependencies": {
+    "unist-util-map": "^2.0.1"
+  }
 }

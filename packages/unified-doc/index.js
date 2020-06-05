@@ -1,9 +1,9 @@
-import utilAnnotate from 'unified-doc-util-annotate';
-import utilSearch from 'unified-doc-util-search';
+import searchRegexp from 'unified-doc-search-regexp';
 import _vfile from 'vfile';
 
 import { vFile2File } from './lib/file';
 import { createProcessor } from './lib/processor';
+import { getNodes, serializeResult } from './lib/search';
 
 export default function unifiedDoc(options = {}) {
   const {
@@ -26,12 +26,6 @@ export default function unifiedDoc(options = {}) {
     vfile,
   });
 
-  // TODO: implement
-  function annotate(annotations) {
-    utilAnnotate(parse(), { annotations });
-    return [];
-  }
-
   function compile() {
     return processor.processSync(vfile);
   }
@@ -44,10 +38,12 @@ export default function unifiedDoc(options = {}) {
     return processor.runSync(processor.parse(vfile));
   }
 
-  // TODO: implement
-  function search(query) {
-    utilSearch(parse(), { query });
-    return [];
+  function search(algorithm = searchRegexp, options = {}) {
+    const textOffsets = algorithm(text(), options);
+    const nodes = textOffsets.reduce((acc, textOffset) => {
+      return [...acc, ...getNodes(textOffset)];
+    }, []);
+    return serializeResult(nodes);
   }
 
   function text() {
@@ -55,7 +51,6 @@ export default function unifiedDoc(options = {}) {
   }
 
   return {
-    annotate,
     compile,
     file,
     parse,

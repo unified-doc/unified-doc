@@ -6,7 +6,7 @@ import _vfile from 'vfile';
 
 import { createProcessor } from '~/unified-doc/lib/processor';
 
-import { markdownContent } from '../fixtures/content';
+import { markdownContent } from '../fixtures';
 
 describe('processor', () => {
   describe(createProcessor.name, () => {

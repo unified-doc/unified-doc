@@ -3,7 +3,7 @@ import rehype2react from 'rehype-react';
 
 import unifiedDoc from '~/unified-doc';
 
-import { markdownContent } from '../fixtures/content';
+import { markdownContent } from '../fixtures';
 
 describe('compile', () => {
   it('compiles serialized HTML if no compiler is provided', () => {

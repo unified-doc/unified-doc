@@ -1,15 +1,19 @@
 import deepmerge from 'deepmerge';
+import sanitize from 'hast-util-sanitize';
 import gh from 'hast-util-sanitize/lib/github.json';
 import mime from 'mime-types';
 import html from 'rehype-parse';
-import sanitize from 'rehype-sanitize';
 import stringify from 'rehype-stringify';
 import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import unified from 'unified';
 import text from 'unified-doc-parse-text';
+import textOffsets from 'unified-doc-util-text-offsets';
 
 import { inferMimeType } from './file';
+
+const createPlugin = (transform) => (...args) => (tree) =>
+  transform(tree, ...args);
 
 export function createProcessor(options = {}) {
   const {
@@ -33,7 +37,8 @@ export function createProcessor(options = {}) {
       processor.use(text);
   }
 
-  processor.use(sanitize, deepmerge(gh, sanitizeSchema));
+  processor.use(createPlugin(textOffsets));
+  processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
 
   plugins.forEach((plugin) => {
     if (Array.isArray(plugin)) {

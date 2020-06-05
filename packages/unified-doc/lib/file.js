@@ -1,4 +1,5 @@
 import toHtml from 'hast-util-to-html';
+import toText from 'hast-util-to-text';
 import mime from 'mime-types';
 
 import { extensionTypes, mimeTypes } from './enums';
@@ -20,7 +21,7 @@ export function vFile2File(vfile, hast, extensionType) {
       break;
     }
     case extensionTypes.TEXT: {
-      content = vfile.toString();
+      content = toText(hast);
       extension = extensionType;
       type = inferMimeType(extensionType);
       break;

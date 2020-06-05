@@ -1,0 +1,25 @@
+{
+  "name": "unified-doc-cli",
+  "version": "0.1.2-beta.0",
+  "description": "unified document CLI APIs",
+  "license": "MIT",
+  "homepage": "https://github.com/unified-doc",
+  "repository": "https://github.com/chrisrzhou/unified-doc/tree/master/packages/unified-doc-cli",
+  "bugs": "https://github.com/chrisrzhou/unified-doc/issues",
+  "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
+  "keywords": [
+    "unified",
+    "doc",
+    "cli",
+    "document",
+    "file",
+    "content",
+    "unist",
+    "hast",
+    "html"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "index.js",
+  "typings": "types/index.d.ts"
+}

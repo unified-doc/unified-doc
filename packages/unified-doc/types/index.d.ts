@@ -8,7 +8,7 @@ interface Node extends UnistNode {
   children: Node[];
 }
 
-export type TextOffset = [number, number];
+export type TextOffset = [number, number, string];
 
 export interface File {
   content: string;

@@ -1,4 +1,4 @@
 export default function search(
   content: string,
   options?: object,
-): Array<[number, number]>;
+): Array<[number, number, string]>;

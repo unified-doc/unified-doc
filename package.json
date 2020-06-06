@@ -42,11 +42,6 @@
       "pre-push": "npm run lint; npm run test:run; npm run clean; npm run build"
     }
   },
-  "jest": {
-    "moduleNameMapper": {
-      "~/(.*)$": "<rootDir>/packages/$1"
-    }
-  },
   "prettier": {
     "bracketSpacing": true,
     "jsxBracketSameLine": true,

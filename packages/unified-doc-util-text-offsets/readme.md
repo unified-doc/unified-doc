@@ -23,12 +23,10 @@ const hast = {
     {
       type: 'element',
       tagName: 'blockquote',
-      properties: {},
       children: [
         {
           type: 'element',
           tagName: 'strong',
-          properties: {},
           children: [
             {
               type: 'text',
@@ -91,9 +89,6 @@ const hast = {
       },
     },
   ],
-  data: {
-    quirksMode: true,
-  },
   position: {
     start: {
       line: 1,
@@ -129,7 +124,7 @@ const output = {
               type: 'text',
               value: 'some',
               data: {
-                textOffset: [0, 4],
+                textOffset: { start: 0, end: 4 },
               },
               position: ...,
             },
@@ -140,7 +135,7 @@ const output = {
           type: 'text',
           value: '\ncontent',
           data: {
-            textOffset: [4, 12],
+            textOffset: { start: 4, end: 12 },
           },
           position: ...,
         },
@@ -167,7 +162,10 @@ A simple way to interpret this is presented in the pseudocode below:
 const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
 const htmlTextContent = 'some\ncontent';
 const textNodes = ['some', '\ncontent'];
-const textNodeOffsets = [[0, 4], [4, 12]];
+const textNodeOffsets = [
+  { start: 0, end: 4 },
+  { start: 4, end: 12 },
+];
 
 const hast = { ... } // parsed from html
 const withTextOffsets = textOffsets(hast) // assign textNodesOffsets to relevant text nodes in the hast tree.

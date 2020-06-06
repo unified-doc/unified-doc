@@ -1,6 +1,5 @@
-import unifiedDoc from '~/unified-doc';
-
 import { htmlContent } from '../fixtures';
+import unifiedDoc from '../../../unified-doc';
 
 describe('search', () => {
   it('searches with the default search algorithm (regexp)', () => {

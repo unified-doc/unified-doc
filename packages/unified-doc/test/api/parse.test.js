@@ -1,6 +1,5 @@
-import unifiedDoc from '~/unified-doc';
-
 import { htmlContent, markdownContent } from '../fixtures';
+import unifiedDoc from '../../../unified-doc';
 
 // only test the for a valid hast tree since hast is implemented/tested in "unified"
 describe('parse', () => {
@@ -83,12 +82,12 @@ describe('parse', () => {
       'some',
     );
     expect(hast).toHaveProperty([...strongNodePath, 'children', 0, 'data'], {
-      textOffset: [0, 4],
+      textOffset: { start: 0, end: 4 },
     });
     expect(hast).toHaveProperty([...textNodePath, 'type'], 'text');
     expect(hast).toHaveProperty([...textNodePath, 'value'], '\ncontent');
     expect(hast).toHaveProperty([...textNodePath, 'data'], {
-      textOffset: [4, 12],
+      textOffset: { start: 4, end: 12 },
     });
   });
 });

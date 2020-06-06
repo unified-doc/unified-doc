@@ -1,6 +1,5 @@
-import textOffsets from '~/unified-doc-util-text-offsets';
-
 import { hast } from './fixtures';
+import textOffsets from '../../unified-doc-util-text-offsets';
 
 describe('textOffsets', () => {
   it('should return a new unmodified tree', () => {
@@ -29,12 +28,12 @@ describe('textOffsets', () => {
     expect(withTextOffsets).not.toHaveProperty([...strongNodePath, 'data']);
     expect(withTextOffsets).toHaveProperty([...textNode1Path, 'type'], 'text');
     expect(withTextOffsets).toHaveProperty([...textNode1Path, 'data'], {
-      textOffset: [0, 4],
+      textOffset: { start: 0, end: 4 },
     });
     expect(withTextOffsets).toHaveProperty([...textNode1Path, 'value'], 'some');
     expect(withTextOffsets).toHaveProperty([...textNode2Path, 'type'], 'text');
     expect(withTextOffsets).toHaveProperty([...textNode2Path, 'data'], {
-      textOffset: [4, 12],
+      textOffset: { start: 4, end: 12 },
     });
     expect(withTextOffsets).toHaveProperty(
       [...textNode2Path, 'value'],

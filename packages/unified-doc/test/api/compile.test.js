@@ -1,9 +1,8 @@
 import { createElement } from 'react';
 import rehype2react from 'rehype-react';
 
-import unifiedDoc from '~/unified-doc';
-
 import { markdownContent } from '../fixtures';
+import unifiedDoc from '../../../unified-doc';
 
 describe('compile', () => {
   it('compiles serialized HTML if no compiler is provided', () => {

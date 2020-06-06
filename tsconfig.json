@@ -2,13 +2,9 @@
   "compilerOptions": {
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
-    "baseUrl": ".",
     "checkJs": true,
     "esModuleInterop": true,
     "noEmit": true,
-    "paths": {
-      "~/*": ["./packages/*"],
-    },
     "resolveJsonModule": true
   },
   "exclude": ["**/dist", "**/node_modules"]

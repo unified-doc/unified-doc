@@ -1,6 +1,5 @@
-import unifiedDoc from '~/unified-doc';
-
 import { htmlContent, markdownContent } from '../fixtures';
+import unifiedDoc from '../../../unified-doc';
 
 describe('text', () => {
   it('gets the text content correctly for provided .txt content', () => {

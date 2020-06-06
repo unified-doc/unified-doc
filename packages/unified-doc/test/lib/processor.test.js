@@ -4,12 +4,11 @@ import stringify from 'rehype-stringify';
 import toc from 'rehype-toc';
 import _vfile from 'vfile';
 
-import { createProcessor } from '~/unified-doc/lib/processor';
-
 import { markdownContent } from '../fixtures';
+import { createProcessor } from '../../../unified-doc/lib/processor';
 
 describe('processor', () => {
-  describe(createProcessor.name, () => {
+  describe('createProcessor', () => {
     it('throws if file is not provided', () => {
       expect(() => createProcessor()).toThrow();
     });

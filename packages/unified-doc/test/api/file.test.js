@@ -1,6 +1,5 @@
-import unifiedDoc from '~/unified-doc';
-
 import { markdownContent } from '../fixtures';
+import unifiedDoc from '../../../unified-doc';
 
 describe('file', () => {
   it('returns the source file (string content) if no extension is provided', () => {
@@ -60,31 +59,41 @@ describe('file', () => {
   });
 
   it('returns the unified file when ".uni" extension is provided', () => {
+    const doc = unifiedDoc({
+      content: markdownContent,
+      filename: 'doc.md',
+    });
+    const file = doc.file('.uni');
+    const parsedContent = JSON.parse(file.content);
+    expect(file.content).toContain('blockquote');
+    expect(file.content).toContain('strong');
+    expect(file.content).not.toContain('some markdown');
+    expect(file.content).toContain('markdown content');
+    expect(parsedContent).toHaveProperty('hast');
+    expect(parsedContent).toHaveProperty(['hast', 'type'], 'root');
+    expect(parsedContent).toHaveProperty(['hast', 'children']);
+    expect(parsedContent).toHaveProperty(['hast', 'position', 'start']);
+    expect(parsedContent).toHaveProperty(['hast', 'position', 'end']);
+    expect(parsedContent).toHaveProperty('annotations');
+    expect(file.extension).toEqual('.uni');
+    expect(file.name).toEqual('doc.uni');
+    expect(file.stem).toEqual('doc');
+    expect(file.type).toEqual('text/uni');
+  });
+
+  it('returns the annotated unified ".html" and ".uni" file', () => {
     const annotations = [
       { id: 'a', start: 0, end: 4 },
       { id: 'b', start: 2, end: 8 },
-      { id: 'b', start: 8, end: 10 },
+      { id: 'c', start: 8, end: 10 },
     ];
     const doc = unifiedDoc({
       annotations,
       content: markdownContent,
       filename: 'doc.md',
     });
-    const file = doc.file('.uni');
-    const parsedText = JSON.parse(file.content);
-    expect(file.content).toContain('blockquote');
-    expect(file.content).toContain('strong');
-    expect(file.content).not.toContain('some markdown');
-    expect(file.content).toContain('markdown content');
-    expect(parsedText).toHaveProperty('hast');
-    expect(parsedText).toHaveProperty(['hast', 'type'], 'root');
-    expect(parsedText).toHaveProperty(['hast', 'children']);
-    expect(parsedText).toHaveProperty(['hast', 'position', 'start']);
-    expect(parsedText).toHaveProperty(['hast', 'position', 'end']);
-    expect(parsedText).toHaveProperty('annotations', annotations);
-    expect(file.extension).toEqual('.uni');
-    expect(file.name).toEqual('doc.uni');
-    expect(file.stem).toEqual('doc');
-    expect(file.type).toEqual('text/uni');
+    const uniFile = doc.file('.uni');
+    const parsedUniContent = JSON.parse(uniFile.content);
+    expect(parsedUniContent).toHaveProperty('annotations', annotations);
   });
 });

@@ -10,7 +10,7 @@ export const hast = {
           type: 'text',
           value: '\n',
           data: {
-            textOffset: [0, 1],
+            textOffset: { start: 0, end: 1 },
           },
         },
         {
@@ -27,7 +27,7 @@ export const hast = {
                   type: 'text',
                   value: 'some',
                   data: {
-                    textOffset: [1, 5],
+                    textOffset: { start: 1, end: 5 },
                   },
                   position: {
                     start: {
@@ -60,7 +60,7 @@ export const hast = {
               type: 'text',
               value: ' markdown content',
               data: {
-                textOffset: [5, 22],
+                textOffset: { start: 5, end: 22 },
               },
               position: {
                 start: {
@@ -93,7 +93,7 @@ export const hast = {
           type: 'text',
           value: '\n',
           data: {
-            textOffset: [22, 23],
+            textOffset: { start: 22, end: 23 },
           },
         },
       ],

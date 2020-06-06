@@ -4,12 +4,10 @@ export const hast = {
     {
       type: 'element',
       tagName: 'blockquote',
-      properties: {},
       children: [
         {
           type: 'element',
           tagName: 'strong',
-          properties: {},
           children: [
             {
               type: 'text',
@@ -72,9 +70,6 @@ export const hast = {
       },
     },
   ],
-  data: {
-    quirksMode: true,
-  },
   position: {
     start: {
       line: 1,

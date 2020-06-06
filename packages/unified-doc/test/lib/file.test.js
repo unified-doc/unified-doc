@@ -1,19 +1,18 @@
 import vfile from 'vfile';
 
-import { inferMimeType, vFile2File } from '~/unified-doc/lib/file';
-
 import { hast, markdownContent } from '../fixtures';
+import { inferMimeType, vFile2File } from '../../../unified-doc/lib/file';
 
 describe('file', () => {
   // only test the default mime type since other behaviors are implemented/tested in "mime" package.
-  describe(inferMimeType.name, () => {
+  describe('inferMimeType', () => {
     it('infers default mimetype for invalid types', () => {
       expect(inferMimeType('no-extension')).toEqual('text/plain');
       expect(inferMimeType('file-with.bad-extension')).toEqual('text/plain');
     });
   });
 
-  describe(vFile2File.name, () => {
+  describe('vFile2File', () => {
     it('creates file for a given vfile and infers mimetype', () => {
       const file1 = vFile2File({
         vfile: vfile({

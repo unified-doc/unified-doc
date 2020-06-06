@@ -1,4 +1,4 @@
-import searchRegexp from '~/unified-doc-search-regexp';
+import searchRegexp from '../../unified-doc-search-regexp';
 
 const content = 'a TO the b TO the c';
 

@@ -23,6 +23,7 @@ export function createProcessor(options = {}) {
     vfile,
   } = options;
 
+  // create unified processor and apply parser by infering mime type
   const processor = unified();
   const mimeType = inferMimeType(vfile.basename);
   const defaultExtension = mime.extension(mimeType);
@@ -37,9 +38,7 @@ export function createProcessor(options = {}) {
       processor.use(text);
   }
 
-  processor.use(createPlugin(textOffsets));
-  processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
-
+  // apply provided rehype plugins
   plugins.forEach((plugin) => {
     if (Array.isArray(plugin)) {
       // @ts-ignore TODO: check best practices for applying plugin+options dynamically
@@ -49,6 +48,13 @@ export function createProcessor(options = {}) {
     }
   });
 
+  // apply private plugins
+  processor.use(createPlugin(textOffsets));
+
+  // sanitize the tree
+  processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
+
+  // apply provided compiler
   if (Array.isArray(compiler)) {
     // @ts-ignore TODO: check best practices for applying plugin+options dynamically
     processor.use(...compiler);

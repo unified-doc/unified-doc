@@ -3,12 +3,7 @@ import { Plugin } from 'unified';
 import { Node as UnistNode } from 'unist';
 import { VFile } from 'vfile';
 
-// TODO: check how to reference unknown properties on unist node
-interface Node extends UnistNode {
-  children: Node[];
-}
-
-export type TextOffset = [number, number, string];
+export type SearchAlgorithm = (content: string, options: object) => Snippet[];
 
 export interface File {
   content: string;
@@ -19,23 +14,32 @@ export interface File {
 }
 
 export interface Options {
+  annotations?: Annotation[];
   compiler?: Plugin | Plugin[];
   content?: string | Buffer | File;
   filename: string;
   plugins?: Plugin[] | Plugin[][];
   sanitizeSchema?: object;
+  searchAlgorithm?: SearchAlgorithm;
 }
 
-export function Algorithm(content: string, options: object): TextOffset;
+// TODO: check how to reference unknown properties on unist node
+export interface Node extends UnistNode {
+  children: Node[];
+}
+
+export interface Snippet {
+  start: number;
+  end: number;
+  value: string;
+}
 
 export interface Doc {
-  // TODO: define typing
-  annotate: (annotations: Annotation[]) => any[];
   compile: () => VFile;
   file: (extension?: string) => File;
   parse: () => Node;
-  // TODO: define typing
-  search: (algorithm?: Algorithm, options?: object) => any[];
+  search: (options?: object) => Snippet[];
+  string: () => string;
   text: () => string;
 }
 

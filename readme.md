@@ -7,7 +7,10 @@ unified document APIs.
 
 ### Parsers
 ```ts
-function parser(content: string | Buffer, options: object): Node;
+function parser(
+  content: string | Buffer,
+  options: object,
+): Node;
 ```
 - Parsers convert content into a unified `hast` tree.
 - Naming pattern `unified-doc-parse-*`
@@ -16,16 +19,25 @@ function parser(content: string | Buffer, options: object): Node;
 
 ### Search Algorithms
 ```ts
-function search(content: string, options: object): Array<[number, number, string]>;
+function search(content: string, options?: object): Snippet[];
+
+interface Snippet {
+  start: number;
+  end: number;
+  value: string;
+}
 ```
-- Search algorithms return search results in the form of text offsets against the original text content.
+- Search algorithms return snippets against the text content of the source content.
 - Naming pattern `unified-doc-search-*`
 - Packages:
   - `unified-doc-search-regexp`
 
 ### Hast Utils
 ```ts
-function util(hast: Node, options: object): Node;
+function util(
+  hast: Node,
+  options: object,
+): Node;
 ```
 - Hast utils modify and return a new `hast` tree.
 - Naming pattern `unified-doc-util-*`

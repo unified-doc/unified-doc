@@ -15,29 +15,29 @@ describe('searchRegexp', () => {
 
   it('returns offsets for simple patterns', () => {
     expect(searchRegexp(content, { pattern: 't' })).toEqual([
-      [2, 3, 'T'],
-      [5, 6, 't'],
-      [11, 12, 'T'],
-      [14, 15, 't'],
+      { start: 2, end: 3, value: 'T' },
+      { start: 5, end: 6, value: 't' },
+      { start: 11, end: 12, value: 'T' },
+      { start: 14, end: 15, value: 't' },
     ]);
     expect(searchRegexp(content, { pattern: 'to' })).toEqual([
-      [2, 4, 'TO'],
-      [11, 13, 'TO'],
+      { start: 2, end: 4, value: 'TO' },
+      { start: 11, end: 13, value: 'TO' },
     ]);
     expect(searchRegexp(content, { pattern: 'the' })).toEqual([
-      [5, 8, 'the'],
-      [14, 17, 'the'],
+      { start: 5, end: 8, value: 'the' },
+      { start: 14, end: 17, value: 'the' },
     ]);
   });
 
   it('returns offsets for complex patterns', () => {
     expect(searchRegexp(content, { pattern: 'a|b|c' })).toEqual([
-      [0, 1, 'a'],
-      [9, 10, 'b'],
-      [18, 19, 'c'],
+      { start: 0, end: 1, value: 'a' },
+      { start: 9, end: 10, value: 'b' },
+      { start: 18, end: 19, value: 'c' },
     ]);
     expect(searchRegexp(content, { pattern: '(?<=TO).*(?=TO)' })).toEqual([
-      [4, 11, ' the b '],
+      { start: 4, end: 11, value: ' the b ' },
     ]);
   });
 
@@ -45,14 +45,14 @@ describe('searchRegexp', () => {
     expect(
       searchRegexp(content, { isCaseSensitive: false, pattern: 'to' }),
     ).toEqual([
-      [2, 4, 'TO'],
-      [11, 13, 'TO'],
+      { start: 2, end: 4, value: 'TO' },
+      { start: 11, end: 13, value: 'TO' },
     ]);
     expect(
       searchRegexp(content, { isCaseSensitive: false, pattern: 'TO' }),
     ).toEqual([
-      [2, 4, 'TO'],
-      [11, 13, 'TO'],
+      { start: 2, end: 4, value: 'TO' },
+      { start: 11, end: 13, value: 'TO' },
     ]);
     expect(
       searchRegexp(content, { isCaseSensitive: true, pattern: 'to' }),
@@ -60,8 +60,8 @@ describe('searchRegexp', () => {
     expect(
       searchRegexp(content, { isCaseSensitive: true, pattern: 'TO' }),
     ).toEqual([
-      [2, 4, 'TO'],
-      [11, 13, 'TO'],
+      { start: 2, end: 4, value: 'TO' },
+      { start: 11, end: 13, value: 'TO' },
     ]);
   });
 
@@ -69,18 +69,18 @@ describe('searchRegexp', () => {
     expect(
       searchRegexp(content, { minMatchCharLength: 0, pattern: 't' }),
     ).toEqual([
-      [2, 3, 'T'],
-      [5, 6, 't'],
-      [11, 12, 'T'],
-      [14, 15, 't'],
+      { start: 2, end: 3, value: 'T' },
+      { start: 5, end: 6, value: 't' },
+      { start: 11, end: 12, value: 'T' },
+      { start: 14, end: 15, value: 't' },
     ]);
     expect(
       searchRegexp(content, { minMatchCharLength: 1, pattern: 't' }),
     ).toEqual([
-      [2, 3, 'T'],
-      [5, 6, 't'],
-      [11, 12, 'T'],
-      [14, 15, 't'],
+      { start: 2, end: 3, value: 'T' },
+      { start: 5, end: 6, value: 't' },
+      { start: 11, end: 12, value: 'T' },
+      { start: 14, end: 15, value: 't' },
     ]);
     expect(
       searchRegexp(content, { minMatchCharLength: 2, pattern: 't' }),
@@ -88,8 +88,8 @@ describe('searchRegexp', () => {
     expect(
       searchRegexp(content, { minMatchCharLength: 2, pattern: 'to' }),
     ).toEqual([
-      [2, 4, 'TO'],
-      [11, 13, 'TO'],
+      { start: 2, end: 4, value: 'TO' },
+      { start: 11, end: 13, value: 'TO' },
     ]);
     expect(
       searchRegexp(content, { minMatchCharLength: 3, pattern: 'to' }),

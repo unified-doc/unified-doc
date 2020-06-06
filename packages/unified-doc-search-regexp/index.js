@@ -13,7 +13,7 @@ export default function searchRegexp(content, options = {}) {
       const start = match.index;
       const end = searchInputRegExp.lastIndex;
       const value = content.slice(start, end);
-      textOffsets.push([start, end, value]);
+      textOffsets.push({ start, end, value });
     }
   }
   return textOffsets;

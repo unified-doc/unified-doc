@@ -4,6 +4,8 @@ export interface Annotation {
   id: string;
   start: number;
   end: number;
+  className?: string[];
+  data?: object;
 }
 
 export interface Options {

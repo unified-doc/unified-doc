@@ -119,9 +119,10 @@ describe('processor', () => {
       expect(
         createProcessor({
           plugins: [toc],
+          sanitizeSchema: { attributes: { '*': ['className'] } },
           vfile: vfile1,
         }).processSync(vfile1).contents,
-      ).toContain('class="toc"');
+      ).toContain('toc');
 
       const vfile2 = _vfile({
         basename: 'doc.md',
@@ -129,10 +130,11 @@ describe('processor', () => {
       });
       expect(
         createProcessor({
-          plugins: [[toc, { cssClasses: { toc: 'custom-toc' } }]],
+          plugins: [[toc, { cssClasses: { list: 'custom-list' } }]],
+          sanitizeSchema: { attributes: { '*': ['className'] } },
           vfile: vfile2,
         }).processSync(vfile2).contents,
-      ).toContain('class="custom-toc"');
+      ).toContain('custom-list');
     });
   });
 });

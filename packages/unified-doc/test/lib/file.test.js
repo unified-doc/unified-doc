@@ -2,7 +2,7 @@ import vfile from 'vfile';
 
 import { inferMimeType, vFile2File } from '~/unified-doc/lib/file';
 
-import { markdownContent } from '../fixtures';
+import { hast, markdownContent } from '../fixtures';
 
 describe('file', () => {
   // only test the default mime type since other behaviors are implemented/tested in "mime" package.
@@ -15,41 +15,103 @@ describe('file', () => {
 
   describe(vFile2File.name, () => {
     it('creates file for a given vfile and infers mimetype', () => {
-      const vfile1 = vFile2File(
-        vfile({
+      const file1 = vFile2File({
+        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
-      );
-      expect(vfile1.content).toEqual(markdownContent);
-      expect(vfile1.extension).toEqual('.md');
-      expect(vfile1.name).toEqual('doc.md');
-      expect(vfile1.stem).toEqual('doc');
-      expect(vfile1.type).toEqual('text/markdown');
+      });
+      expect(file1.content).toEqual(markdownContent);
+      expect(file1.extension).toEqual('.md');
+      expect(file1.name).toEqual('doc.md');
+      expect(file1.stem).toEqual('doc');
+      expect(file1.type).toEqual('text/markdown');
 
-      const vfile2 = vFile2File(
-        vfile({
+      const file2 = vFile2File({
+        vfile: vfile({
           basename: 'no-extension',
           contents: markdownContent,
         }),
-      );
-      expect(vfile2.content).toEqual(markdownContent);
-      expect(vfile2.extension).toEqual('');
-      expect(vfile2.name).toEqual('no-extension');
-      expect(vfile2.stem).toEqual('no-extension');
-      expect(vfile2.type).toEqual('text/plain');
+      });
+      expect(file2.content).toEqual(markdownContent);
+      expect(file2.extension).toEqual('');
+      expect(file2.name).toEqual('no-extension');
+      expect(file2.stem).toEqual('no-extension');
+      expect(file2.type).toEqual('text/plain');
 
-      const vfile3 = vFile2File(
-        vfile({
+      const file3 = vFile2File({
+        vfile: vfile({
           basename: 'file-with.bad-extension',
           contents: markdownContent,
         }),
+      });
+      expect(file3.content).toEqual(markdownContent);
+      expect(file3.extension).toEqual('.bad-extension');
+      expect(file3.name).toEqual('file-with.bad-extension');
+      expect(file3.stem).toEqual('file-with');
+      expect(file3.type).toEqual('text/plain');
+    });
+
+    it('returns a valid text file with only text content when ".txt" extension is provided', () => {
+      const file = vFile2File({
+        extension: '.txt',
+        hast,
+        vfile: vfile({
+          basename: 'doc.md',
+          contents: markdownContent,
+        }),
+      });
+      expect(file.content).not.toEqual('some markdown content');
+      expect(file.content).toEqual('\nsome markdown content\n');
+      expect(file.extension).toEqual('.txt');
+      expect(file.name).toEqual('doc.txt');
+      expect(file.stem).toEqual('doc');
+      expect(file.type).toEqual('text/plain');
+    });
+
+    it('returns a valid html file when ".html" extension is provided', () => {
+      const file = vFile2File({
+        extension: '.html',
+        hast,
+        vfile: vfile({
+          basename: 'doc.html',
+          contents: markdownContent,
+        }),
+      });
+      expect(file.content).not.toEqual(markdownContent);
+      expect(file.content).toEqual(
+        '<blockquote>\n<p><strong>some</strong> markdown content</p>\n</blockquote>',
       );
-      expect(vfile3.content).toEqual(markdownContent);
-      expect(vfile3.extension).toEqual('.bad-extension');
-      expect(vfile3.name).toEqual('file-with.bad-extension');
-      expect(vfile3.stem).toEqual('file-with');
-      expect(vfile3.type).toEqual('text/plain');
+      expect(file.extension).toEqual('.html');
+      expect(file.name).toEqual('doc.html');
+      expect(file.stem).toEqual('doc');
+      expect(file.type).toEqual('text/html');
+    });
+
+    it('returns the unified file when ".uni" extension is provided', () => {
+      const file = vFile2File({
+        extension: '.uni',
+        hast,
+        vfile: vfile({
+          basename: 'doc.uni',
+          contents: markdownContent,
+        }),
+      });
+      const parsedText = JSON.parse(file.content);
+      expect(file.content).toContain('blockquote');
+      expect(file.content).toContain('strong');
+      expect(file.content).not.toContain('some markdown');
+      expect(file.content).toContain('markdown content');
+      expect(parsedText).toHaveProperty('hast');
+      expect(parsedText).toHaveProperty(['hast', 'type']);
+      expect(parsedText).toHaveProperty(['hast', 'children']);
+      expect(parsedText).toHaveProperty(['hast', 'position', 'start']);
+      expect(parsedText).toHaveProperty(['hast', 'position', 'end']);
+      expect(parsedText.hast.type).toEqual('root');
+      expect(file.extension).toEqual('.uni');
+      expect(file.name).toEqual('doc.uni');
+      expect(file.stem).toEqual('doc');
+      expect(file.type).toEqual('text/uni');
     });
   });
 });

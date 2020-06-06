@@ -1,6 +1,6 @@
 # unified-doc-search-regexp
 
-unified document search algorithm to return text offsets using simple regular expressions.
+unified document search algorithm to return snippets using simple regular expressions.
 
 ## Install
 

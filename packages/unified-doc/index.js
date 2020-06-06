@@ -1,17 +1,19 @@
+import toString from 'hast-util-to-string';
 import searchRegexp from 'unified-doc-search-regexp';
 import _vfile from 'vfile';
 
 import { vFile2File } from './lib/file';
 import { createProcessor } from './lib/processor';
-import { getNodes, serializeResult } from './lib/search';
 
 export default function unifiedDoc(options = {}) {
   const {
+    annotations = [],
     compiler,
     content,
     filename = 'file',
     plugins = [],
     sanitizeSchema = {},
+    searchAlgorithm = searchRegexp,
   } = options;
 
   const vfile = _vfile({
@@ -30,25 +32,29 @@ export default function unifiedDoc(options = {}) {
     return processor.processSync(vfile);
   }
 
-  function file(extensionType) {
-    return vFile2File(vfile, parse(), extensionType);
+  function file(extension) {
+    return vFile2File({
+      annotations,
+      extension,
+      hast: parse(),
+      vfile,
+    });
   }
 
   function parse() {
     return processor.runSync(processor.parse(vfile));
   }
 
-  function search(algorithm = searchRegexp, options = {}) {
-    const textOffsets = algorithm(text(), options);
-    console.log(textOffsets);
-    const nodes = textOffsets.reduce((acc, textOffset) => {
-      return [...acc, ...getNodes(textOffset)];
-    }, []);
-    return serializeResult(nodes);
+  function search(options = {}) {
+    return searchAlgorithm(text(), options);
+  }
+
+  function string() {
+    return vfile.toString();
   }
 
   function text() {
-    return vfile.toString();
+    return toString(parse());
   }
 
   return {
@@ -56,6 +62,7 @@ export default function unifiedDoc(options = {}) {
     file,
     parse,
     search,
+    string,
     text,
   };
 }

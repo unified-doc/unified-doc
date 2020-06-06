@@ -1,6 +1,6 @@
 import unifiedDoc from '~/unified-doc';
 
-import { htmlContent, markdownContent } from '../fixtures';
+import { markdownContent } from '../fixtures';
 
 describe('file', () => {
   it('returns the source file (string content) if no extension is provided', () => {
@@ -35,7 +35,8 @@ describe('file', () => {
       filename: 'doc.md',
     });
     const file = doc.file('.txt');
-    expect(file.content).toEqual('some markdown content');
+    expect(file.content).not.toEqual('some markdown content');
+    expect(file.content).toEqual('\nsome markdown content\n');
     expect(file.extension).toEqual('.txt');
     expect(file.name).toEqual('doc.txt');
     expect(file.stem).toEqual('doc');
@@ -48,7 +49,7 @@ describe('file', () => {
       filename: 'doc.md',
     });
     const file = doc.file('.html');
-    expect(file.content).not.toEqual(htmlContent);
+    expect(file.content).not.toEqual(markdownContent);
     expect(file.content).toEqual(
       '<blockquote>\n<p><strong>some</strong> markdown content</p>\n</blockquote>',
     );
@@ -59,7 +60,13 @@ describe('file', () => {
   });
 
   it('returns the unified file when ".uni" extension is provided', () => {
+    const annotations = [
+      { id: 'a', start: 0, end: 4 },
+      { id: 'b', start: 2, end: 8 },
+      { id: 'b', start: 8, end: 10 },
+    ];
     const doc = unifiedDoc({
+      annotations,
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -70,11 +77,11 @@ describe('file', () => {
     expect(file.content).not.toContain('some markdown');
     expect(file.content).toContain('markdown content');
     expect(parsedText).toHaveProperty('hast');
-    expect(parsedText).toHaveProperty(['hast', 'type']);
+    expect(parsedText).toHaveProperty(['hast', 'type'], 'root');
     expect(parsedText).toHaveProperty(['hast', 'children']);
     expect(parsedText).toHaveProperty(['hast', 'position', 'start']);
     expect(parsedText).toHaveProperty(['hast', 'position', 'end']);
-    expect(parsedText.hast.type).toEqual('root');
+    expect(parsedText).toHaveProperty('annotations', annotations);
     expect(file.extension).toEqual('.uni');
     expect(file.name).toEqual('doc.uni');
     expect(file.stem).toEqual('doc');

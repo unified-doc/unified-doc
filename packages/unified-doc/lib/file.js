@@ -1,5 +1,5 @@
 import toHtml from 'hast-util-to-html';
-import toText from 'hast-util-to-text';
+import toString from 'hast-util-to-string';
 import mime from 'mime-types';
 
 import { extensionTypes, mimeTypes } from './enums';
@@ -8,7 +8,12 @@ export function inferMimeType(filename) {
   return mime.lookup(filename) || mimeTypes.DEFAULT;
 }
 
-export function vFile2File(vfile, hast, extensionType) {
+export function vFile2File({
+  annotations = [],
+  vfile,
+  hast = null,
+  extension: extensionType = null,
+}) {
   let content;
   let extension;
   let type;
@@ -17,17 +22,18 @@ export function vFile2File(vfile, hast, extensionType) {
     case extensionTypes.HTML: {
       content = toHtml(hast);
       extension = extensionType;
-      type = inferMimeType(extensionType);
+      type = inferMimeType(extension);
       break;
     }
     case extensionTypes.TEXT: {
-      content = toText(hast);
+      content = toString(hast);
       extension = extensionType;
-      type = inferMimeType(extensionType);
+      type = inferMimeType(extension);
       break;
     }
+    // TODO: formalize and abstract this into a package
     case extensionTypes.UNI: {
-      content = JSON.stringify({ hast }, null, 2);
+      content = JSON.stringify({ annotations, hast }, null, 2);
       extension = extensionTypes.UNI;
       type = mimeTypes.UNI;
       break;

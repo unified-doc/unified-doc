@@ -67,5 +67,4 @@ export default function parse(): void;
 Simply use the plugin with any unified processor.
 
 <!-- Links -->
-
 [hast]: https://github.com/syntax-tree/hast

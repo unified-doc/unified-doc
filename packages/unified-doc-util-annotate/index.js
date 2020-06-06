@@ -1,3 +1,7 @@
-export default function annotate(_hast, { annotations: _annotations }) {
-  return _hast;
+export default function annotate(
+  hast,
+  { annotations: _annotations, annotationCallbacks: _annotationCallbacks },
+) {
+  // TODO : implement
+  return hast;
 }

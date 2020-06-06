@@ -8,6 +8,7 @@ import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import unified from 'unified';
 import text from 'unified-doc-parse-text';
+import annotate from 'unified-doc-util-annotate';
 import textOffsets from 'unified-doc-util-text-offsets';
 
 import { inferMimeType } from './file';
@@ -17,6 +18,8 @@ const createPlugin = (transform) => (...args) => (tree) =>
 
 export function createProcessor(options = {}) {
   const {
+    annotations = [],
+    annotationCallbacks = {},
     compiler = stringify,
     plugins = [],
     sanitizeSchema = {},
@@ -50,6 +53,10 @@ export function createProcessor(options = {}) {
 
   // apply private plugins
   processor.use(createPlugin(textOffsets));
+
+  if (annotations.length > 0) {
+    processor.use(createPlugin(annotate), { annotations, annotationCallbacks });
+  }
 
   // sanitize the tree
   processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));

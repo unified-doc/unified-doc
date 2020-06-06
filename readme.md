@@ -39,7 +39,7 @@ function util(
   options: object,
 ): Node;
 ```
-- Hast utils modify and return a new `hast` tree.
+- [`hast`][hast] utils modify and return a new `hast` tree.
 - Naming pattern `unified-doc-util-*`
 - Packages:
   - `unified-doc-util-annotate`
@@ -67,3 +67,6 @@ npm run test
 # build all packages with microbundle
 npm run build
 ```
+
+<!-- Links -->
+[hast]: https://github.com/syntax-tree/hast

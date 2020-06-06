@@ -1,6 +1,6 @@
 # unified-doc-util-text-offsets
 
-unified document hast utility to add text offsets to text nodes in a [`hast`][hast] tree.
+unified document [`hast`][hast] utility to add text offsets to text nodes.
 
 ## Install
 
@@ -177,5 +177,4 @@ const withTextOffsets = textOffsets(hast) // assign textNodesOffsets to relevant
 - `node`: A valid `hast` node.
 
 <!-- Links -->
-
 [hast]: https://github.com/syntax-tree/hast

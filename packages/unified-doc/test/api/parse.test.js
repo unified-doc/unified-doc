@@ -59,7 +59,7 @@ describe('parse', () => {
     expect(hast.children[0].value).toEqual(htmlContent);
   });
 
-  it('applies textOffsets plugin to track text offset data in text nodes', () => {
+  it('applies textOffsets to track text offset data in text nodes when annotations are provided', () => {
     const doc = unifiedDoc({
       content: htmlContent,
       filename: 'doc.html',

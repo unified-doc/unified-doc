@@ -8,6 +8,7 @@ import { createProcessor } from './lib/processor';
 export default function unifiedDoc(options = {}) {
   const {
     annotations = [],
+    annotationCallbacks = {},
     compiler,
     content,
     filename = 'file',
@@ -22,6 +23,8 @@ export default function unifiedDoc(options = {}) {
   });
 
   const processor = createProcessor({
+    annotations,
+    annotationCallbacks,
     compiler,
     plugins,
     sanitizeSchema,

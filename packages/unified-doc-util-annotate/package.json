@@ -26,6 +26,7 @@
   "source": "index.js",
   "typings": "types/index.d.ts",
   "dependencies": {
+    "hastscript": "^5.1.2",
     "unist-util-map": "^2.0.1"
   }
 }

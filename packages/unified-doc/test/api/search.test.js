@@ -51,7 +51,7 @@ describe('search', () => {
   });
 
   it('searches with a custom search algorithm', () => {
-    function searchCustom(content, options = {}) {
+    function searchCustom(_content, options = {}) {
       if (options.disabled) {
         return [];
       }

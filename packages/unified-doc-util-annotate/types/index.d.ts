@@ -25,7 +25,7 @@ export type Optional<T> = {
 
 export interface Options {
   annotations: Annotation[];
-  annotationCallbacks: Optional<AnnotationCallbacks>;
+  annotationCallbacks?: Optional<AnnotationCallbacks>;
 }
 
 export default function annotate(hast: Node, options: Options): Node;

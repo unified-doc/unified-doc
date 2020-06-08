@@ -10,8 +10,8 @@ describe('parse', () => {
     });
     const hast = doc.parse();
     expect(hast.children.length).toEqual(1);
-    expect(hast.children[0].type).toEqual('text');
-    expect(hast.children[0].value).toEqual(htmlContent);
+    expect(hast).toHaveProperty('children.0.type', 'text');
+    expect(hast).toHaveProperty('children.0.value', htmlContent);
   });
 
   it('parses markdown file extension into a hast tree', () => {
@@ -20,16 +20,10 @@ describe('parse', () => {
       filename: 'doc.md',
     });
     const hast = doc.parse();
-    const blockquoteNodePath = ['children', 0];
-    const textNodePath = [...blockquoteNodePath, 'children', 0];
-    const paragraphNodePath = [...blockquoteNodePath, 'children', 1];
-    expect(hast).toHaveProperty(
-      [...blockquoteNodePath, 'tagName'],
-      'blockquote',
-    );
-    expect(hast).toHaveProperty([...textNodePath, 'type'], 'text');
-    expect(hast).toHaveProperty([...textNodePath, 'value'], '\n');
-    expect(hast).toHaveProperty([...paragraphNodePath, 'tagName'], 'p');
+    expect(hast).toHaveProperty('children.0.tagName', 'blockquote');
+    expect(hast).toHaveProperty('children.0.children.0.type', 'text');
+    expect(hast).toHaveProperty('children.0.children.0.value', '\n');
+    expect(hast).toHaveProperty('children.0.children.1.tagName', 'p');
   });
 
   it('parses html file extension into a hast tree', () => {
@@ -38,13 +32,8 @@ describe('parse', () => {
       filename: 'doc.html',
     });
     const hast = doc.parse();
-    const blockquoteNodePath = ['children', 0];
-    const strongNodePath = [...blockquoteNodePath, 'children', 0];
-    expect(hast).toHaveProperty(
-      [...blockquoteNodePath, 'tagName'],
-      'blockquote',
-    );
-    expect(hast).toHaveProperty([...strongNodePath, 'tagName'], 'strong');
+    expect(hast).toHaveProperty('children.0.tagName', 'blockquote');
+    expect(hast).toHaveProperty('children.0.children.0.tagName', 'strong');
   });
 
   it('parses any unsupported file extension into a hast tree', () => {
@@ -54,8 +43,8 @@ describe('parse', () => {
     });
     const hast = doc.parse();
     expect(hast.children.length).toEqual(1);
-    expect(hast.children[0].type).toEqual('text');
-    expect(hast.children[0].value).toEqual(htmlContent);
+    expect(hast).toHaveProperty('children.0.type', 'text');
+    expect(hast).toHaveProperty('children.0.value', htmlContent);
   });
 
   it('applies textOffsets to track text offset data in text nodes when annotations are provided', () => {
@@ -64,29 +53,22 @@ describe('parse', () => {
       filename: 'doc.html',
     });
     const hast = doc.parse();
-    const blockquoteNodePath = ['children', 0];
-    const strongNodePath = [...blockquoteNodePath, 'children', 0];
-    const textNodePath = [...blockquoteNodePath, 'children', 1];
-
+    expect(hast).toHaveProperty('children.0.tagName', 'blockquote');
+    expect(hast).toHaveProperty('children.0.children.0.tagName', 'strong');
     expect(hast).toHaveProperty(
-      [...blockquoteNodePath, 'tagName'],
-      'blockquote',
-    );
-    expect(hast).toHaveProperty([...strongNodePath, 'tagName'], 'strong');
-    expect(hast).toHaveProperty(
-      [...strongNodePath, 'children', 0, 'type'],
+      'children.0.children.0.children.0.type',
       'text',
     );
     expect(hast).toHaveProperty(
-      [...strongNodePath, 'children', 0, 'value'],
+      'children.0.children.0.children.0.value',
       'some',
     );
-    expect(hast).toHaveProperty([...strongNodePath, 'children', 0, 'data'], {
+    expect(hast).toHaveProperty('children.0.children.0.children.0.data', {
       textOffset: { start: 0, end: 4 },
     });
-    expect(hast).toHaveProperty([...textNodePath, 'type'], 'text');
-    expect(hast).toHaveProperty([...textNodePath, 'value'], '\ncontent');
-    expect(hast).toHaveProperty([...textNodePath, 'data'], {
+    expect(hast).toHaveProperty('children.0.children.1.type', 'text');
+    expect(hast).toHaveProperty('children.0.children.1.value', '\ncontent');
+    expect(hast).toHaveProperty('children.0.children.1.data', {
       textOffset: { start: 4, end: 12 },
     });
   });

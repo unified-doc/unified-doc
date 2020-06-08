@@ -70,10 +70,10 @@ describe('file', () => {
     expect(file.content).not.toContain('some markdown');
     expect(file.content).toContain('markdown content');
     expect(parsedContent).toHaveProperty('hast');
-    expect(parsedContent).toHaveProperty(['hast', 'type'], 'root');
-    expect(parsedContent).toHaveProperty(['hast', 'children']);
-    expect(parsedContent).toHaveProperty(['hast', 'position', 'start']);
-    expect(parsedContent).toHaveProperty(['hast', 'position', 'end']);
+    expect(parsedContent).toHaveProperty('hast.type');
+    expect(parsedContent).toHaveProperty('hast.children');
+    expect(parsedContent).toHaveProperty('hast.position.start');
+    expect(parsedContent).toHaveProperty('hast.position.end');
     expect(parsedContent).toHaveProperty('annotations');
     expect(file.extension).toEqual('.uni');
     expect(file.name).toEqual('doc.uni');

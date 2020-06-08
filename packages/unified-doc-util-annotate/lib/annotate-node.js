@@ -10,7 +10,7 @@ export function getAnnotatedNodes(nodeSegments, annotationCallbacks = {}) {
         .slice()
         .reverse() // create inner nodes first
         .forEach((annotation) => {
-          const { id, className = [], data = {} } = annotation;
+          const { id, className, data = {} } = annotation;
           const properties = {
             className,
             dataAnnotationId: id,

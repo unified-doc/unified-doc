@@ -1,4 +1,4 @@
-import validateAnnotations from '../lib/validate-annotations';
+import validateAnnotations from '../../lib/validate-annotations';
 
 describe('validateAnnotations', () => {
   it('should return the same empty array', () => {

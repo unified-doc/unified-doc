@@ -102,11 +102,11 @@ describe('file', () => {
       expect(file.content).not.toContain('some markdown');
       expect(file.content).toContain('markdown content');
       expect(parsedText).toHaveProperty('hast');
-      expect(parsedText).toHaveProperty(['hast', 'type']);
-      expect(parsedText).toHaveProperty(['hast', 'children']);
-      expect(parsedText).toHaveProperty(['hast', 'position', 'start']);
-      expect(parsedText).toHaveProperty(['hast', 'position', 'end']);
-      expect(parsedText.hast.type).toEqual('root');
+      expect(parsedText).toHaveProperty('hast.type');
+      expect(parsedText).toHaveProperty('hast.children');
+      expect(parsedText).toHaveProperty('hast.position.start');
+      expect(parsedText).toHaveProperty('hast.position.end');
+      expect(parsedText).toHaveProperty('hast.type', 'root');
       expect(file.extension).toEqual('.uni');
       expect(file.name).toEqual('doc.uni');
       expect(file.stem).toEqual('doc');

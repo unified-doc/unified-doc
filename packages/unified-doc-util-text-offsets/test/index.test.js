@@ -11,32 +11,36 @@ describe('textOffsets', () => {
   it('should apply the correct text offsets only for text nodes', () => {
     const withTextOffsets = textOffsets(hast);
     expect(withTextOffsets).not.toEqual(hast);
-    const blockquoteNodePath = ['children', 0];
-    const strongNodePath = [...blockquoteNodePath, 'children', 0];
-    const textNode1Path = [...strongNodePath, 'children', 0];
-    const textNode2Path = [...blockquoteNodePath, 'children', 1];
-
+    expect(withTextOffsets).not.toHaveProperty('children.0.type', 'blockquote');
+    expect(withTextOffsets).not.toHaveProperty('children.0.data');
     expect(withTextOffsets).not.toHaveProperty(
-      [...blockquoteNodePath, 'type'],
-      'blockquote',
-    );
-    expect(withTextOffsets).not.toHaveProperty(['children', 0, 'data']);
-    expect(withTextOffsets).not.toHaveProperty(
-      [...strongNodePath, 'type'],
+      'children.0.children.0.type',
       'strong',
     );
-    expect(withTextOffsets).not.toHaveProperty([...strongNodePath, 'data']);
-    expect(withTextOffsets).toHaveProperty([...textNode1Path, 'type'], 'text');
-    expect(withTextOffsets).toHaveProperty([...textNode1Path, 'data'], {
-      textOffset: { start: 0, end: 4 },
-    });
-    expect(withTextOffsets).toHaveProperty([...textNode1Path, 'value'], 'some');
-    expect(withTextOffsets).toHaveProperty([...textNode2Path, 'type'], 'text');
-    expect(withTextOffsets).toHaveProperty([...textNode2Path, 'data'], {
+    expect(withTextOffsets).not.toHaveProperty('children.0.children.0.data');
+    expect(withTextOffsets).toHaveProperty(
+      'children.0.children.0.children.0.type',
+      'text',
+    );
+    expect(withTextOffsets).toHaveProperty(
+      'children.0.children.0.children.0.data',
+      {
+        textOffset: { start: 0, end: 4 },
+      },
+    );
+    expect(withTextOffsets).toHaveProperty(
+      'children.0.children.0.children.0.value',
+      'some',
+    );
+    expect(withTextOffsets).toHaveProperty(
+      'children.0.children.1.type',
+      'text',
+    );
+    expect(withTextOffsets).toHaveProperty('children.0.children.1.data', {
       textOffset: { start: 4, end: 12 },
     });
     expect(withTextOffsets).toHaveProperty(
-      [...textNode2Path, 'value'],
+      'children.0.children.1.value',
       '\ncontent',
     );
   });

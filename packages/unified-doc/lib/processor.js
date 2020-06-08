@@ -53,10 +53,7 @@ export function createProcessor(options = {}) {
 
   // apply private plugins
   processor.use(createPlugin(textOffsets));
-
-  if (annotations.length > 0) {
-    processor.use(createPlugin(annotate), { annotations, annotationCallbacks });
-  }
+  processor.use(createPlugin(annotate), { annotations, annotationCallbacks });
 
   // sanitize the tree
   processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));

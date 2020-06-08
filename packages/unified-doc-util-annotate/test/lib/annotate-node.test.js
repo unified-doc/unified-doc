@@ -1,7 +1,8 @@
 import {
+  getAnnotatedNodes,
   getOverLappingAnnotations,
   getNodeSegments,
-} from '../lib/annotated-node';
+} from '../../lib/annotate-node';
 
 const node = {
   type: 'text',
@@ -11,7 +12,148 @@ const node = {
 
 describe('annotated-node', () => {
   describe('getAnnotatedNodes', () => {
-    it('TODO will be implemented', () => {});
+    it('returns plain text nodes if no annotations are attached', () => {
+      expect(
+        getAnnotatedNodes([
+          { annotations: [], value: '01234' },
+          { annotations: [], value: '56789' },
+        ]),
+      ).toEqual([
+        { type: 'text', value: '01234' },
+        { type: 'text', value: '56789' },
+      ]);
+    });
+
+    it('returns flat annotated node if a single annotation is specified', () => {
+      expect(
+        getAnnotatedNodes([
+          { annotations: [{ id: 'a', start: 0, end: 5 }], value: '01234' },
+        ]),
+      ).toEqual([
+        {
+          type: 'element',
+          tagName: 'mark',
+          children: [
+            {
+              type: 'text',
+              value: '01234',
+            },
+          ],
+          properties: {
+            dataAnnotationId: 'a',
+          },
+        },
+      ]);
+    });
+
+    it('returns nested annotated node if a many annotations are specified', () => {
+      expect(
+        getAnnotatedNodes([
+          {
+            annotations: [
+              { id: 'a', start: 0, end: 3 },
+              { id: 'b', start: 3, end: 5 },
+              { id: 'c', start: 5, end: 10 },
+            ],
+            value: '01234',
+          },
+        ]),
+      ).toEqual([
+        {
+          type: 'element',
+          tagName: 'mark',
+          children: [
+            {
+              type: 'element',
+              tagName: 'mark',
+              properties: {
+                dataAnnotationId: 'b',
+              },
+              children: [
+                {
+                  type: 'element',
+                  tagName: 'mark',
+                  properties: {
+                    dataAnnotationId: 'c',
+                  },
+                  children: [
+                    {
+                      type: 'text',
+                      value: '01234',
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          properties: {
+            dataAnnotationId: 'a',
+          },
+        },
+      ]);
+    });
+
+    it('applies className and data fields to node properties', () => {
+      expect(
+        getAnnotatedNodes([
+          {
+            annotations: [
+              {
+                id: 'a',
+                start: 0,
+                end: 3,
+                className: ['class-a', 'class-b'],
+                data: { fieldA: 'fieldA', fieldB: 'fieldB' },
+              },
+            ],
+            value: '01234',
+          },
+        ]),
+      ).toEqual([
+        {
+          type: 'element',
+          tagName: 'mark',
+          properties: {
+            className: ['class-a', 'class-b'],
+            dataAnnotationId: 'a',
+            fieldA: 'fieldA',
+            fieldB: 'fieldB',
+          },
+          children: [{ type: 'text', value: '01234' }],
+        },
+      ]);
+    });
+
+    it('applies callbacks ', () => {
+      console.log = jest.fn();
+      const annotationCallbacks = {
+        onClick: console.log,
+        onMouseEnter: console.log,
+      };
+      const annotatedNode = getAnnotatedNodes(
+        [
+          {
+            annotations: [{ id: 'a', start: 0, end: 3 }],
+            value: '01234',
+          },
+        ],
+        annotationCallbacks,
+      )[0];
+      expect(annotatedNode.properties.onClick).toBeInstanceOf(Function);
+      expect(annotatedNode.properties.onMouseEnter).toBeInstanceOf(Function);
+      expect(annotatedNode.properties.onMouseOut).toEqual(undefined);
+
+      annotatedNode.properties.onClick();
+      expect(console.log).toBeCalledWith(
+        { id: 'a', start: 0, end: 3 },
+        undefined,
+      );
+      annotatedNode.properties.onMouseEnter();
+      expect(console.log).toBeCalledWith(
+        { id: 'a', start: 0, end: 3 },
+        undefined,
+      );
+    });
   });
 
   describe('getOverLappingAnnotations', () => {

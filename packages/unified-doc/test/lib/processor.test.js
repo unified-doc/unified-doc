@@ -78,7 +78,7 @@ describe('processor', () => {
         vfile,
       }).processSync(vfile);
       // @ts-ignore TODO: remove once official typing is fixed
-      expect(compiled.result.type).toEqual('div');
+      expect(compiled.result).toHaveProperty('type', 'div');
       // @ts-ignore TODO: remove once official typing is fixed
       expect(compiled.result.props).toHaveProperty('children');
       expect(compiled.contents).toEqual(markdownContent);

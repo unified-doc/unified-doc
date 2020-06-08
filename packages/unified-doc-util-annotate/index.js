@@ -1,14 +1,20 @@
+import h from 'hastscript';
 import map from 'unist-util-map';
 
 import {
   getAnnotatedNodes,
   getOverLappingAnnotations,
   getNodeSegments,
-} from './lib/annotated-node';
+} from './lib/annotate-node';
 import validateAnnotations from './lib/validate-annotations';
 
 export default function annotate(hast, options) {
   const { annotations, annotationCallbacks } = options;
+
+  if (annotations.length === 0) {
+    return hast;
+  }
+
   const validatedAnnotations = validateAnnotations(annotations);
 
   return map(hast, (node) => {
@@ -17,13 +23,17 @@ export default function annotate(hast, options) {
         node,
         validatedAnnotations,
       );
+
+      if (overlappingAnnotations.length === 0) {
+        return node;
+      }
+
       const nodeSegments = getNodeSegments(node, overlappingAnnotations);
       const annotatedNodes = getAnnotatedNodes(
         nodeSegments,
         annotationCallbacks,
       );
-      console.log(annotatedNodes);
-      return node;
+      return h('div', annotatedNodes);
     }
     return node;
   });

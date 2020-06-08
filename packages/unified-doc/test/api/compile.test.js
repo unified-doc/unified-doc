@@ -26,7 +26,7 @@ describe('compile', () => {
     const compiled = doc.compile();
     expect(compiled.contents).toEqual(markdownContent);
     // @ts-ignore TODO: remove once official typing is fixed
-    expect(compiled.result.type).toEqual('div');
+    expect(compiled.result).toHaveProperty('type', 'div');
     // @ts-ignore TODO: remove once official typing is fixed
     expect(compiled.result).toHaveProperty('props');
   });

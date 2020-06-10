@@ -49,8 +49,8 @@ function util(
 The project is managed with `lerna`.
 
 ```sh
-# install dependencies
-npm install
+# install dependencies and initialize with lerna
+npx lerna bootstrap
 
 # clean all packages (rm dist + node_modules)
 npm run clean

@@ -7,12 +7,13 @@
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me>",
   "scripts": {
-    "build": "lerna exec --parallel microbundle",
-    "dev": "lerna exec --parallel microbundle watch",
+    "build": "lerna exec --parallel 'microbundle --external none'",
+    "dev": "lerna exec --parallel 'microbundle watch'",
     "clean": "lerna exec --parallel 'rm -rf dist node_modules'",
     "lint": "xo --fix; tsc",
     "test": "jest --watch packages",
-    "test:run": "jest"
+    "test:ci": "jest",
+    "publish": "lerna publish"
   },
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
@@ -39,7 +40,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint; npm run test:run; npm run clean; npm run build"
+      "pre-push": "npm run lint; npm run test:ci; npm run clean; npm run build"
     }
   },
   "prettier": {

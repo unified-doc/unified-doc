@@ -9,7 +9,10 @@ type Optional<T> = {
 
 export { Annotation, AnnotationCallbacks, Plugin };
 
-export type SearchAlgorithm = (content: string, options: object) => Snippet[];
+export type SearchAlgorithm = (
+  content: string,
+  options: Record<string, unknown>,
+) => Snippet[];
 
 export interface File {
   content: string;
@@ -26,7 +29,7 @@ export interface Options {
   compiler?: any; // TODO: need help on typing this correctly
   content?: string | Buffer;
   plugins?: Plugin[] | Plugin[][];
-  sanitizeSchema?: object;
+  sanitizeSchema?: Record<string, unknown>;
   searchAlgorithm?: SearchAlgorithm;
 }
 
@@ -45,7 +48,7 @@ export interface Doc {
   compile: () => VFile;
   file: (extension?: string) => File;
   parse: () => Node;
-  search: (options?: object) => Snippet[];
+  search: (options?: Record<string, unknown>) => Snippet[];
   string: () => string;
   text: () => string;
 }

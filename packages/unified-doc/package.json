@@ -1,6 +1,6 @@
 {
   "name": "unified-doc",
-  "version": "0.1.5-beta.0",
+  "version": "0.1.4-beta.0",
   "description": "unified document APIs",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",
@@ -44,7 +44,7 @@
     "unified": "^9.0.0",
     "unified-doc-parse-text": "^0.1.4-beta.0",
     "unified-doc-search-regexp": "^0.1.4-beta.0",
-    "unified-doc-util-annotate": "^0.1.5-beta.0",
+    "unified-doc-util-annotate": "^0.1.4-beta.0",
     "unified-doc-util-text-offsets": "^0.1.4-beta.0",
     "vfile": "^4.1.1"
   }

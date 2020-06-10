@@ -4,4 +4,7 @@ export interface Snippet {
   value: string;
 }
 
-export default function search(content: string, options?: object): Snippet[];
+export default function search(
+  content: string,
+  options?: Record<string, unknown>,
+): Snippet[];

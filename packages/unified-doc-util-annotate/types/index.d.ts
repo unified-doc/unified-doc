@@ -9,7 +9,7 @@ export interface Annotation {
   start: number;
   end: number;
   className?: string[];
-  data?: object;
+  data?: Record<string, unknown>;
 }
 
 export type AnnotationCallback = (

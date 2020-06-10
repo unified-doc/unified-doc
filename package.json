@@ -11,6 +11,7 @@
     "build": "lerna exec --parallel microbundle",
     "dev": "lerna exec --parallel 'microbundle watch'",
     "clean": "lerna exec --parallel 'rm -rf dist node_modules'",
+    "link": "lerna link convert",
     "lint": "xo --fix; tsc",
     "test": "jest --watch packages",
     "test:ci": "jest",

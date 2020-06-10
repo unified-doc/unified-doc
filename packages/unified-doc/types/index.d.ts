@@ -28,7 +28,7 @@ export interface Options {
   annotationCallbacks?: Optional<AnnotationCallbacks>;
   compiler?: any; // TODO: need help on typing this correctly
   content?: string | Buffer;
-  plugins?: Plugin[] | Plugin[][];
+  plugins?: any | any[]; // TODO: need help on typing this correctly
   sanitizeSchema?: Record<string, unknown>;
   searchAlgorithm?: SearchAlgorithm;
 }

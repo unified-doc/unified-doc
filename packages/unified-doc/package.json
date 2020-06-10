@@ -42,6 +42,10 @@
     "remark-parse": "^8.0.2",
     "remark-rehype": "^7.0.0",
     "unified": "^9.0.0",
+    "unified-doc-parse-text": "^0.1.4-beta.0",
+    "unified-doc-search-regexp": "^0.1.4-beta.0",
+    "unified-doc-util-annotate": "^0.1.4-beta.0",
+    "unified-doc-util-text-offsets": "^0.1.4-beta.0",
     "vfile": "^4.1.1"
   }
 }

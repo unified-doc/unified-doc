@@ -41,7 +41,10 @@ export function createProcessor(options = {}) {
       processor.use(text);
   }
 
-  // apply provided rehype plugins
+  // sanitize the tree
+  processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
+
+  // apply public plugins
   plugins.forEach((plugin) => {
     if (Array.isArray(plugin)) {
       // @ts-ignore TODO: check best practices for applying plugin+options dynamically
@@ -54,9 +57,6 @@ export function createProcessor(options = {}) {
   // apply private plugins
   processor.use(createPlugin(textOffsets));
   processor.use(createPlugin(annotate), { annotations, annotationCallbacks });
-
-  // sanitize the tree
-  processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
 
   // apply provided compiler
   if (Array.isArray(compiler)) {

@@ -1,5 +1,9 @@
 import { Node } from 'unist';
 
+type Optional<T> = {
+  [P in keyof T]?: T[P];
+};
+
 export interface Annotation {
   id: string;
   start: number;
@@ -18,10 +22,6 @@ interface AnnotationCallbacks {
   onMouseEnter: AnnotationCallback;
   onMouseOut: AnnotationCallback;
 }
-
-export type Optional<T> = {
-  [P in keyof T]?: T[P];
-};
 
 export interface Options {
   annotations: Annotation[];

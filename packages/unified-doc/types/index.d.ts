@@ -1,7 +1,13 @@
-import { Annotation } from 'unified-doc-util-annotate';
+import { Annotation, AnnotationCallbacks } from 'unified-doc-util-annotate';
 import { Plugin } from 'unified';
 import { Node as UnistNode } from 'unist';
 import { VFile } from 'vfile';
+
+type Optional<T> = {
+  [P in keyof T]?: T[P];
+};
+
+export { Annotation, AnnotationCallbacks, Plugin };
 
 export type SearchAlgorithm = (content: string, options: object) => Snippet[];
 
@@ -14,10 +20,11 @@ export interface File {
 }
 
 export interface Options {
-  annotations?: Annotation[];
-  compiler?: Plugin | Plugin[];
-  content?: string | Buffer | File;
   filename: string;
+  annotations?: Annotation[];
+  annotationCallbacks?: Optional<AnnotationCallbacks>;
+  compiler?: any; // TODO: need help on typing this correctly
+  content?: string | Buffer;
   plugins?: Plugin[] | Plugin[][];
   sanitizeSchema?: object;
   searchAlgorithm?: SearchAlgorithm;

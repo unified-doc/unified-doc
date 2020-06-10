@@ -52,23 +52,29 @@ The project is managed with `lerna`.
 # install dependencies and bootstrap with lerna
 npx run bootstrap
 
+# build all packages with microbundle
+npm run build
+
 # clean all packages (rm dist + node_modules)
 npm run clean
-
-# lint all packages with xo + prettier + tsc
-npm run lint
 
 # watch/rebuild all packages with microbundle
 npm run dev
 
-# test all packages with jest (make sure to run the 'dev' script)
+# link all packages with lerna
+npm run link
+
+# lint all packages with xo + prettier + tsc
+npm run lint
+
+# test all packages with jest in --watch mode (make sure to run the 'dev' script)
 npm run test
 
-# build all packages with microbundle
-npm run build
+# test all packages in a single run
+npm run test:run
 
-# update all packages with lerna-update-wizard
-npm run update
+# publish all packages with lerna
+npm run publish
 ```
 
 <!-- Links -->

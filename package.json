@@ -9,12 +9,12 @@
   "scripts": {
     "bootstrap": "npm install; npx lerna bootstrap",
     "build": "lerna exec --parallel microbundle",
-    "dev": "lerna exec --parallel 'microbundle watch'",
     "clean": "lerna exec --parallel 'rm -rf dist node_modules'",
+    "dev": "lerna exec --parallel 'microbundle watch'",
     "link": "lerna link convert",
     "lint": "xo --fix; tsc",
     "test": "jest --watch packages",
-    "test:ci": "jest",
+    "test:run": "jest",
     "publish": "lerna publish"
   },
   "dependencies": {
@@ -42,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint; npm run test:ci; npm run clean; npm run build"
+      "pre-push": "npm run lint; npm run test:run; npm run clean; npm run build"
     }
   },
   "prettier": {

@@ -7,7 +7,7 @@
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me>",
   "scripts": {
-    "bootstrap": "npm install; npx lerna bootstrap",
+    "bootstrap": "npm install; lerna bootstrap",
     "build": "lerna exec --parallel microbundle",
     "clean": "lerna exec --parallel 'rm -rf dist node_modules'",
     "dev": "lerna exec --parallel 'microbundle watch'",

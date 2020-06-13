@@ -1,3 +1,3 @@
-import { Node } from 'unist';
+import { Hast } from 'unified-doc-types';
 
-export default function textOffsets(hast: Node): Node;
+export default function textOffsets(hast: Hast): Hast;

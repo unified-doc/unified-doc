@@ -48,8 +48,8 @@ export default function unifiedDoc(options = {}) {
     return processor.runSync(processor.parse(vfile));
   }
 
-  function search(options = {}) {
-    return searchAlgorithm(text(), options);
+  function search(query, options = {}) {
+    return searchAlgorithm(text(), query, options);
   }
 
   function string() {

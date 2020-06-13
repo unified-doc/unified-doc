@@ -37,12 +37,17 @@ export function createProcessor(options = {}) {
     case 'markdown':
       processor.use(markdown).use(remark2rehype);
       break;
+    case 'txt':
     default:
       processor.use(text);
   }
 
   // sanitize the tree
   processor.use(createPlugin(sanitize), deepmerge(gh, sanitizeSchema));
+
+  // apply private plugins
+  processor.use(createPlugin(textOffsets));
+  processor.use(createPlugin(annotate), { annotations, annotationCallbacks });
 
   // apply public plugins
   plugins.forEach((plugin) => {
@@ -53,10 +58,6 @@ export function createProcessor(options = {}) {
       processor.use(plugin);
     }
   });
-
-  // apply private plugins
-  processor.use(createPlugin(textOffsets));
-  processor.use(createPlugin(annotate), { annotations, annotationCallbacks });
 
   // apply provided compiler
   if (Array.isArray(compiler)) {

@@ -40,6 +40,7 @@ describe('annotated-node', () => {
             },
           ],
           properties: {
+            id: 'a',
             dataAnnotationId: 'a',
           },
         },
@@ -67,6 +68,7 @@ describe('annotated-node', () => {
               type: 'element',
               tagName: 'mark',
               properties: {
+                id: 'b',
                 dataAnnotationId: 'b',
               },
               children: [
@@ -74,6 +76,7 @@ describe('annotated-node', () => {
                   type: 'element',
                   tagName: 'mark',
                   properties: {
+                    id: 'c',
                     dataAnnotationId: 'c',
                   },
                   children: [
@@ -87,13 +90,14 @@ describe('annotated-node', () => {
             },
           ],
           properties: {
+            id: 'a',
             dataAnnotationId: 'a',
           },
         },
       ]);
     });
 
-    it('applies className and data fields to node properties', () => {
+    it('applies className and style to node properties', () => {
       expect(
         getAnnotatedNodes([
           {
@@ -102,8 +106,8 @@ describe('annotated-node', () => {
                 id: 'a',
                 start: 0,
                 end: 3,
-                className: ['class-a', 'class-b'],
-                data: { fieldA: 'fieldA', fieldB: 'fieldB' },
+                classNames: ['class-a', 'class-b'],
+                style: { background: 'red', color: 'blue' },
               },
             ],
             value: '01234',
@@ -115,9 +119,9 @@ describe('annotated-node', () => {
           tagName: 'mark',
           properties: {
             className: ['class-a', 'class-b'],
+            id: 'a',
             dataAnnotationId: 'a',
-            fieldA: 'fieldA',
-            fieldB: 'fieldB',
+            style: 'background: red; color: blue',
           },
           children: [{ type: 'text', value: '01234' }],
         },

@@ -1,14 +1,10 @@
-export default function searchRegexp(content, options = {}) {
-  const {
-    isCaseSensitive = false,
-    minMatchCharLength = 1,
-    pattern = '',
-  } = options;
-  const searchInputRegExp = new RegExp(pattern, isCaseSensitive ? 'g' : 'gi');
+export default function searchRegexp(content, query, options = {}) {
+  const { isCaseSensitive = false, minMatchCharLength = 1 } = options;
+  const searchInputRegExp = new RegExp(query, isCaseSensitive ? 'g' : 'gi');
 
   const textOffsets = [];
   let match;
-  if (pattern.length >= minMatchCharLength) {
+  if (query.length >= minMatchCharLength) {
     while ((match = searchInputRegExp.exec(content)) !== null) {
       const start = match.index;
       const end = searchInputRegExp.lastIndex;

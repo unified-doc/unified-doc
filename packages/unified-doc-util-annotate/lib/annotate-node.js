@@ -1,7 +1,12 @@
 import h from 'hastscript';
 
-export function getAnnotatedNodes(nodeSegments, annotationCallbacks = {}) {
+export function getAnnotatedNodes(
+  nodeSegments,
+  annotationCallbacks = {},
+  appliedAnnotationIds = new Set(),
+) {
   const { onClick, onMouseEnter, onMouseOut } = annotationCallbacks;
+
   return nodeSegments.map((nodeSegment) => {
     const { annotations, value } = nodeSegment;
     let annotatedNode = { type: 'text', value };
@@ -10,12 +15,19 @@ export function getAnnotatedNodes(nodeSegments, annotationCallbacks = {}) {
         .slice()
         .reverse() // create inner nodes first
         .forEach((annotation) => {
-          const { id, className, data = {} } = annotation;
+          const { id, classNames, style } = annotation;
+
           const properties = {
-            className,
+            className: classNames,
             dataAnnotationId: id,
-            ...data,
+            style,
           };
+
+          if (!appliedAnnotationIds.has(id)) {
+            properties.id = id;
+            appliedAnnotationIds.add(id);
+          }
+
           if (onClick) {
             properties.onClick = (event) => {
               onClick(annotation, event);

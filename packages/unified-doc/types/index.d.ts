@@ -1,54 +1,45 @@
-import { Annotation, AnnotationCallbacks } from 'unified-doc-util-annotate';
-import { Plugin } from 'unified';
-import { Node as UnistNode } from 'unist';
+import {
+  Annotation,
+  AnnotationCallbacks,
+  Compiler,
+  FileData,
+  Hast,
+  Plugin,
+  SanitizeSchema,
+  SearchAlgorithm,
+  SearchResult,
+} from 'unified-doc-types';
 import { VFile } from 'vfile';
 
-type Optional<T> = {
-  [P in keyof T]?: T[P];
+export {
+  Annotation,
+  AnnotationCallbacks,
+  Compiler,
+  FileData,
+  Hast,
+  Plugin,
+  SanitizeSchema,
+  SearchAlgorithm,
+  SearchResult,
+  VFile,
 };
-
-export { Annotation, AnnotationCallbacks, Plugin };
-
-export type SearchAlgorithm = (
-  content: string,
-  options: Record<string, unknown>,
-) => Snippet[];
-
-export interface File {
-  content: string;
-  extension: string;
-  name: string;
-  stem: string;
-  type: string;
-}
 
 export interface Options {
   filename: string;
   annotations?: Annotation[];
-  annotationCallbacks?: Optional<AnnotationCallbacks>;
-  compiler?: any; // TODO: need help on typing this correctly
+  annotationCallbacks?: AnnotationCallbacks;
+  compiler?: Compiler;
   content?: string | Buffer;
-  plugins?: any | any[]; // TODO: need help on typing this correctly
-  sanitizeSchema?: Record<string, unknown>;
+  plugins?: Plugin | Plugin[];
+  sanitizeSchema?: SanitizeSchema;
   searchAlgorithm?: SearchAlgorithm;
-}
-
-// TODO: check how to reference unknown properties on unist node
-export interface Node extends UnistNode {
-  children: Node[];
-}
-
-export interface Snippet {
-  start: number;
-  end: number;
-  value: string;
 }
 
 export interface Doc {
   compile: () => VFile;
-  file: (extension?: string) => File;
-  parse: () => Node;
-  search: (options?: Record<string, unknown>) => Snippet[];
+  file: (extension?: string) => FileData;
+  parse: () => Hast;
+  search: (query: string, options?: Record<string, any>) => SearchResult[];
   string: () => string;
   text: () => string;
 }

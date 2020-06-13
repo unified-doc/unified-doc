@@ -1,31 +1,15 @@
-import { Node } from 'unist';
+import {
+  Annotation,
+  AnnotationCallback,
+  AnnotationCallbacks,
+  Hast,
+} from 'unified-doc-types';
 
-type Optional<T> = {
-  [P in keyof T]?: T[P];
-};
-
-export interface Annotation {
-  id: string;
-  start: number;
-  end: number;
-  className?: string[];
-  data?: Record<string, unknown>;
-}
-
-export type AnnotationCallback = (
-  annotation: Annotation,
-  event?: MouseEvent,
-) => void;
-
-interface AnnotationCallbacks {
-  onClick: AnnotationCallback;
-  onMouseEnter: AnnotationCallback;
-  onMouseOut: AnnotationCallback;
-}
+export { Annotation, AnnotationCallback, AnnotationCallbacks };
 
 export interface Options {
   annotations: Annotation[];
-  annotationCallbacks?: Optional<AnnotationCallbacks>;
+  annotationCallbacks?: AnnotationCallbacks;
 }
 
-export default function annotate(hast: Node, options: Options): Node;
+export default function annotate(hast: Hast, options: Options): Hast;

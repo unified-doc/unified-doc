@@ -16,6 +16,7 @@ export default function annotate(hast, options) {
   }
 
   const validatedAnnotations = validateAnnotations(annotations);
+  const appliedAnnotationIds = new Set();
 
   return map(hast, (node) => {
     if (node.type === 'text' && node.data && node.data.textOffset) {
@@ -32,6 +33,7 @@ export default function annotate(hast, options) {
       const annotatedNodes = getAnnotatedNodes(
         nodeSegments,
         annotationCallbacks,
+        appliedAnnotationIds,
       );
       return h('div', annotatedNodes);
     }

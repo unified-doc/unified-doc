@@ -27,6 +27,7 @@
   "typings": "types/index.d.ts",
   "dependencies": {
     "hastscript": "^5.1.2",
+    "unified-doc-types": "file:../unified-doc-types",
     "unist-util-map": "^2.0.1"
   }
 }

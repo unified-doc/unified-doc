@@ -1,10 +1,5 @@
-export interface Snippet {
-  start: number;
-  end: number;
-  value: string;
-}
+import { SearchAlgorithm } from 'unified-doc-types';
 
-export default function search(
-  content: string,
-  options?: Record<string, unknown>,
-): Snippet[];
+declare const search: SearchAlgorithm;
+
+export default search;

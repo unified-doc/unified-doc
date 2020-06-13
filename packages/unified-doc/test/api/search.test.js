@@ -14,44 +14,36 @@ describe('search', () => {
     expect(text).toEqual('some\ncontent');
 
     expect(string).not.toContain('bad pattern');
-    expect(doc.search({ pattern: 'bad pattern' })).toEqual([]);
+    expect(doc.search('bad pattern')).toEqual([]);
 
     expect(string).toContain('blockquote');
     expect(text).not.toContain('blockquote');
-    expect(doc.search({ pattern: 'blockquote' })).toEqual([]);
+    expect(doc.search('blockquote')).toEqual([]);
 
     expect(string).toContain('some');
     expect(text).toContain('some');
-    expect(doc.search({ pattern: 'some' })).toEqual([
-      { start: 0, end: 4, value: 'some' },
-    ]);
+    expect(doc.search('some')).toEqual([{ start: 0, end: 4, value: 'some' }]);
     expect(text.slice(0, 4)).toEqual('some');
 
     expect(string).not.toContain('SO');
     expect(text).not.toContain('SO');
-    expect(
-      doc.search({
-        pattern: 'SO',
-      }),
-    ).toEqual([{ start: 0, end: 2, value: 'so' }]);
+    expect(doc.search('SO')).toEqual([{ start: 0, end: 2, value: 'so' }]);
     expect(text.slice(0, 2)).toEqual('so');
 
     expect(
-      doc.search({
+      doc.search('SO', {
         isCaseSensitive: true,
-        pattern: 'SO',
       }),
     ).toEqual([]);
     expect(
-      doc.search({
+      doc.search('SO', {
         minMatchCharLength: 3,
-        pattern: 'SO',
       }),
     ).toEqual([]);
   });
 
   it('searches with a custom search algorithm', () => {
-    function searchCustom(_content, options = {}) {
+    function searchCustom(_content, _query, options = {}) {
       if (options.disabled) {
         return [];
       }
@@ -75,8 +67,8 @@ describe('search', () => {
     expect(text).not.toEqual(htmlContent);
     expect(text).toEqual('some\ncontent');
 
-    expect(doc.search({ disabled: true })).toEqual([]);
-    expect(doc.search({ disabled: false })).toEqual([
+    expect(doc.search('static query', { disabled: true })).toEqual([]);
+    expect(doc.search('static query', { disabled: false })).toEqual([
       { start: 0, end: 5, value: 'static' },
     ]);
   });

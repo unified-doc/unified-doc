@@ -9,8 +9,8 @@ unified document APIs.
 ```ts
 function parser(
   content: string | Buffer,
-  options: object,
-): Node;
+  options?: Record<string, any>,
+): Hast;
 ```
 - Parsers convert content into a unified `hast` tree.
 - Naming pattern `unified-doc-parse-*`
@@ -19,15 +19,19 @@ function parser(
 
 ### Search Algorithms
 ```ts
-function search(content: string, options?: object): Snippet[];
+function search(
+  content: string,
+  query: string,
+  options?: Record<string, any>,
+): SearchResult[];
 
-interface Snippet {
+interface SearchResult {
   start: number;
   end: number;
   value: string;
 }
 ```
-- Search algorithms return snippets against the text content of the source content.
+- Search algorithms return search results with offsets relative to the source text content.
 - Naming pattern `unified-doc-search-*`
 - Packages:
   - `unified-doc-search-regexp`
@@ -35,9 +39,9 @@ interface Snippet {
 ### Hast Utils
 ```ts
 function util(
-  hast: Node,
-  options: object,
-): Node;
+  hast: Hast,
+  options?: Record<string, any>,
+): Hast;
 ```
 - [`hast`][hast] utils modify and return a new `hast` tree.
 - Naming pattern `unified-doc-util-*`
@@ -50,7 +54,7 @@ The project is managed with `lerna`.
 
 ```sh
 # install dependencies and bootstrap with lerna
-npx run bootstrap
+npm run bootstrap
 
 # build all packages with microbundle
 npm run build

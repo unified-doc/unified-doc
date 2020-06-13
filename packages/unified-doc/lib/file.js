@@ -31,9 +31,13 @@ export function vFile2File({
       type = inferMimeType(extension);
       break;
     }
-    // TODO: formalize and abstract this into a package
+    // TODO: formalize and abstract this into a package (i.e. awkward to pass annotations to this method)
     case extensionTypes.UNI: {
-      content = JSON.stringify({ annotations, hast }, null, 2);
+      content = JSON.stringify(
+        { annotations, basename: vfile.basename, hast },
+        null,
+        2,
+      );
       extension = extensionTypes.UNI;
       type = mimeTypes.UNI;
       break;

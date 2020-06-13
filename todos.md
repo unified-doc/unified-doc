@@ -1,13 +1,5 @@
 # todos
 
-- `.uni` format
-```
-type: 'hast' | 'mdast';
-tree Hast;
-annotations: Annotation[];
-basename: string;
-``
-
 - Address `TODO` comments.
 - Packages
   - `unified-doc-cli`: CLI APIs (e.g. curls to fetch document and use unified-doc APIs)

@@ -12,8 +12,8 @@ export interface FileData {
   type: string;
 }
 
-// TODO: need help on typing this formally
 export interface Hast extends Node {
+  // TODO: need help on typing this formally
   children?: Node[];
 }
 

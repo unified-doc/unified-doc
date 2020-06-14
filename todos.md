@@ -1,7 +1,5 @@
 # todos
 
-- Change `div` to `span` (bug with display block and newline)
-- prevent click event propagations in `util-annotate`
 - search regexp improvements:
   - support special characters e.g. ('\*') characters for regexp.
   - treat newlines/tabs as the same whitespace (inexact whitespace match).

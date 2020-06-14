@@ -1,0 +1,323 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`annotate annotates text nodes with overlapping annotations 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "data": Object {
+            "textOffset": Object {
+              "end": 1,
+              "start": 0,
+            },
+          },
+          "type": "text",
+          "value": "
+",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "data": Object {
+                    "textOffset": Object {
+                      "end": 5,
+                      "start": 1,
+                    },
+                  },
+                  "position": Object {
+                    "end": Object {
+                      "column": 9,
+                      "line": 1,
+                      "offset": 8,
+                    },
+                    "start": Object {
+                      "column": 5,
+                      "line": 1,
+                      "offset": 4,
+                    },
+                  },
+                  "type": "text",
+                  "value": "some",
+                },
+              ],
+              "position": Object {
+                "end": Object {
+                  "column": 11,
+                  "line": 1,
+                  "offset": 10,
+                },
+                "start": Object {
+                  "column": 3,
+                  "line": 1,
+                  "offset": 2,
+                },
+              },
+              "properties": Object {},
+              "tagName": "strong",
+              "type": "element",
+            },
+            Object {
+              "type": "text",
+              "value": " m",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "type": "text",
+                  "value": "ark",
+                },
+              ],
+              "properties": Object {
+                "dataAnnotationId": "a",
+                "id": "a",
+              },
+              "tagName": "mark",
+              "type": "element",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "children": Array [
+                    Object {
+                      "type": "text",
+                      "value": "down ",
+                    },
+                  ],
+                  "properties": Object {
+                    "dataAnnotationId": "b",
+                    "id": "b",
+                  },
+                  "tagName": "mark",
+                  "type": "element",
+                },
+              ],
+              "properties": Object {
+                "dataAnnotationId": "a",
+              },
+              "tagName": "mark",
+              "type": "element",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "type": "text",
+                  "value": "conte",
+                },
+              ],
+              "properties": Object {
+                "dataAnnotationId": "b",
+              },
+              "tagName": "mark",
+              "type": "element",
+            },
+            Object {
+              "type": "text",
+              "value": "nt",
+            },
+          ],
+          "position": Object {
+            "end": Object {
+              "column": 28,
+              "line": 1,
+              "offset": 27,
+            },
+            "start": Object {
+              "column": 3,
+              "line": 1,
+              "offset": 2,
+            },
+          },
+          "properties": Object {},
+          "tagName": "p",
+          "type": "element",
+        },
+        Object {
+          "data": Object {
+            "textOffset": Object {
+              "end": 23,
+              "start": 22,
+            },
+          },
+          "type": "text",
+          "value": "
+",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 28,
+          "line": 1,
+          "offset": 27,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "properties": Object {},
+      "tagName": "blockquote",
+      "type": "element",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 28,
+      "line": 1,
+      "offset": 27,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;
+
+exports[`annotate annotates text nodes with simple non-overlapping annotations 1`] = `
+Object {
+  "children": Array [
+    Object {
+      "children": Array [
+        Object {
+          "data": Object {
+            "textOffset": Object {
+              "end": 1,
+              "start": 0,
+            },
+          },
+          "type": "text",
+          "value": "
+",
+        },
+        Object {
+          "children": Array [
+            Object {
+              "children": Array [
+                Object {
+                  "data": Object {
+                    "textOffset": Object {
+                      "end": 5,
+                      "start": 1,
+                    },
+                  },
+                  "position": Object {
+                    "end": Object {
+                      "column": 9,
+                      "line": 1,
+                      "offset": 8,
+                    },
+                    "start": Object {
+                      "column": 5,
+                      "line": 1,
+                      "offset": 4,
+                    },
+                  },
+                  "type": "text",
+                  "value": "some",
+                },
+              ],
+              "position": Object {
+                "end": Object {
+                  "column": 11,
+                  "line": 1,
+                  "offset": 10,
+                },
+                "start": Object {
+                  "column": 3,
+                  "line": 1,
+                  "offset": 2,
+                },
+              },
+              "properties": Object {},
+              "tagName": "strong",
+              "type": "element",
+            },
+            Object {
+              "type": "text",
+              "value": " m",
+            },
+            Object {
+              "children": Array [
+                Object {
+                  "type": "text",
+                  "value": "arkdown ",
+                },
+              ],
+              "properties": Object {
+                "dataAnnotationId": "a",
+                "id": "a",
+              },
+              "tagName": "mark",
+              "type": "element",
+            },
+            Object {
+              "type": "text",
+              "value": "content",
+            },
+          ],
+          "position": Object {
+            "end": Object {
+              "column": 28,
+              "line": 1,
+              "offset": 27,
+            },
+            "start": Object {
+              "column": 3,
+              "line": 1,
+              "offset": 2,
+            },
+          },
+          "properties": Object {},
+          "tagName": "p",
+          "type": "element",
+        },
+        Object {
+          "data": Object {
+            "textOffset": Object {
+              "end": 23,
+              "start": 22,
+            },
+          },
+          "type": "text",
+          "value": "
+",
+        },
+      ],
+      "position": Object {
+        "end": Object {
+          "column": 28,
+          "line": 1,
+          "offset": 27,
+        },
+        "start": Object {
+          "column": 1,
+          "line": 1,
+          "offset": 0,
+        },
+      },
+      "properties": Object {},
+      "tagName": "blockquote",
+      "type": "element",
+    },
+  ],
+  "position": Object {
+    "end": Object {
+      "column": 28,
+      "line": 1,
+      "offset": 27,
+    },
+    "start": Object {
+      "column": 1,
+      "line": 1,
+      "offset": 0,
+    },
+  },
+  "type": "root",
+}
+`;

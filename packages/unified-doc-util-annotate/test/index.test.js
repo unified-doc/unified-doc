@@ -19,67 +19,7 @@ describe('annotate', () => {
       annotations: [{ id: 'a', start: 7, end: 15 }],
     });
     expect(annotated).not.toEqual(hast);
-
-    // not annotated
-    expect(annotated).toHaveProperty('children.0.children.0.type', 'text');
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.0.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.0.children.0.value',
-      'some',
-    );
-    expect(hast).toHaveProperty(
-      'children.0.children.1.children.1.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.type',
-      'element',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.tagName',
-      'div',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.0.value',
-      ' m',
-    );
-
-    // annotated
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.type',
-      'element',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.tagName',
-      'mark',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.properties.dataAnnotationId',
-      'a',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.children.0.value',
-      'arkdown ',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.value',
-      'content',
-    );
+    expect(annotated).toMatchSnapshot();
   });
 
   it('annotates text nodes with overlapping annotations', () => {
@@ -89,124 +29,8 @@ describe('annotate', () => {
         { id: 'b', start: 10, end: 20 },
       ],
     });
-    // not annotated
-    expect(annotated).toHaveProperty('children.0.children.0.type', 'text');
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.0.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.0.children.0.value',
-      'some',
-    );
-    expect(hast).toHaveProperty(
-      'children.0.children.1.children.1.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.type',
-      'element',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.tagName',
-      'div',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.0.value',
-      ' m',
-    );
-
-    // non-overlapping annotations ("a")
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.type',
-      'element',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.tagName',
-      'mark',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.properties.dataAnnotationId',
-      'a',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.1.children.0.value',
-      'ark',
-    );
-
-    // overlapping annotations ("a" and "b")
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.type',
-      'element',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.tagName',
-      'mark',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.properties.dataAnnotationId',
-      'a',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.children.0.type',
-      'element',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.children.0.tagName',
-      'mark',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.children.0.properties.dataAnnotationId',
-      'b',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.children.0.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.2.children.0.children.0.value',
-      'down ',
-    );
-
-    // non-overlapping annotations ("b")
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.3.type',
-      'element',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.3.tagName',
-      'mark',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.3.properties.dataAnnotationId',
-      'b',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.3.children.0.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.3.children.0.value',
-      'conte',
-    );
-
-    // no annotations
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.4.type',
-      'text',
-    );
-    expect(annotated).toHaveProperty(
-      'children.0.children.1.children.1.children.4.value',
-      'nt',
-    );
+    expect(annotated).not.toEqual(hast);
+    expect(annotated).toMatchSnapshot();
   });
 
   it('applies annotation callbacks', () => {
@@ -219,8 +43,7 @@ describe('annotate', () => {
       },
     });
 
-    const annotatedNode =
-      annotated.children[0].children[1].children[1].children[1];
+    const annotatedNode = annotated.children[0].children[1].children[2];
     expect(annotatedNode.properties.onClick).toBeInstanceOf(Function);
     expect(annotatedNode.properties.onMouseEnter).toBeInstanceOf(Function);
     expect(annotatedNode.properties.onMouseOut).toEqual(undefined);

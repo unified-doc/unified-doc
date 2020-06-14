@@ -6,8 +6,5 @@ export const extensionTypes = {
 
 export const mimeTypes = {
   DEFAULT: 'text/plain',
-  HTML: 'text/html',
-  JSON: 'application/json',
-  TEXT: 'text/plain',
   UNI: 'text/uni', // TODO: confirm with unified team!
 };

@@ -34,7 +34,7 @@ describe('text', () => {
     expect(doc.text()).toEqual('some\ncontent');
   });
 
-  it('retrieves only the source text content and ignores effects of plugins', () => {
+  it('ignores effects of plugins', () => {
     const doc1 = unifiedDoc({
       content: '# Heading 1 with **bold** text',
       filename: 'doc.md',
@@ -49,6 +49,6 @@ describe('text', () => {
     expect(
       JSON.stringify(doc2.parse()).match(/heading 1 with/gi).length,
     ).toBeGreaterThan(1);
-    // expect(doc2.text()).toEqual('Heading 1 with bold text');
+    expect(doc2.text()).toEqual('Heading 1 with bold text');
   });
 });

@@ -5,7 +5,7 @@ import toc from 'rehype-toc';
 import _vfile from 'vfile';
 
 import { markdownContent } from '../fixtures';
-import { createProcessor } from '../../../unified-doc/lib/processor';
+import { createProcessor } from '../../lib/processor';
 
 describe('processor', () => {
   describe('createProcessor', () => {

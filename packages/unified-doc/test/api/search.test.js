@@ -22,12 +22,16 @@ describe('search', () => {
 
     expect(string).toContain('some');
     expect(text).toContain('some');
-    expect(doc.search('some')).toEqual([{ start: 0, end: 4, value: 'some' }]);
+    expect(doc.search('some')).toEqual([
+      { start: 0, end: 4, value: 'some', snippet: ['', 'some', ''] },
+    ]);
     expect(text.slice(0, 4)).toEqual('some');
 
     expect(string).not.toContain('SO');
     expect(text).not.toContain('SO');
-    expect(doc.search('SO')).toEqual([{ start: 0, end: 2, value: 'so' }]);
+    expect(doc.search('SO')).toEqual([
+      { start: 0, end: 2, value: 'so', snippet: ['', 'so', ''] },
+    ]);
     expect(text.slice(0, 2)).toEqual('so');
 
     expect(
@@ -50,8 +54,8 @@ describe('search', () => {
         searchOptions: { snippetOffsetPadding: 0 },
       }).search('nt'),
     ).toEqual([
-      { start: 7, end: 9, value: 'nt' },
-      { start: 10, end: 12, value: 'nt' },
+      { start: 7, end: 9, value: 'nt', snippet: ['', 'nt', ''] },
+      { start: 10, end: 12, value: 'nt', snippet: ['', 'nt', ''] },
     ]);
     expect(
       unifiedDoc({
@@ -102,7 +106,7 @@ describe('search', () => {
 
     expect(doc.search('static query', { disabled: true })).toEqual([]);
     expect(doc.search('static query', { disabled: false })).toEqual([
-      { start: 0, end: 5, value: 'static' },
+      { start: 0, end: 5, value: 'static', snippet: ['', 'some\n', ''] },
     ]);
   });
 });

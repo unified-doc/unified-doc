@@ -13,10 +13,16 @@ describe('search', () => {
     });
 
     it('does not return "snippet" field when snippetOffsetPadding is falsy', () => {
-      expect(getSnippets(textContent, searchResults)).toEqual(searchResults);
+      expect(getSnippets(textContent, searchResults)).toEqual([
+        { start: 3, end: 6, value: 'e m', snippet: ['', 'e m', ''] },
+        { start: 11, end: 16, value: 'wn co', snippet: ['', 'wn co', ''] },
+      ]);
       expect(
         getSnippets(textContent, searchResults, { snippetOffsetPadding: 0 }),
-      ).toEqual(searchResults);
+      ).toEqual([
+        { start: 3, end: 6, value: 'e m', snippet: ['', 'e m', ''] },
+        { start: 11, end: 16, value: 'wn co', snippet: ['', 'wn co', ''] },
+      ]);
     });
 
     it('returns snippets based on offset padding', () => {

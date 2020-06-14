@@ -53,7 +53,7 @@ export interface SearchOptions {
 }
 
 export interface SearchResultSnippet extends SearchResult {
-  snippet?: [string, string, string];
+  snippet: [string, string, string];
 }
 
 export default function unifiedDoc(options: Options): Doc;

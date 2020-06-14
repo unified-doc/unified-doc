@@ -8,9 +8,9 @@ export function inferMimeType(filename) {
   return mime.lookup(filename) || mimeTypes.DEFAULT;
 }
 
-export function vFile2File({
+export function getFileData({
   annotations = [],
-  vfile,
+  file,
   hast = null,
   extension: extensionType = null,
 }) {
@@ -34,7 +34,7 @@ export function vFile2File({
     // TODO: formalize and abstract this into a package (i.e. awkward to pass annotations to this method)
     case extensionTypes.UNI: {
       content = JSON.stringify(
-        { annotations, basename: vfile.basename, hast },
+        { annotations, basename: file.basename, hast },
         null,
         2,
       );
@@ -43,17 +43,17 @@ export function vFile2File({
       break;
     }
     default: {
-      content = vfile.contents;
-      extension = vfile.extname;
-      type = inferMimeType(vfile.basename);
+      content = file.contents;
+      extension = file.extname;
+      type = inferMimeType(file.basename);
     }
   }
 
   return {
     content,
     extension,
-    name: `${vfile.stem}${extension}`,
-    stem: vfile.stem,
+    name: `${file.stem}${extension}`,
+    stem: file.stem,
     type,
   };
 }

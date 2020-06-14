@@ -1,7 +1,7 @@
 import searchRegexp from 'unified-doc-search-regexp';
-import _vfile from 'vfile';
+import vfile from 'vfile';
 
-import { vFile2File } from './lib/file';
+import { getFileData } from './lib/file';
 import { createProcessor } from './lib/processor';
 import { getSnippets } from './lib/search';
 
@@ -18,7 +18,7 @@ export default function unifiedDoc(options = {}) {
     searchOptions = {},
   } = options;
 
-  const vfile = _vfile({
+  const file = vfile({
     contents: content,
     basename: filename,
   });
@@ -27,21 +27,21 @@ export default function unifiedDoc(options = {}) {
     annotations,
     annotationCallbacks,
     compiler,
+    file,
     plugins,
     sanitizeSchema,
-    vfile,
   });
 
   function compile() {
     return processor.compile();
   }
 
-  function file(extension) {
-    return vFile2File({
+  function _file(extension) {
+    return getFileData({
       annotations,
       extension,
+      file,
       hast: parse(),
-      vfile,
     });
   }
 
@@ -65,7 +65,7 @@ export default function unifiedDoc(options = {}) {
 
   return {
     compile,
-    file,
+    file: _file,
     parse,
     search,
     string,

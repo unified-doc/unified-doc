@@ -1,11 +1,11 @@
 # todos
 
+- Change `div` to `span` (bug with display block and newline)
 - prevent click event propagations in `util-annotate`
 - search regexp improvements:
   - support special characters e.g. ('\*') characters for regexp.
   - treat newlines/tabs as the same whitespace (inexact whitespace match).
   - trim whitespace/special-characters (multiple whitespaces) or specify whitespace sensitivity/behaviors.
-  - support diacritics
 - Address `TODO` comments.
 - Packages
   - `unified-doc-cli`: CLI APIs (e.g. curls to fetch document and use unified-doc APIs)

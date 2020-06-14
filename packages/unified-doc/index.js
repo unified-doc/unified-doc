@@ -1,4 +1,3 @@
-import toString from 'hast-util-to-string';
 import searchRegexp from 'unified-doc-search-regexp';
 import _vfile from 'vfile';
 
@@ -34,7 +33,7 @@ export default function unifiedDoc(options = {}) {
   });
 
   function compile() {
-    return processor.processSync(vfile);
+    return processor.compile();
   }
 
   function file(extension) {
@@ -47,7 +46,7 @@ export default function unifiedDoc(options = {}) {
   }
 
   function parse() {
-    return processor.runSync(processor.parse(vfile));
+    return processor.parse();
   }
 
   function search(query, options = {}) {
@@ -57,11 +56,11 @@ export default function unifiedDoc(options = {}) {
   }
 
   function string() {
-    return vfile.toString();
+    return processor.string();
   }
 
   function text() {
-    return toString(parse());
+    return processor.text();
   }
 
   return {

@@ -1,6 +1,5 @@
 # todos
 
-- `.text()` is returning text after TOCs are applied.  resolve referencing the source hast to get the text content.
 - Address `TODO` comments.
 - Packages
   - `unified-doc-cli`: CLI APIs (e.g. curls to fetch document and use unified-doc APIs)

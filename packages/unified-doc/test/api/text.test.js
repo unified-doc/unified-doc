@@ -4,7 +4,7 @@ import { htmlContent, markdownContent } from '../fixtures';
 import unifiedDoc from '../../../unified-doc';
 
 describe('text', () => {
-  it('gets the text content correctly for provided .txt content', () => {
+  it('gets the text content of the parsed tree given the provided .txt content', () => {
     const doc1 = unifiedDoc({
       content: markdownContent,
       filename: 'doc.txt',
@@ -18,7 +18,7 @@ describe('text', () => {
     expect(doc2.text()).toEqual(htmlContent);
   });
 
-  it('gets the text content correctly for provided .md content', () => {
+  it('ggets the text content of the parsed tree given the  .md content', () => {
     const doc = unifiedDoc({
       content: markdownContent,
       filename: 'doc.md',
@@ -26,7 +26,7 @@ describe('text', () => {
     expect(doc.text()).toEqual('\nsome markdown content\n');
   });
 
-  it('gets the text content correctly for provided .html content', () => {
+  it('gets the text content of the parsed tree given the  .html content', () => {
     const doc = unifiedDoc({
       content: htmlContent,
       filename: 'doc.html',
@@ -46,9 +46,9 @@ describe('text', () => {
       filename: 'doc.md',
       plugins: [toc],
     });
-    expect(
-      JSON.stringify(doc2.parse()).match(/heading 1 with/gi).length,
-    ).toBeGreaterThan(1);
+    expect(JSON.stringify(doc2.parse()).match(/toc/gi).length).toBeGreaterThan(
+      1,
+    );
     expect(doc2.text()).toEqual('Heading 1 with bold text');
   });
 });

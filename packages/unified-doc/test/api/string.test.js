@@ -32,6 +32,9 @@ describe('string', () => {
       filename: 'doc.md',
       plugins: [toc],
     });
+    expect(JSON.stringify(doc2.parse()).match(/toc/gi).length).toBeGreaterThan(
+      1,
+    );
     expect(doc2.string()).toEqual(markdownContent);
   });
 });

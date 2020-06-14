@@ -1,3 +1,5 @@
+import toc from 'rehype-toc';
+
 import { htmlContent, markdownContent } from '../fixtures';
 import unifiedDoc from '../../../unified-doc';
 
@@ -30,5 +32,23 @@ describe('text', () => {
       filename: 'doc.html',
     });
     expect(doc.text()).toEqual('some\ncontent');
+  });
+
+  it('retrieves only the source text content and ignores effects of plugins', () => {
+    const doc1 = unifiedDoc({
+      content: '# Heading 1 with **bold** text',
+      filename: 'doc.md',
+    });
+    expect(doc1.text()).toEqual('Heading 1 with bold text');
+
+    const doc2 = unifiedDoc({
+      content: '# Heading 1 with **bold** text',
+      filename: 'doc.md',
+      plugins: [toc],
+    });
+    expect(
+      JSON.stringify(doc2.parse()).match(/heading 1 with/gi).length,
+    ).toBeGreaterThan(1);
+    // expect(doc2.text()).toEqual('Heading 1 with bold text');
   });
 });

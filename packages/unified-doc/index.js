@@ -4,6 +4,7 @@ import _vfile from 'vfile';
 
 import { vFile2File } from './lib/file';
 import { createProcessor } from './lib/processor';
+import { getSnippets } from './lib/search';
 
 export default function unifiedDoc(options = {}) {
   const {
@@ -15,6 +16,7 @@ export default function unifiedDoc(options = {}) {
     plugins = [],
     sanitizeSchema = {},
     searchAlgorithm = searchRegexp,
+    searchOptions = {},
   } = options;
 
   const vfile = _vfile({
@@ -49,7 +51,9 @@ export default function unifiedDoc(options = {}) {
   }
 
   function search(query, options = {}) {
-    return searchAlgorithm(text(), query, options);
+    const textContent = text();
+    const searchResults = searchAlgorithm(textContent, query, options);
+    return getSnippets(textContent, searchResults, searchOptions);
   }
 
   function string() {

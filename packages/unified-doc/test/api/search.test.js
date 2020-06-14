@@ -42,6 +42,39 @@ describe('search', () => {
     ).toEqual([]);
   });
 
+  it('applies snippet offset padding', () => {
+    expect(
+      unifiedDoc({
+        content: htmlContent,
+        filename: 'doc.html',
+        searchOptions: { snippetOffsetPadding: 0 },
+      }).search('nt'),
+    ).toEqual([
+      { start: 7, end: 9, value: 'nt' },
+      { start: 10, end: 12, value: 'nt' },
+    ]);
+    expect(
+      unifiedDoc({
+        content: htmlContent,
+        filename: 'doc.html',
+        searchOptions: { snippetOffsetPadding: 2 },
+      }).search('nt'),
+    ).toEqual([
+      { start: 7, end: 9, value: 'nt', snippet: ['co', 'nt', 'en'] },
+      { start: 10, end: 12, value: 'nt', snippet: ['te', 'nt', ''] },
+    ]);
+    expect(
+      unifiedDoc({
+        content: htmlContent,
+        filename: 'doc.html',
+        searchOptions: { snippetOffsetPadding: 5 },
+      }).search('nt'),
+    ).toEqual([
+      { start: 7, end: 9, value: 'nt', snippet: ['me\nco', 'nt', 'ent'] },
+      { start: 10, end: 12, value: 'nt', snippet: ['conte', 'nt', ''] },
+    ]);
+  });
+
   it('searches with a custom search algorithm', () => {
     function searchCustom(_content, _query, options = {}) {
       if (options.disabled) {

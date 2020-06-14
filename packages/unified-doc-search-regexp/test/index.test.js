@@ -13,7 +13,7 @@ describe('searchRegexp', () => {
     expect(searchRegexp(content, 'tothe')).toEqual([]);
   });
 
-  it('returns offsets for simple patterns', () => {
+  it('returns offsets for simple query', () => {
     expect(searchRegexp(content, 't')).toEqual([
       { start: 2, end: 3, value: 'T' },
       { start: 5, end: 6, value: 't' },
@@ -30,13 +30,18 @@ describe('searchRegexp', () => {
     ]);
   });
 
-  it('returns offsets for complex patterns', () => {
-    expect(searchRegexp(content, 'a|b|c')).toEqual([
+  it('escapes regexp when regexp is not explicitly enabled', () => {
+    expect(searchRegexp(content, '*')).toEqual([]);
+    expect(() => searchRegexp(content, '*', { enableRegexp: true })).toThrow('Invalid regular expression: /*/: Nothing to repeat');
+  })
+
+  it('returns offsets for regexp patterns', () => {
+    expect(searchRegexp(content, 'a|b|c', { enableRegexp: true })).toEqual([
       { start: 0, end: 1, value: 'a' },
       { start: 9, end: 10, value: 'b' },
       { start: 18, end: 19, value: 'c' },
     ]);
-    expect(searchRegexp(content, '(?<=TO).*(?=TO)')).toEqual([
+    expect(searchRegexp(content, '(?<=TO).*(?=TO)', { enableRegexp: true })).toEqual([
       { start: 4, end: 11, value: ' the b ' },
     ]);
   });

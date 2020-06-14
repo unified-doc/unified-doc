@@ -1,5 +1,11 @@
-export default function searchRegexp(content, query, options = {}) {
-  const { isCaseSensitive = false, minMatchCharLength = 1 } = options;
+function escapeRegExp(string){
+  return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+export default function searchRegexp(content, sourceQuery, options = {}) {
+  const { isCaseSensitive = false, minMatchCharLength = 1, enableRegexp = false } = options;
+
+  const query = enableRegexp ? sourceQuery : escapeRegExp(sourceQuery);
   const searchInputRegExp = new RegExp(query, isCaseSensitive ? 'g' : 'gi');
 
   const textOffsets = [];

@@ -1,12 +1,19 @@
 # todos
 
-- search regexp improvements:
-  - support special characters e.g. ('\*') characters for regexp.
-  - treat newlines/tabs as the same whitespace (inexact whitespace match).
-  - trim whitespace/special-characters (multiple whitespaces) or specify whitespace sensitivity/behaviors.
 - Address `TODO` comments.
 - Packages
-  - `unified-doc-cli`: CLI APIs (e.g. curls to fetch document and use unified-doc APIs)
-  - `unified-doc-dom`: various useful DOM-related APIs (e.g. annotating/highlighting, selecting text, creating/saving files, reading from files).
+  - `unified-doc-cli`:
+    - [HELP NEEDED]
+    - Curl urls into HTML and parse/search/export etc with `unified-doc` APIs.
+    - `search` CLIs.
+    - `file` CLIs
+    - `plugins` with `vfile` reporter integration to check content.
+  - `unified-doc-dom`:
+    - Utilities to export `FileData` as a JS `File` or create a `doc` instance from a `File`.
+    - `selectText`
+    - APIs that work well with `docRef` DOM reference (e.g. zooming, print)
+  - `unified-doc-search-*`:
+    - [HELP NEEDED]
+    - Build better search interfaces with more robust search algorithms (e.g. google, ES, Slack search syntaxes).
 - Update docs.
 - Check with `unified` team about the `.uni` file extension and `text/uni` mime type.

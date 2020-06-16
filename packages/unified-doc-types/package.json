@@ -1,6 +1,6 @@
 {
   "name": "unified-doc-types",
-  "version": "0.1.6-beta.0",
+  "version": "0.1.7-beta.0",
   "description": "typescript typings for unified-doc",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",

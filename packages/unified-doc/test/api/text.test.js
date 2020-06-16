@@ -1,17 +1,17 @@
 import toc from 'rehype-toc';
 
 import { htmlContent, markdownContent } from '../fixtures';
-import unifiedDoc from '../../../unified-doc';
+import api from '../../lib/api';
 
 describe('text', () => {
   it('gets the text content of the parsed tree given the provided .txt content', () => {
-    const doc1 = unifiedDoc({
+    const doc1 = api({
       content: markdownContent,
       filename: 'doc.txt',
     });
     expect(doc1.text()).toEqual(markdownContent);
 
-    const doc2 = unifiedDoc({
+    const doc2 = api({
       content: htmlContent,
       filename: 'doc.txt',
     });
@@ -19,7 +19,7 @@ describe('text', () => {
   });
 
   it('ggets the text content of the parsed tree given the  .md content', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -27,7 +27,7 @@ describe('text', () => {
   });
 
   it('gets the text content of the parsed tree given the  .html content', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: htmlContent,
       filename: 'doc.html',
     });
@@ -35,13 +35,13 @@ describe('text', () => {
   });
 
   it('ignores effects of plugins', () => {
-    const doc1 = unifiedDoc({
+    const doc1 = api({
       content: '# Heading 1 with **bold** text',
       filename: 'doc.md',
     });
     expect(doc1.text()).toEqual('Heading 1 with bold text');
 
-    const doc2 = unifiedDoc({
+    const doc2 = api({
       content: '# Heading 1 with **bold** text',
       filename: 'doc.md',
       plugins: [toc],

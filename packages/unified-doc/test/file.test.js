@@ -1,7 +1,7 @@
 import vfile from 'vfile';
 
-import { hast, markdownContent } from '../fixtures';
-import { inferMimeType, getFileData } from '../../../unified-doc/lib/file';
+import { hast, markdownContent } from './fixtures';
+import { inferMimeType, getFileData } from '../lib/file';
 
 describe('file', () => {
   // only test the default mime type since other behaviors are implemented/tested in "mime" package.

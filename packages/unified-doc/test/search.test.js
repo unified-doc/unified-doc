@@ -1,4 +1,4 @@
-import { getSnippets } from '../../lib/search';
+import { getSnippets } from '../lib/search';
 
 const textContent = 'some markdown content';
 const searchResults = [

@@ -1,7 +1,7 @@
 {
   "name": "unified-doc-parse-text",
   "version": "0.1.4-beta.0",
-  "description": "unified document parser to parse text content into a hast tree with a single text node",
+  "description": "unified-doc parser to parse text content into a hast tree with a single text node",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",
   "repository": "https://github.com/chrisrzhou/unified-doc/tree/master/packages/unified-doc-parse-text",

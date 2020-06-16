@@ -1,7 +1,7 @@
 import toc from 'rehype-toc';
 
 import { markdownContent } from '../fixtures';
-import unifiedDoc from '../../../unified-doc';
+import unifiedDoc from '../../lib/api';
 
 describe('string', () => {
   it('gets the string content correctly when content is provided as a string', () => {

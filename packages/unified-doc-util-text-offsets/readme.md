@@ -1,6 +1,6 @@
 # unified-doc-util-text-offsets
 
-unified document [`hast`][hast] utility to add text offsets to text nodes.
+[**unified-doc**][unified-doc] [hast][hast] utility to add text offsets to text nodes.
 
 ## Install
 
@@ -31,76 +31,16 @@ const hast = {
             {
               type: 'text',
               value: 'some',
-              position: {
-                start: {
-                  line: 1,
-                  column: 21,
-                  offset: 20,
-                },
-                end: {
-                  line: 1,
-                  column: 25,
-                  offset: 24,
-                },
-              },
             },
           ],
-          position: {
-            start: {
-              line: 1,
-              column: 13,
-              offset: 12,
-            },
-            end: {
-              line: 1,
-              column: 34,
-              offset: 33,
-            },
-          },
         },
         {
           type: 'text',
           value: '\ncontent',
-          position: {
-            start: {
-              line: 1,
-              column: 34,
-              offset: 33,
-            },
-            end: {
-              line: 2,
-              column: 8,
-              offset: 41,
-            },
-          },
         },
       ],
-      position: {
-        start: {
-          line: 1,
-          column: 1,
-          offset: 0,
-        },
-        end: {
-          line: 2,
-          column: 21,
-          offset: 54,
-        },
-      },
     },
   ],
-  position: {
-    start: {
-      line: 1,
-      column: 1,
-      offset: 0,
-    },
-    end: {
-      line: 2,
-      column: 21,
-      offset: 54,
-    },
-  },
 };
 
 console.log(textOffsets(hast));
@@ -126,10 +66,8 @@ const output = {
               data: {
                 textOffset: { start: 0, end: 4 },
               },
-              position: ...,
             },
           ],
-          position: ...,
         },
         {
           type: 'text',
@@ -137,42 +75,48 @@ const output = {
           data: {
             textOffset: { start: 4, end: 12 },
           },
-          position: ...,
         },
       ],
-      position: ...,
     },
   ],
-  position: ...,
 };
 ```
 
 
 ## API
 
-### `textOffsets(hast)`
+```ts
+function textOffsets(hast: Hast): Hast;
+```
 
-Utility to add `textOffset` data to all text nodes under a specified `hast` tree.
+Accepts a valid `hast` tree and applies `textOffset` data to text node.  Returns a new tree.
 
-A `TextOffset` for a given node is a tuple that tracks the start and end offset of the node's `textContent` relative to the `textContent` of the provided `hast` tree.
+### Interfaces
 
-A simple way to interpret this is presented in the pseudocode below:
+```ts
+interface TextOffset = {
+  start: number;
+  end: number;
+}
+```
+
+A `TextOffset` for a `text` node tracks the start and end offset of its text value relative to the `text` representation of the provided `hast` tree.
+
+The following pseudocode should aid this understanding:
 
 ```js
 const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
-const htmlTextContent = 'some\ncontent';
+const htmlText = 'some\ncontent';
 const textNodes = ['some', '\ncontent'];
 const textNodeOffsets = [
   { start: 0, end: 4 },
   { start: 4, end: 12 },
 ];
 
-const hast = { ... } // parsed from html
-const withTextOffsets = textOffsets(hast) // assign textNodesOffsets to relevant text nodes in the hast tree.
+const htmlHast = { ... };
+const withTextOffsets = textOffsets(htmlHast) // apply textNodesOffsets to relevant text nodes in the hast tree.
 ```
-
-#### Parameters
-- `node`: A valid `hast` node.
 
 <!-- Links -->
 [hast]: https://github.com/syntax-tree/hast
+[unified-doc]: https://github.com/unified-doc/unified-doc

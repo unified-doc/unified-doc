@@ -4,8 +4,8 @@ import stringify from 'rehype-stringify';
 import toc from 'rehype-toc';
 import vfile from 'vfile';
 
-import { markdownContent } from '../fixtures';
-import { createProcessor } from '../../lib/processor';
+import { markdownContent } from './fixtures';
+import { createProcessor } from '../lib/processor';
 
 describe('processor', () => {
   describe('createProcessor', () => {

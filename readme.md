@@ -1,6 +1,19 @@
 # unified-doc
 unified document APIs.
 
+## Intro
+
+## Goals
+
+## Features
+- Unified interface to parse content types (`.html`, `.txt`, `.md`) into HTML.
+- Unified interface to search content and return search result snippets.
+- Retrieve `string` (source text content) or `text` (text content without markup) representation of documents.
+- Retrieve `hast` tree representation of the document content.
+- Easily convert between supported file formats (`.html`, `.txt`, `.md`).
+
+## Specs
+
 ## Packages
 ### Core
 `unified-doc` is the core package for unified document APIs.
@@ -43,7 +56,7 @@ function util(
   options?: Record<string, any>,
 ): Hast;
 ```
-- [`hast`][hast] utils modify and return a new `hast` tree.
+- [hast][hast] utils modify and return a new `hast` tree.
 - Naming pattern `unified-doc-util-*`
 - Packages:
   - `unified-doc-util-annotate`

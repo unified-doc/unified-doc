@@ -2,11 +2,11 @@ import { createElement } from 'react';
 import rehype2react from 'rehype-react';
 
 import { markdownContent } from '../fixtures';
-import unifiedDoc from '../../../unified-doc';
+import api from '../../lib/api';
 
 describe('compile', () => {
   it('compiles serialized HTML if no compiler is provided', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -18,7 +18,7 @@ describe('compile', () => {
   });
 
   it('transforms to React given a react compiler', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       compiler: [rehype2react, { createElement }],
       content: markdownContent,
       filename: 'doc.md',

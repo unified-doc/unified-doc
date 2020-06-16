@@ -1,5 +1,5 @@
 import { hast } from './fixtures';
-import annotate from '..';
+import annotate from '../lib/annotate';
 
 describe('annotate', () => {
   it('returns the original tree if nothing to annotate', () => {

@@ -10,7 +10,6 @@ import remark2rehype from 'remark-rehype';
 import unified from 'unified';
 import text from 'unified-doc-parse-text';
 import annotate from 'unified-doc-util-annotate';
-import textOffsets from 'unified-doc-util-text-offsets';
 
 import { inferMimeType } from './file';
 
@@ -50,7 +49,6 @@ export function createProcessor(options = {}) {
   processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
 
   // apply private plugins (order matters)
-  processor.use(pluginfy(textOffsets));
   processor.use(pluginfy(annotate), { annotations, annotationCallbacks });
   processor.use(() => extractText);
 

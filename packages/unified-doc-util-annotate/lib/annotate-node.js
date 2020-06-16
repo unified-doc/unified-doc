@@ -16,18 +16,15 @@ export function getAnnotatedNodes(
         .reverse() // create inner nodes first
         .forEach((annotation) => {
           const { id, classNames, style } = annotation;
-
           const properties = {
             className: classNames,
             dataAnnotationId: id,
             style,
           };
-
           if (!appliedAnnotationIds.has(id)) {
             properties.id = id;
             appliedAnnotationIds.add(id);
           }
-
           if (onClick) {
             properties.onClick = (event) => {
               onClick(annotation, event);

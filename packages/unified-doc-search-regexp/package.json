@@ -1,7 +1,7 @@
 {
   "name": "unified-doc-search-regexp",
   "version": "0.1.7-beta.0",
-  "description": "unified document search algorithm to return snippets using simple regular expressions",
+  "description": "unified document search algorithm to return snippets with simple regular expression features",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",
   "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-regexp",

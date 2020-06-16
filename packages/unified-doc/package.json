@@ -46,7 +46,6 @@
     "unified-doc-search-regexp": "file:../unified-doc-search-regexp",
     "unified-doc-types": "file:../unified-doc-types",
     "unified-doc-util-annotate": "file:../unified-doc-util-annotate",
-    "unified-doc-util-text-offsets": "file:../unified-doc-util-text-offsets",
     "vfile": "^4.1.1"
   }
 }

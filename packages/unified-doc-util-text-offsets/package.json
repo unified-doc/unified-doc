@@ -1,7 +1,7 @@
 {
   "name": "unified-doc-util-text-offsets",
   "version": "0.1.5-beta.0",
-  "description": "unified document hast utility to add text offsets to text nodes",
+  "description": "unified-doc hast utility to add text offsets to text nodes",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",
   "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-text-offsets",

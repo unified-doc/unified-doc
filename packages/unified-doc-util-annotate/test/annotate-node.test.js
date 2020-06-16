@@ -2,7 +2,7 @@ import {
   getAnnotatedNodes,
   getOverLappingAnnotations,
   getNodeSegments,
-} from '../../lib/annotate-node';
+} from '../lib/annotate-node';
 
 const node = {
   type: 'text',

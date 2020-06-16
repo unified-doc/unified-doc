@@ -1,9 +1,9 @@
 import { htmlContent } from '../fixtures';
-import unifiedDoc from '../../../unified-doc';
+import api from '../../lib/api';
 
 describe('search', () => {
   it('searches with the default search algorithm (regexp)', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: htmlContent,
       filename: 'doc.html',
     });
@@ -48,7 +48,7 @@ describe('search', () => {
 
   it('applies snippet offset padding', () => {
     expect(
-      unifiedDoc({
+      api({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { snippetOffsetPadding: 0 },
@@ -58,7 +58,7 @@ describe('search', () => {
       { start: 10, end: 12, value: 'nt', snippet: ['', 'nt', ''] },
     ]);
     expect(
-      unifiedDoc({
+      api({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { snippetOffsetPadding: 2 },
@@ -68,7 +68,7 @@ describe('search', () => {
       { start: 10, end: 12, value: 'nt', snippet: ['te', 'nt', ''] },
     ]);
     expect(
-      unifiedDoc({
+      api({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { snippetOffsetPadding: 5 },
@@ -93,7 +93,7 @@ describe('search', () => {
       ];
     }
 
-    const doc = unifiedDoc({
+    const doc = api({
       content: htmlContent,
       filename: 'doc.html',
       searchAlgorithm: searchCustom,

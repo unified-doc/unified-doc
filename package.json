@@ -19,8 +19,6 @@
   },
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
-    "unified-doc-cli": "file:packages/unified-doc-cli",
-    "unified-doc-dom": "file:packages/unified-doc-dom",
     "unified-doc-parse-text": "file:packages/unified-doc-parse-text",
     "unified-doc-search-regexp": "file:packages/unified-doc-search-regexp",
     "unified-doc-types": "file:packages/unified-doc-types",
@@ -60,7 +58,6 @@
     "rules": {
       "@typescript-eslint/prefer-readonly-parameter-types": "off",
       "capitalized-comments": "off",
-      "import/no-extraneous-dependencies": "off",
       "no-unused-vars": [
         "error",
         {

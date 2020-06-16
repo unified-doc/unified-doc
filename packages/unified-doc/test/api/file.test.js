@@ -1,9 +1,9 @@
 import { markdownContent } from '../fixtures';
-import unifiedDoc from '../../../unified-doc';
+import api from '../../lib/api';
 
 describe('file', () => {
   it('returns the source file (string content) if no extension is provided', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -16,7 +16,7 @@ describe('file', () => {
   });
 
   it('returns the source file (Buffer content) if no extension is provided', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: Buffer.from(markdownContent),
       filename: 'doc.md',
     });
@@ -29,7 +29,7 @@ describe('file', () => {
   });
 
   it('returns a valid text file with only text content when ".txt" extension is provided', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -43,7 +43,7 @@ describe('file', () => {
   });
 
   it('returns a valid html file when ".html" extension is provided', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -59,7 +59,7 @@ describe('file', () => {
   });
 
   it('returns the unified file when ".uni" extension is provided', () => {
-    const doc = unifiedDoc({
+    const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -87,7 +87,7 @@ describe('file', () => {
       { id: 'b', start: 2, end: 8 },
       { id: 'c', start: 8, end: 10 },
     ];
-    const doc = unifiedDoc({
+    const doc = api({
       annotations,
       content: markdownContent,
       filename: 'doc.md',

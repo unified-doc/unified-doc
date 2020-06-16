@@ -1,4 +1,4 @@
-import parser from '../../unified-doc-parse-text/lib/parser';
+import parser from '../lib/parser';
 
 describe('parser', () => {
   it('should parse a file with empty content', () => {

@@ -1,98 +1,83 @@
-# unified-doc
+# 📄 unified-doc
 unified document APIs.
 
-## Intro
+## Contents
+- [Intro](#intro)
+- [Features](#features)
+- [Specs](#specs)
+- [Packages](#packages)
+- [Development](#development)
 
-## Goals
+## Intro
+The [unified][unified] initiative provides specs, tools, and a foundation to unify and structure content of varying formats.  This project seeks to unify common document APIs that operate on top of a unified content layer.
 
 ## Features
-- Unified interface to parse content types (`.html`, `.txt`, `.md`) into HTML.
-- Unified interface to search content and return search result snippets.
-- Retrieve `string` (source text content) or `text` (text content without markup) representation of documents.
-- Retrieve `hast` tree representation of the document content.
-- Easily convert between supported file formats (`.html`, `.txt`, `.md`).
+- Unified interface to parse supported content types (e.g. `.html`, `.txt`, `.md`) into HTML.
+- Unified interface to search content and return search result snippets irregardless of underlying content structure.
+- Easily convert between supported file formats (e.g. `.html`, `.txt`, `.md`).
+- Retrieve various useful representation of the document:
+  - `string`: source content in string form
+  - `text`: text content of compiled content without markup
+  - `hast`: syntax tree representation of the source content
+- Existing document APIs can be extended to new content types as long as the parsers are implemented.
+- Adding new document APIs will benefit the existing supported content types.
+- Rich ecosystem of [rehype][rehype] plugins.
+- Interoperable with web technologies.
+- Node + DOM friendly.
 
 ## Specs
+Please refer to the [Specs](./specs.md) documentation for more details.
 
 ## Packages
-### Core
-`unified-doc` is the core package for unified document APIs.
-
-### Parsers
-```ts
-function parser(
-  content: string | Buffer,
-  options?: Record<string, any>,
-): Hast;
-```
-- Parsers convert content into a unified `hast` tree.
-- Naming pattern `unified-doc-parse-*`
-- Packages:
+- Core:
+  - `unified-doc`
+- Parsers
   - `unified-doc-parse-text`
-
-### Search Algorithms
-```ts
-function search(
-  content: string,
-  query: string,
-  options?: Record<string, any>,
-): SearchResult[];
-
-interface SearchResult {
-  start: number;
-  end: number;
-  value: string;
-}
-```
-- Search algorithms return search results with offsets relative to the source text content.
-- Naming pattern `unified-doc-search-*`
-- Packages:
-  - `unified-doc-search-regexp`
-
-### Hast Utils
-```ts
-function util(
-  hast: Hast,
-  options?: Record<string, any>,
-): Hast;
-```
-- [hast][hast] utils modify and return a new `hast` tree.
-- Naming pattern `unified-doc-util-*`
-- Packages:
+- Search Algorithms
+  - `unified-doc-searc-regexp`
+- Hast Utils
   - `unified-doc-util-annotate`
   - `unified-doc-util-text-offsets`
+- Wrappers
+  - `unified-doc-react`
 
 ## Development
-The project is managed with `lerna`.
+This project is:
+- made possible by many awesome open-source projects (e.g. [unified][unified]).
+- linted with `xo` + `prettier` + `tsc`.
+- developed and bundled with `microbundle`.
+- tested with `jest`.
+- softly-typed with `typescript` (only public APIs are typed).  Typescript definitions used across packages are defined in `unified-docs-types`.
+- managed with `lerna` with the following scripts to organize the monorepo development:
+  ```sh
+  # install dependencies and bootstrap with lerna
+  npm run bootstrap
 
-```sh
-# install dependencies and bootstrap with lerna
-npm run bootstrap
+  # build all packages with microbundle
+  npm run build
 
-# build all packages with microbundle
-npm run build
+  # clean all packages (rm dist + node_modules)
+  npm run clean
 
-# clean all packages (rm dist + node_modules)
-npm run clean
+  # watch/rebuild all packages with microbundle
+  npm run dev
 
-# watch/rebuild all packages with microbundle
-npm run dev
+  # link all packages with lerna
+  npm run link
 
-# link all packages with lerna
-npm run link
+  # lint all packages with xo + prettier + tsc
+  npm run lint
 
-# lint all packages with xo + prettier + tsc
-npm run lint
+  # test all packages with jest in --watch mode (make sure to run the 'dev' script)
+  npm run test
 
-# test all packages with jest in --watch mode (make sure to run the 'dev' script)
-npm run test
+  # test all packages in a single run
+  npm run test:run
 
-# test all packages in a single run
-npm run test:run
-
-# publish all packages with lerna
-npm run publish
-```
+  # publish all packages with lerna
+  npm run publish
+  ```
 
 <!-- Links -->
-[hast]: https://github.com/syntax-tree/hast
+[rehype]: https://github.com/rehypejs/rehype
+[unified]: https://github.com/unifiedjs

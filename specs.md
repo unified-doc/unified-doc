@@ -6,7 +6,7 @@ Key concepts and terminology used throughout the documentation (a full list is p
 - **`knowledge`**: refers to abstract human information that is acquired and shared among humans.
 - **`content`**: represents the physical materialization of `knowledge`.  For this documentation, we will only refer to digital forms of `content` (e.g. string  or bytes with specific encodings).
 - **`document`**: an abstraction that manages `content`.
-- **`doc`**: an instance of `unified-doc` that represents a `document`.
+- **`doc`**: an instance of `unified-doc` representing a `document`.
 - **`file`**: an object to store `content` and meaningful metadata.
 
 ## Contents
@@ -35,7 +35,7 @@ const contentFromFile = await someBlob.text();
 > **Note**: In JS, it is easy to create `content` from string, `File` or `Blob` objects.
 
 ### `doc.filename`
-A `doc` is usually associated with a `file` to store and share `content`.  A `filename` is a string that represents the name of this `file`.  The `doc` will use the `filename` to infer the mime type for the associated `content`.  This then determines how the `content` will be parsed.  If a mime type cannot be inferred, we set it to `text/plain` as a default value.  The following shows the behaviors between `filename` and inferred mime types:
+A `doc` is usually associated with a `file` to store and share `content`.  A `filename` is a string representing the name of this `file`.  The `doc` will use the `filename` to infer the mime type for the associated `content`.  This then determines how the `content` will be parsed.  If a mime type cannot be inferred, we set it to `text/plain` as a default value.  The following shows the behaviors between `filename` and inferred mime types:
 
 ```js
 const file0 = 'file.html'; // text/html
@@ -212,7 +212,7 @@ The `doc` should detect and assign a parser based on the mime type inferred from
 > **Note**: All parsers in `unified-doc` should use the `unified-doc-parse-*` naming convention.
 
 ## `hast`
-[`hast`][hast] is a syntax tree that represents HTML.  A `hast` tree is created from a `parser` parsing `content` in a `doc`.
+[`hast`][hast] is a syntax tree representing HTML.  A `hast` tree is created from a `parser` parsing `content` in a `doc`.
 
 ### Utilities
 `hast` utilities are functions that operate or modify `hast` trees.  `doc` APIs are usually implemented as `hast` utilities because `hast` provides a unified and structured representation of `content` that can be transformed independent of the source `content` type.
@@ -279,7 +279,7 @@ The following are the author's definition of terms used in the project:
 - **`compiler`**: a function that compiles and converts a `hast` tree into output data, which is used to render and view the `doc`.
 - **`content`**: represents the physical materialization of `knowledge`.  This is the underlying data in a `doc` instance.
 - **`document`**: an abstraction that manages `content`.
-- **`doc`**: an instance of `unified-doc` that represents a `document`.
+- **`doc`**: an instance of `unified-doc` representing a `document`.
 - **`file`**: an object to store `content` and associated metadata.
 - **`filename`**: the name of the `file`.  A `filename` should include the file extension and is used by the `doc` to infer mime types in order to parse `content` with the appropriate `parser`.
 - **`hast`**: `doc` `content` represented in a structured HTML-based syntax tree.  `hast` trees allow unified transformations to be performed across different `content` types.
@@ -294,7 +294,7 @@ The following are the author's definition of terms used in the project:
 - **`unified`**: the [project][unified] that unifies content as structured data.
 - **`unified-doc`**: this [project][unified-doc] that unifies document APIs on top of a unified content layer.
 - **`util`**: usually refers to `hast` utilities that operate on `hast` trees.
-- **`vfile`**: a lightweight data structure that represents a `doc` as a virtual `file`.
+- **`vfile`**: a lightweight data structure representing a `doc` as a virtual `file`.
 - **`wrapper`**: a wrapping function that implements the `doc` instance and APIs conveniently in another ecosystem.
 
 <!-- Links -->

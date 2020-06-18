@@ -3,43 +3,47 @@ unified document APIs.
 
 ## Contents
 - [Intro](#intro)
-- [Features](#features)
 - [Specs](#specs)
 - [Packages](#packages)
 - [Development](#development)
 
 ## Intro
-The [unified][unified] initiative provides specs, tools, and a foundation to unify and structure content of varying formats.  This project seeks to unify common document APIs that operate on top of a unified content layer.
+The [`unified`][unified] initiative provides specs, tools, and a foundation to unify and structure content of varying formats.  `unified-doc` seeks to unify common document APIs that operate on top of a unified content layer.
 
-## Features
-- Unified interface to parse supported content types (e.g. `.html`, `.txt`, `.md`) into HTML.
-- Unified interface to search content and return search result snippets irregardless of underlying content structure.
-- Easily convert between supported file formats (e.g. `.html`, `.txt`, `.md`).
-- Retrieve various useful representation of the document:
-  - `string`: source content in string form
-  - `text`: extract only the human-readable content of text nodes
-  - `hast`: syntax tree representation of the source content
-- Existing document APIs can be extended to new content types as long as the relevant parsers are implemented.
-- Adding new document APIs will enhance all supported content types.
-- Rich ecosystem of [rehype][rehype] plugins.
-- Interoperable with web technologies.
-- Node + DOM friendly.
+Working with documents should be simple and unified.  We should be able to:
+- parse and render any content to HTML for easy viewing in the browser.
+- apply annotations and formatting to the document.
+- convert the document to a variety of file formats.
+- use a unified search interface that is simple to implement and works with any content type.
+- retrieve useful representations of the document (e.g. source content, string content, text content, file, syntax tree).
+- enrich the document through an ecosystem of plugins.
+- avoid working with problems relating to specific content types, and instead work with APIs that are built on simple and unified data and interfaces.
+- support new content types and extend existing APIs to them for free.
+- support new APIs and extend them to supported content types for free.
+- use these APIs in both Node + browsers.
+- evolve with web technologies.
+
+The above statements represent the goals that the `unified-doc` project is working towards: building simple and unified document APIs.
 
 ## Specs
-Please refer to the [Specs](./specs.md) documentation for more details.
+Please refer to the [Specs](./specs.md) documentation for more details ono how the `unified-doc` project is defined and implemented.
 
 ## Packages
-- Core:
-  - `unified-doc`
-- Parsers
-  - `unified-doc-parse-text`
-- Search Algorithms
-  - `unified-doc-search-regexp`
-- Hast Utils
-  - `unified-doc-util-annotate`
-  - `unified-doc-util-text-offsets`
-- Wrappers
-  - `unified-doc-react`
+### Core:
+- `unified-doc`
+
+### Parsers
+- `unified-doc-parse-text`
+
+### Search Algorithms
+- `unified-doc-search-regexp`
+
+### Hast Utils
+- `unified-doc-util-annotate`
+- `unified-doc-util-text-offsets`
+
+### Wrappers
+- `unified-doc-react`
 
 ## Development
 This project is:

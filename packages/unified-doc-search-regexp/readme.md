@@ -44,7 +44,7 @@ function SearchAlgorithm(
 ): SearchResult[]
 ```
 
-Uses the `SearchAlgorithm` interface with options to configure regexp features.  Performs the search algorithm against provided `content` and `query` string and returns an array of `SearchResult`.
+Uses the `SearchAlgorithm` interface with options to configure regexp features.  Performs the search algorithm against provided `content` and `query`jk and returns an array of `SearchResult`.
 
 ### Interfaces
 

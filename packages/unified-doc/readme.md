@@ -36,7 +36,7 @@ console.log(doc.file('.html'));
 // }
 
 console.log(doc.compile());
-// vFile 
+// vfile 
 
 console.log(doc.parse());
 // hast tree
@@ -81,43 +81,49 @@ interface Options {
   searchOptions?: Record<string, any>;
 }
 
-export type SearchAlgorithm = (
+type SearchAlgorithm = (
   content: string,
   query: string,
   options?: Record<string, any>,
 ) => SearchResult[];
+
+interface SearchResult {
+  start: number;
+  end: number;
+  value: string;
+}
 
 interface SearchResultSnippet extends SearchResult {
   snippet: [string, string, string];
 }
 ```
 
-##### `annotations`
-Document annotations inform how text nodes should be annotated based on the text offsets and properties of the provided annotations.
+##### `options.annotations`
+Document annotations inform how text nodes should be marked based on the provided annotation data (e.g. text offsets, classnames, style).
 
-##### `annotationCallbacks`
-Apply annotation callbacks to annotated text nodes.
+##### `options.annotationCallbacks`
+Specify annotation callbacks for annotated text nodes.
 
-##### `compiler`
+##### `options.compiler`
 Provide a valid [rehype][rehype] compiler (e.g. `rehype-react`, `rehype-stringify`) to compile the content.
 
-##### `content`
+##### `options.content`
 The document content can be provided as a simple `string` or a `Buffer`.
 
-##### `filename`
-The document filename should always include the file extension (e.g. `.md`), which determines how content is parsed.
+##### `options.filename`
+The document filename should always include the file extension (e.g. `.md`), which will determine how the content is parsed.
 
-##### `plugins`
+##### `options.plugins`
 Valid [rehype][rehype] plugins can be provided to further customize the document.
 
-##### `sanitizeSchema`
-Customize how the document is sanitized with a custom sanitize schema.
+##### `options.sanitizeSchema`
+Specify how the document is sanitized with a custom sanitize schema.
 
-##### `searchAlgorithm`
-Customize the underlying search algorithm used to search the document.  By default, a simple regex search algorithm is used.
+##### `options.searchAlgorithm`
+Provide the underlying search algorithm used to search the document.  A simple regex search algorithm is used by default.  Search algorithms operate by returning search results (with offsets) for a given `query` when searching against a document's `text` content.
 
-##### `searchOptions`
-Provide search options to configure the associated search algorithm.
+##### `options.searchOptions`
+Provide configurable search options for the associated search algorithm.
 
 #### Doc Instance
 
@@ -136,7 +142,7 @@ A `doc` instance exposes many unified APIs when working with documents.
   text: () => string;
 }
 
-export interface FileData {
+interface FileData {
   content: string;
   extension: string;
   name: string;
@@ -145,24 +151,80 @@ export interface FileData {
 }
 ```
 
+We will use the following example `doc` instance to go over the API methods:
+
+```js
+const doc = unifiedDoc({
+  content: '> **some** markdown content',
+  filename: 'doc.md',
+});
+
+```
+
+##### `doc.content`
+Original contents passed to the `doc`.
+
+##### `doc.filename`
+Filename passed to the `doc`.
+
 ##### `doc.compile(): VFile`
-Compiles and returns a `VFile` with compiled `content`/`result` depending on the compiler provided.
+Compiles and returns a `VFile` with compiled `content`/`result` based on the provided compiler.
 
 ##### `doc.file(extension?: string): FileData`
-From the source document, we can easily return file data of various supported formats by specifying the target extension type (e.g. `.html`, `.txt`).  If the extension is not provided, the source file is returned.
+We can easily return file data in various formats by providing a supported extension (e.g. `.html`, `.txt`).  If an extension is not provided, the source file is returned.
+
+```js
+doc.file('.txt');
+// {
+//   content: '> **some** markdown content',
+//   extension: '.txt',
+//   name: 'doc.txt',
+//   stem: 'doc',
+//   type: 'text/plain',
+// }
+
+doc.file('.html')
+// {
+  // content: '<blockquote><strong>some</strong>markdown content</blockquote>',
+  // extension: '.html',
+  // name: 'doc.html',
+  // stem: 'doc',
+  // type: 'text/html',
+// }
+```
 
 ##### `doc.parse(): Hast`
 Returns the [hast][hast] tree representation of the document content.
 
+```js
+doc.parse();
+// { type: 'root', children: [...] }
+```
+
 ##### `doc.search(query: string, options?: Record<string, any>): SearchResultSnippet[]`
-Performs a search on the document's `text` content against a provided `query` and returns `SearchResultSnippet`.  A custom `searchAlgorithm` with `searchOptions` can be provided during initialization.
+This method searches on the `doc`'s `text` content with a provided `query` and configurable options and returns `SearchResultSnippet`.  This method supports a simple but robust way to search the `doc` irregardless of its content type, and provides ways to integrate custom `searchAlgorithm` with the same interface as illustrated in the example below:
+
+```js
+doc.search('some|content', { enableRegexp: true });
+// [
+  // { start: 0, end: 5, value: 'some', snippet: ['', 'some', '']},
+  // { start: 14, end: 21, value: 'content', snippet: ['', 'content', '']},
+// ]
+```
 
 ##### `doc.string(): string`
-Returns the string content of the source document content.
+Returns the string representation of the source document content.
+
+```js
+doc.string(); // '> **some** markdown content'
+```
 
 ##### `doc.text(): string`
-Returns the equivalent of `textContent` of the document, stripping away any markup and metadata.  This text value is used in relationship with search and annotation features in `unified-doc`.
+Provides a very simple but important way to extract the `text` content from a `doc`.  This `text` content is usually human-readable content that is free of metadata and markup, and is obtained from the values of all text nodes in the `hast` representation of the `content`.  This `text` content is used with various features in `unified-doc` such as `annotations` and `search`
 
+```js
+doc.text(); // 'some markdown content'
+```
 
 <!-- Links -->
 [rehype]: https://github.com/rehypejs/rehype

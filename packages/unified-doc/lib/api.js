@@ -5,7 +5,7 @@ import { getFileData } from './file';
 import { createProcessor } from './processor';
 import { getSnippets } from './search';
 
-export default function unifiedDoc(options = {}) {
+function unifiedDoc(options = {}) {
   const {
     annotations = [],
     annotationCallbacks = {},
@@ -64,6 +64,10 @@ export default function unifiedDoc(options = {}) {
   }
 
   return {
+    // attributes
+    content,
+    filename,
+    // methods
     compile,
     file: _file,
     parse,
@@ -72,3 +76,5 @@ export default function unifiedDoc(options = {}) {
     text,
   };
 }
+
+export default unifiedDoc;

@@ -101,7 +101,7 @@ const hast = {
 ```js
 const annotations = [
   { id: 'a', classNames: ['a', 'b'], start: 3, end: 8 },
-  { id: 'b', style: { background: 'red', color: 'white' }, start: 6, end: 10 },
+  { id: 'b', style: { background: 'red' }, start: 6, end: 10 },
 ];
 
 console.log(annotate(hast, { annotations }));
@@ -158,7 +158,7 @@ const hast = {
               properties: {
                 id: 'b',
                 dataAnnotationId: 'b',
-                style: 'background: red; color white',
+                style: 'background: red',
               },
               children: [
                 {
@@ -232,7 +232,7 @@ interface Options {
 }
 ```
 
-An `Annotation` is an object that contains requried `id`, `start` and `end` field.  The `start` and `end` field are offset values relative to the `text` representation of the provided `hast` tree.  The annotation algorithm uses these offsets against the tree's text content to decide how to insert `mark` nodes with associated data while maintaining the semantic structure of the tree.
+An `Annotation` is an object that contains requried `id`, `start` and `end` field.  The `start` and `end` field are offset values relative to the `text` representation of the provided `hast` tree.  The annotation algorithm uses these offsets against the tree's `text` content to decide how to insert `mark` nodes with associated data while maintaining the semantic structure of the tree.
 
 The following pseudocode should aid this understanding:
 
@@ -241,14 +241,14 @@ const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
 const htmlText = 'some\ncontent';
 const textNodes = ['some', '\ncontent'];
 const textNodeOffsets = [
-  { start: 0, end: 4 },
-  { start: 4, end: 12 },
+  { start: 0, end: 4 }, // from "[some]\ncontent"
+  { start: 4, end: 12 }, // from "some[\ncontent]"
 ];
 
 const htmlHast = { ... };
 const annotations = [
   { id: 'a', classNames: ['a', 'b'], start: 3, end: 8 },
-  { id: 'b', style: { background: 'red', color: 'white' }, start: 6, end: 10 },
+  { id: 'b', style: { background: 'red' }, start: 6, end: 10 },
 ];
 const expectedTextSegments = [
   {
@@ -283,7 +283,12 @@ const expectedTextSegments = [
   },
 ];
 
-const annotated = annotate(htmlHast, { annotations }); // apply expectedTextSegments with annotation properties to relevant text nodes in the hast tree.  Preserve the semantic structure of the tree.
+/**
+ * Apply expectedTextSegments with annotation properties
+ * to relevant text nodes in the hast tree.
+ * Preserves the semantic structure of the tree.
+ */
+const annotated = annotate(htmlHast, { annotations });
 ```
 
 <!-- Links -->

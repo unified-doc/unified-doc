@@ -17,10 +17,10 @@ The [unified][unified] initiative provides specs, tools, and a foundation to uni
 - Easily convert between supported file formats (e.g. `.html`, `.txt`, `.md`).
 - Retrieve various useful representation of the document:
   - `string`: source content in string form
-  - `text`: text content of compiled content without markup
+  - `text`: extract only the human-readable content of text nodes
   - `hast`: syntax tree representation of the source content
-- Existing document APIs can be extended to new content types as long as the parsers are implemented.
-- Adding new document APIs will benefit the existing supported content types.
+- Existing document APIs can be extended to new content types as long as the relevant parsers are implemented.
+- Adding new document APIs will enhance all supported content types.
 - Rich ecosystem of [rehype][rehype] plugins.
 - Interoperable with web technologies.
 - Node + DOM friendly.
@@ -34,7 +34,7 @@ Please refer to the [Specs](./specs.md) documentation for more details.
 - Parsers
   - `unified-doc-parse-text`
 - Search Algorithms
-  - `unified-doc-searc-regexp`
+  - `unified-doc-search-regexp`
 - Hast Utils
   - `unified-doc-util-annotate`
   - `unified-doc-util-text-offsets`
@@ -47,7 +47,7 @@ This project is:
 - linted with `xo` + `prettier` + `tsc`.
 - developed and bundled with `microbundle`.
 - tested with `jest`.
-- softly-typed with `typescript` (only public APIs are typed).  Typescript definitions used across packages are defined in `unified-docs-types`.
+- softly-typed with `typescript` (only public APIs are typed).  Typescript definitions used across packages are defined in `unified-docs-types` and the project is typed using `checkJs`.
 - managed with `lerna` with the following scripts to organize the monorepo development:
   ```sh
   # install dependencies and bootstrap with lerna

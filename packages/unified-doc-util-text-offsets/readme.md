@@ -109,12 +109,14 @@ const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
 const htmlText = 'some\ncontent';
 const textNodes = ['some', '\ncontent'];
 const textNodeOffsets = [
-  { start: 0, end: 4 },
-  { start: 4, end: 12 },
+  { start: 0, end: 4 }, // from "[some]\ncontent"
+  { start: 4, end: 12 }, // from "some[\ncontent]"
 ];
 
 const htmlHast = { ... };
-const withTextOffsets = textOffsets(htmlHast) // apply textNodesOffsets to relevant text nodes in the hast tree.
+
+// apply textNodesOffsets to relevant text nodes in the hast tree.
+const withTextOffsets = textOffsets(htmlHast)
 ```
 
 <!-- Links -->

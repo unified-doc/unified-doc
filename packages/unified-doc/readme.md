@@ -202,7 +202,7 @@ doc.parse();
 ```
 
 ##### `doc.search(query: string, options?: Record<string, any>): SearchResultSnippet[]`
-This method searches on the `doc`'s `text` content with a provided `query` and configurable options and returns `SearchResultSnippet`.  This method supports a simple but robust way to search the `doc` irregardless of its content type, and provides ways to integrate custom `searchAlgorithm` with the same interface as illustrated in the example below:
+Searches on the `doc`'s `text` content with a provided `query` and configurable options and returns `SearchResultSnippet`.  This method supports a simple but robust way to search the `doc` irregardless of its content type, and provides ways to integrate custom `searchAlgorithm` with the same interface as illustrated in the example below::
 
 ```js
 doc.search('some|content', { enableRegexp: true });

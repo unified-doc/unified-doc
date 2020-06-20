@@ -29,21 +29,30 @@ The above statements represent the goals that the `unified-doc` project is worki
 Please refer to the [Specs](./specs.md) documentation for more details ono how the `unified-doc` project is defined and implemented.
 
 ## Packages
-### Core:
-- `unified-doc`
+The following packages are used in the `unified-doc` ecosystem.
+
+### API
+Core unified document APIs.
+- [`unified-doc`][unified-doc]
 
 ### Parsers
-- `unified-doc-parse-text`
+Parsers parse source content into [hast][hast] trees.  The following parsers are integrated in `unified-doc`.
+- [`rehype-parse`][rehype-parse]
+- [`remark-parse`][remark-parse]
+- [`unified-doc-parse-text`][unified-doc-parse-text]
 
 ### Search Algorithms
-- `unified-doc-search-regexp`
+Search algorithms return search results for a query when searching against a document's text content.
+- [`unified-doc-search-regexp`][unified-doc-search-regexp]
 
 ### Hast Utils
-- `unified-doc-util-annotate`
-- `unified-doc-util-text-offsets`
+`hast` utilities operate on and transform `hast` trees.
+- [`unified-doc-util-annotate`][unified-doc-util-annotate]
+- [`unified-doc-util-text-offsets`][unified-doc-util-text-offsets]
 
 ### Wrappers
-- `unified-doc-react`
+Wrappers implementing `unified-doc` APIs in other ecosystems.
+- [`unified-doc-react`][unified-doc-react]
 
 ## Development
 This project is:
@@ -83,5 +92,15 @@ This project is:
   ```
 
 <!-- Links -->
+[hast]: https://github.com/syntax-tree/hast
 [rehype]: https://github.com/rehypejs/rehype
+[rehype-parse]: https://github.com/rehypejs/rehype/tree/master/packages/rehype-parse
+[remark-parse]: https://github.com/remarkjs/remark/tree/master/packages/remark-parse
 [unified]: https://github.com/unifiedjs
+[unified-doc]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc
+[unified-doc-parse-text]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-parse-text
+[unified-doc-react]: https://github.com/unified-doc/unified-doc-react
+[unified-doc-search-regexp]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-regexp
+[unified-doc-util-annotate]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-annotate
+[unified-doc-util-text-offsets]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-text-offsets
+

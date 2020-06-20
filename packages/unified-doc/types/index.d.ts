@@ -25,6 +25,10 @@ export {
 };
 
 export interface Doc {
+  // attributes
+  content: string | Buffer;
+  filename: string;
+  // methods
   compile: () => VFile;
   file: (extension?: string) => FileData;
   parse: () => Hast;

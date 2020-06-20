@@ -25,8 +25,8 @@ Working with documents should be simple and unified.  We should be able to:
 
 The above statements represent the goals that the `unified-doc` project is working towards: building simple and unified document APIs.
 
-## Specs
-Please refer to the [Specs](./specs.md) documentation for more details ono how the `unified-doc` project is defined and implemented.
+## Spec
+Please refer to the [Spec](./spec.md) documentation for more details ono how the `unified-doc` project is defined and implemented.
 
 ## Packages
 The following packages are used in the `unified-doc` ecosystem.

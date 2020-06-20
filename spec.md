@@ -1,4 +1,4 @@
-# Specs
+# Spec
 
 Specifications for how the `unified-doc` project should be defined and implemented to support building unified document APIs.
 

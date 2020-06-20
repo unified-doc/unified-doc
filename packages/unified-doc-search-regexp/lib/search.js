@@ -12,15 +12,15 @@ export default function search(content, sourceQuery, options = {}) {
   const query = enableRegexp ? sourceQuery : escapeRegExp(sourceQuery);
   const searchInputRegExp = new RegExp(query, isCaseSensitive ? 'g' : 'gi');
 
-  const textOffsets = [];
+  const searchResults = [];
   let match;
   if (query.length >= minMatchCharLength) {
     while ((match = searchInputRegExp.exec(content)) !== null) {
       const start = match.index;
       const end = searchInputRegExp.lastIndex;
       const value = content.slice(start, end);
-      textOffsets.push({ start, end, value });
+      searchResults.push({ start, end, value });
     }
   }
-  return textOffsets;
+  return searchResults;
 }

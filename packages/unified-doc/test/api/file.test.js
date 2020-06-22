@@ -2,7 +2,7 @@ import { markdownContent } from '../fixtures';
 import api from '../../lib/api';
 
 describe('file', () => {
-  it('returns the source file (string content) if no extension is provided', () => {
+  it('returns the source file if no extension is provided', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',
@@ -15,26 +15,13 @@ describe('file', () => {
     expect(file.type).toEqual('text/markdown');
   });
 
-  it('returns the source file (Buffer content) if no extension is provided', () => {
-    const doc = api({
-      content: Buffer.from(markdownContent),
-      filename: 'doc.md',
-    });
-    const file = doc.file();
-    expect(file.content).toEqual(Buffer.from(markdownContent));
-    expect(file.extension).toEqual('.md');
-    expect(file.name).toEqual('doc.md');
-    expect(file.stem).toEqual('doc');
-    expect(file.type).toEqual('text/markdown');
-  });
-
   it('returns a valid text file with only text content when ".txt" extension is provided', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
     const file = doc.file('.txt');
-    expect(file.content).not.toEqual('some markdown content');
+    expect(file.content).not.toEqual(markdownContent);
     expect(file.content).toEqual('\nsome markdown content\n');
     expect(file.extension).toEqual('.txt');
     expect(file.name).toEqual('doc.txt');

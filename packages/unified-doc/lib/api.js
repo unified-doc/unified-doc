@@ -50,9 +50,19 @@ export default function unifiedDoc(options = {}) {
   }
 
   function search(query, options = {}) {
+    const { minMatchCharLength = 1, snippetOffsetPadding = 10 } = searchOptions;
+
+    if (query.length < minMatchCharLength) {
+      return [];
+    }
+
     const textContent = text();
     const searchResults = searchAlgorithm(textContent, query, options);
-    return getSnippets(textContent, searchResults, searchOptions);
+    return getSnippets({
+      content: textContent,
+      searchResults,
+      snippetOffsetPadding,
+    });
   }
 
   function string() {
@@ -64,10 +74,6 @@ export default function unifiedDoc(options = {}) {
   }
 
   return {
-    // attributes
-    content,
-    filename,
-    // methods
     compile,
     file: _file,
     parse,

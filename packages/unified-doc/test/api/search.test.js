@@ -2,7 +2,7 @@ import { htmlContent } from '../fixtures';
 import api from '../../lib/api';
 
 describe('search', () => {
-  it('searches with the default search algorithm (regexp)', () => {
+  it('searches with the default search algorithm and algorithm options (regexp)', () => {
     const doc = api({
       content: htmlContent,
       filename: 'doc.html',
@@ -23,14 +23,14 @@ describe('search', () => {
     expect(string).toContain('some');
     expect(text).toContain('some');
     expect(doc.search('some')).toEqual([
-      { start: 0, end: 4, value: 'some', snippet: ['', 'some', ''] },
+      { start: 0, end: 4, value: 'some', snippet: ['', 'some', '\ncontent'] },
     ]);
     expect(text.slice(0, 4)).toEqual('some');
 
     expect(string).not.toContain('SO');
     expect(text).not.toContain('SO');
     expect(doc.search('SO')).toEqual([
-      { start: 0, end: 2, value: 'so', snippet: ['', 'so', ''] },
+      { start: 0, end: 2, value: 'so', snippet: ['', 'so', 'me\ncontent'] },
     ]);
     expect(text.slice(0, 2)).toEqual('so');
 
@@ -39,14 +39,29 @@ describe('search', () => {
         isCaseSensitive: true,
       }),
     ).toEqual([]);
+  });
+
+  it('applies minMatchCharLength option', () => {
     expect(
-      doc.search('SO', {
-        minMatchCharLength: 3,
-      }),
+      api({
+        content: htmlContent,
+        filename: 'doc.html',
+        searchOptions: { minMatchCharLength: 1 },
+      }).search('nt'),
+    ).toEqual([
+      { start: 7, end: 9, value: 'nt', snippet: ['some\nco', 'nt', 'ent'] },
+      { start: 10, end: 12, value: 'nt', snippet: ['some\nconte', 'nt', ''] },
+    ]);
+    expect(
+      api({
+        content: htmlContent,
+        filename: 'doc.html',
+        searchOptions: { minMatchCharLength: 3 },
+      }).search('nt'),
     ).toEqual([]);
   });
 
-  it('applies snippet offset padding', () => {
+  it('applies snippetOffsetPadding option', () => {
     expect(
       api({
         content: htmlContent,
@@ -79,7 +94,7 @@ describe('search', () => {
     ]);
   });
 
-  it('searches with a custom search algorithm', () => {
+  it('searches with a custom search algorithm and snippets use the value returned by the algorithm', () => {
     function searchCustom(_content, _query, options = {}) {
       if (options.disabled) {
         return [];
@@ -97,6 +112,7 @@ describe('search', () => {
       content: htmlContent,
       filename: 'doc.html',
       searchAlgorithm: searchCustom,
+      searchOptions: { snippetOffsetPadding: 10 },
     });
     const string = doc.string();
     const text = doc.text();
@@ -106,7 +122,7 @@ describe('search', () => {
 
     expect(doc.search('static query', { disabled: true })).toEqual([]);
     expect(doc.search('static query', { disabled: false })).toEqual([
-      { start: 0, end: 5, value: 'static', snippet: ['', 'some\n', ''] },
+      { start: 0, end: 5, value: 'static', snippet: ['', 'static', 'content'] },
     ]);
   });
 });

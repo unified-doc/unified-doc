@@ -15,7 +15,7 @@ Working with documents should be simple and unified.  We should be able to:
 - apply annotations and formatting to the document.
 - convert the document to a variety of file formats.
 - use a unified search interface that is simple to implement and works with any content type.
-- retrieve useful representations of the document (e.g. source content, string content, text content, file, syntax tree).
+- retrieve useful representations of the document (e.g. source content, string content, text content, files, syntax tree).
 - enrich the document through an ecosystem of plugins.
 - avoid working with problems relating to specific content types, and instead work with APIs that are built on simple and unified data and interfaces.
 - support new content types and extend existing APIs to them for free.
@@ -32,26 +32,28 @@ Please refer to the [Spec](./spec.md) documentation for more details ono how the
 The following packages are used in the `unified-doc` ecosystem.
 
 ### API
-Core unified document APIs.
+Unified document APIs accessible for both Node and DOM.
 - [`unified-doc`][unified-doc]
+- [`unified-doc-cli`][unified-doc-cli]
+- [`unified-doc-dom`][unified-doc-dom]
 
 ### Parsers
-Parsers parse source content into [hast][hast] trees.  The following parsers are integrated in `unified-doc`.
+Parsers parse source content into unified [`hast`][hast] trees.  The following parsers are integrated in `unified-doc`.
 - [`rehype-parse`][rehype-parse]
 - [`remark-parse`][remark-parse]
 - [`unified-doc-parse-text`][unified-doc-parse-text]
 
 ### Search Algorithms
-Search algorithms return search results for a query when searching against a document's text content.
+Search algorithms use a unified interface to return search results when searching against a `doc`'s `text` content.
 - [`unified-doc-search-regexp`][unified-doc-search-regexp]
 
 ### Hast Utils
-`hast` utilities operate on and transform `hast` trees.
+`hast` utilities operate and transform `hast` trees.
 - [`unified-doc-util-annotate`][unified-doc-util-annotate]
 - [`unified-doc-util-text-offsets`][unified-doc-util-text-offsets]
 
 ### Wrappers
-Wrappers implementing `unified-doc` APIs in other ecosystems.
+Wrappers implement `unified-doc` APIs in other ecosystems.
 - [`unified-doc-react`][unified-doc-react]
 
 ## Development
@@ -94,10 +96,12 @@ This project is:
 <!-- Links -->
 [hast]: https://github.com/syntax-tree/hast
 [rehype]: https://github.com/rehypejs/rehype
-[rehype-parse]: https://github.com/rehypejs/rehype/tree/master/packages/rehype-parse
+[rehype-parse]: https://github.com/rehypejs/rehype/tree/main/packages/rehype-parse
 [remark-parse]: https://github.com/remarkjs/remark/tree/master/packages/remark-parse
 [unified]: https://github.com/unifiedjs
 [unified-doc]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc
+[unified-doc-cli]: https://github.com/unified-doc/unified-doc-cli
+[unified-doc-dom]: https://github.com/unified-doc/unified-doc-dom
 [unified-doc-parse-text]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-parse-text
 [unified-doc-react]: https://github.com/unified-doc/unified-doc-react
 [unified-doc-search-regexp]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-regexp

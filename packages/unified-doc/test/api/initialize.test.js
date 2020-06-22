@@ -8,10 +8,6 @@ describe('initialize', () => {
       filename: 'doc.md',
     });
     expect(Object.getOwnPropertyNames(doc)).toEqual([
-      // attributes
-      'content',
-      'filename',
-      // methods
       'compile',
       'file',
       'parse',
@@ -19,7 +15,5 @@ describe('initialize', () => {
       'string',
       'text',
     ]);
-    expect(doc.content).toEqual(markdownContent);
-    expect(doc.filename).toEqual('doc.md');
   });
 });

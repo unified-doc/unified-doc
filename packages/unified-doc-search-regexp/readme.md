@@ -22,9 +22,6 @@ search(content, 'TO');
 search(content, 'TO', { isCaseSensitive: true });
 // []
 
-search(content, 'TO', { minMatchCharLength: 3 });
-// []
-
 expect(search(content, 'a|b|c', { enableRegexp: true });
 // [
 //   { start: 0, end: 1, value: 'a' },
@@ -52,7 +49,6 @@ Uses the `SearchAlgorithm` interface with options to configure regexp features. 
 interface Options {
   enableRegexp?: boolean;
   isCaseSensitive?: boolean;
-  minMatchCharLength?: number;
 }
 
 interface SearchResult {

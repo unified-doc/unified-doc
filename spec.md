@@ -1,57 +1,55 @@
 # Spec
 
-Specifications for how the `unified-doc` project should be defined and implemented to support building unified document APIs.
+Specifications for how the `unified-doc` project should be defined and implemented to build unified document APIs.
 
-Key concepts and terminology used throughout the documentation (a full list is provided in the [**Glossary**](#glossary) section):
-- **`knowledge`**: refers to abstract human information that is acquired and shared among humans.
-- **`content`**: represents the physical materialization of `knowledge`.  For this documentation, we will only refer to digital forms of `content` (e.g. string  or bytes with specific encodings).
+The following are key concepts used throughout the documentation (a full list is provided in the [Glossary](#glossary) section).
+- **`knowledge`**: abstract human information that is acquired and shared among humans.
+- **`content`**: the physical materialization of `knowledge`.
 - **`document`**: an abstraction that manages `content`.
-- **`doc`**: an instance of `unified-doc` representing a `document`.
-- **`file`**: an object to store `content` and meaningful metadata.
+- **`doc`**: an instance of a `document` implemented by `unified-doc`.
+- **`file`**: an object storing `content` and associated metadata.
 
 ## Contents
 - [`doc`](#doc)
 - [`parser`](#parser)
 - [`hast`](#hast)
 - [`compiler`](#compiler)
-- [`sanitizeSchema`](#sanitizeSchema)
-- [`searchAlgorithm`](#searchAlgorithm)
-- [`plugins`](#plugins)
+- [`sanitizeSchema`](#sanitizeschema)
+- [`searchAlgorithm`](#searchalgorithm)
+- [Plugins](#plugins)
 - [Wrappers](#wrappers)
 - [Glossary](#glossary)
 
 ## `doc`
-A `doc` is an instance of a `document` implemented by `unified-doc` that represents an abstraction for managing `content` (e.g. reading, transforming, rendering, saving, sharing). The following are core concepts in defining a well-behaved `doc`.
+A `doc` is an instance of a `document` implemented by `unified-doc` that provides an abstraction for managing `content` (e.g. parsing, transforming, annotating, searching, rendering). The following concepts define the scope and behaviors of a `doc`.
 
-### `doc.content`
-`content` is usually typed as a `string` or `Buffer` in the `doc`.  The following are valid forms of content for a `doc`:
+### `content`
+Refers to the source data of a `doc` provided as a string.  The following are common ways to set `content` on a `doc`.
 
 ```js
 const stringContent = 'some string';
-const bufferContent = Buffer.from('some string');
 const contentFromFile = await someBlob.text();
 ```
 
-> **Note**: In JS, it is easy to create `content` from string, `File` or `Blob` objects.
-
-### `doc.filename`
-A `doc` is usually associated with a `file` to store and share `content`.  A `filename` is a string representing the name of this `file`.  The `doc` will use the `filename` to infer the mime type for the associated `content`.  This then determines how the `content` will be parsed.  If a mime type cannot be inferred, we set it to `text/plain` as a default value.  The following shows the behaviors between `filename` and inferred mime types:
+### `filename`
+A `doc` is usually associated with a `file` that stores `content`.  The `doc` will use the `filename` to infer the `mimeType` for the associated `content`, which determines how this `content` should be parsed.  If a `mimeType` cannot be inferred, we set it to `text/plain` as a default value.  The following shows the behaviors between `filename` and inferred `mimeTypes`.
 
 ```js
-const file0 = 'file.html'; // text/html
-const file1 = 'file.htm'; // text/html
-const file2 = 'file.md'; // text/markdown
-const file3 = 'file.txt'; // text/plain
-const file4 = 'file.jpg'; // image/jpeg
-const file5 = 'file.random-extension'; // text/plain
-const file6 = 'file.a.b.c'; // text/plain
-const file7 = 'no-extensions-not-recommended'; // text/plain
+const file0 = 'file.html'; // text/html (html parser)
+const file1 = 'file.htm'; // text/html (html parser)
+const file2 = 'file.md'; // text/markdown (markdown parser)
+const file3 = 'file.txt'; // text/plain (text parser)
+const file5 = 'file.random-extension'; // text/plain (text parser)
+const file6 = 'file.a.b.c'; // text/plain (text parser)
+const file7 = 'no-extensions-not-recommended'; // text/plain (text parser)
+const file4 = 'file.jpg'; // image/jpeg (unsupported parser)
+const file4 = 'file.pdf'; // application/pdf (unsupported/pdf parser)
 ```
 
-> **Note**: Relying on `filename` to determine the actual mime type of `content` is not a reliable method.  It is however a very convenient method, and is therefore used in the `doc` to infer how `content` should be parsed.
+> **Note**: Using the `filename` to determine the actual `mimeType` for some `content` is not a reliable method.  It is however a convenient method, and is therefore used by a `doc` to infer how `content` should be parsed.  New parsers can be implemented in the future to bridge unsupported `mimeTypes`.
 
-### `doc.annotations`
-An `annotation` is an object describing how to annotate/mark text nodes in a `doc`.  In order to do this, an `annotation` needs to provide the `start` and `end` offset relative to the `text` content of the `doc`.  The formal spec for an `annotation` is provided below:
+### `annotations`
+An `annotation` is an object describing how `text` content in a `doc` should be marked.  This is achieved by specifying the `start` and `end` offset of the annotation relative to the `text` content.  The formal spec for an `annotation` is provided below.
 
 ```ts
 interface Annotation {
@@ -64,7 +62,7 @@ interface Annotation {
 }
 ```
 
-The `doc` should apply annotations by simply wrapping annotated text segments with `<mark />` nodes and leave other areas of the document semantically unchanged.  The following pseudocode outlines how annotations work:
+A `doc` should implement `annotations` by wrapping annotated text node segments with `<mark />` nodes while leaving other areas of the `doc` semantically unchanged.  The following pseudocode describes the process and behaviors when annotating a `doc`.
 
 ```js
 const content = '<blockquote><strong>some</strong>\ncontent</blockquote>';
@@ -111,15 +109,14 @@ const expectedTextSegments = [
   },
 ];
 
-// apply <mark /> nodes to annotated text nodes identified above
-const annotated = annotate(hast, { annotations });
+// apply annotation properties to text segments with <mark /> nodes
 ```
 
 ### `doc.compile(): VFile`
-If a valid `compiler` is provided, this method supports compiling its `content` into output contents/results stored in a [vfile][vfile].  Renderers can make use of this compiled data to render the document.
+Compiles `content` into output results that is stored on a [`vfile`][vfile].  Renderers can use the compiled results to render the document.  Compiled results are defined and configured by assigning a specific `compiler` to the `doc`.  More details on [`compilers`](#compiler) is provided in a later section.
 
 ### `doc.file(extension?: string): FileData`
-Supports easy ways to convert between file formats by providing an `extension` parameter (e.g. `.html`, `.txt`).  The formal spec for the file data is provided below:
+Supports easy ways to convert between file formats by providing a supported `extension` argument (e.g. source file, `.html`, `.txt`, `.uni`).  File data for the provided extension is returned.  The formal spec for `FileData` is provided below.
 
 ```ts
 interface FileData {
@@ -131,8 +128,15 @@ interface FileData {
 }
 ```
 
+The core supported file extensions and behaviors are:
+- `null`: returns the source file without modification.
+- `.html`: returns the compiled `html` contents in a `.html` file.
+- `.txt`: returns only the `text` content in a `.txt` file.
+- `.uni`: returns the `hast` content and other metadata in a `.uni` file.
+
 ```js
 const content = '> **some** markdown content';
+
 console.log(doc.file()); // outputs source file
 // {
   // content: '> **some** markdown content',
@@ -141,7 +145,7 @@ console.log(doc.file()); // outputs source file
   // stem: 'doc',
   // type: 'text/markdown',
 // }
-console.log(doc.file('.html')); // outputs html converted file
+console.log(doc.file('.html')); // outputs html file
 // {
   // content: '<blockquote><strong>some</strong>markdown content</blockquote>',
   // extension: '.html',
@@ -149,16 +153,24 @@ console.log(doc.file('.html')); // outputs html converted file
   // stem: 'doc',
   // type: 'text/html',
 // }
+console.log(doc.file('.txt')); // outputs txt file with only text content
+// {
+  // content: 'some markdown content',
+  // extension: '.txt',
+  // name: 'doc.txt',
+  // stem: 'doc',
+  // type: 'text/plain',
+// }
 ```
 
-Note that you can easily create a JS `File` using `FileData`:
+Note that you can easily create a Javascript `File` instance using `FileData`:
 ```js
 const { content, name, type } = doc.file('.html');
 const file = new File([content], name, { type }); // creates a valid HTML file
 ```
 
 ### `doc.parse(): Hast`
-Converts the `content` of a `doc` into a `hast` tree.  The tree is useful for transformations with `hast` utilities.  The `doc` uses the `hast` representation of the content to implement many private document APIs.
+Converts `content` into a [`hast`][hast] tree.  The tree is useful for transformations with `hast` utilities.  A `doc` uses this unified and structured `hast` representation to implement many APIs irregardless of its underlying `mimeType`.
 
 ```js
 const content = '> **some** markdown content';
@@ -167,74 +179,76 @@ console.log(doc.parse());
 ```
 
 ### `doc.string(): string`
-Provides a convenient way to return the string representation of the `content` in a `doc`.  The default string encoding is `utf-8`.
-
-```js
-const content = Buffer.from('> **some** markdown content');
-console.log(doc.string()); // '> **some** markdown content' 
-```
-
-### `doc.text(): string`
-Provides a very simple but important way to extract the `text` content from a `doc`.  The `text` content is human-readable content that is free of markup and metadata, and is obtained from the values of all text nodes in the `hast` representation of the `content`.  This `text` content is used in various `doc` features (e.g. `annotations` and `search`).
-
-```js
-const content1 = Buffer.from('> **some** markdown content');
-console.log(doc1.text()); // 'some markdown content';
-
-const content2 = '<blockquote><strong>some</strong> markdown content</blockquote>';
-console.log(doc2.text()); // 'some markdown content';
-```
-
-### `doc.search(query: string, options?: Record<string, any>): SearchResultSnippet[]`
-Searches on the `doc`'s `text` content with a provided `query` and configurable options and returns `SearchResultSnippet`.  This method supports a simple but robust way to search the `doc` irregardless of its content type, and provides ways to integrate custom `searchAlgorithm` with the same interface as illustrated in the example below:
+Returns the string representation of `content`.  The default string encoding is `utf-8`.
 
 ```js
 const content = '> **some** markdown content';
-const searchOptions = { snippetOffsetPadding: 5 }
+console.log(doc.string()); // '> **some** markdown content'
+```
+
+### `doc.text(): string`
+The `text` content of a `doc` is obtained by extracting values of all `text` nodes in the `hast` representation of the source `content`.  The `text` content is free of markup and metadata, and supports many important `doc` features (annotations and searching).
+
+```js
+const content1 = '> **some** markdown content';
+console.log(doc1.string()); // '> **some** markdown content';
+console.log(doc1.text()); // 'some markdown content';
+
+const content2 = '<blockquote><strong>some</strong> markdown content</blockquote>';
+console.log(doc2.string()); // '<blockquote><strong>some</strong> markdown content</blockquote>';
+console.log(doc2.text()); // 'some markdown content';
+```
+
+### `doc.search(query: string, options?: object): SearchResultSnippet[]`
+Searches on the `text` content of a `doc` when a `query` string and configurable `options` is provided.  Returns `SearchResultSnippet`.  This method supports a simple and robust way to search on a `doc` irregardless of its underlying `mimeType`. Custom `searchAlgorithm` with the same unified interface can be easily integrated.
+
+```js
+const content = '> **some** markdown content';
+const searchOptions = { minMatchCharLength: 2, snippetOffsetPadding: 10 }
+
 doc.search('some|content', { enableRegexp: true });
 // [
-  // { start: 0, end: 5, value: 'some', snippet: ['', 'some', ' mark']},
-  // { start: 14, end: 21, value: 'content', snippet: ['down ', 'content', '']},
+  // { start: 0, end: 5, value: 'some', snippet: ['', 'some', ' markdown c']},
+  // { start: 14, end: 21, value: 'content', snippet: [' markdown ', 'content', '']},
 // ]
 ```
 
-More details about [`searchAlgorithm`](#searchAlgorithm) is covered in a later section.
+More details on [`searchAlgorithm`](#searchalgorithm) is covered in a later section.
 
 ## `parser`
-A `parser` is responsible for parsing `content` in a `doc` into a `hast` tree.  
+A `parser` is responsible for parsing string `content` into a [`hast`][hast] tree.
 
 ```ts
-function parser(content: string, options?: Record<string, any>): Hast;
+function parser(content: string, options?: object): Hast;
 ```
 
-The `doc` should detect and assign a parser based on the mime type inferred from the `filename`.  This parser will then parse the provided `content`.  The `doc` can support new `content` types by implementing and integrating new parsers.
+The `doc` should detect and assign a parser based on the `mimeType` inferred from the `filename`.  This parser will then parse the provided `content` into a `hast` tree.  The `doc` can support new `mimeTypes` by implementing and integrating new parsers.
 
 > **Note**: All parsers in `unified-doc` should use the `unified-doc-parse-*` naming convention.
 
 ## `hast`
-[`hast`][hast] is a syntax tree representing HTML.  A `hast` tree is created from a `parser` parsing `content` in a `doc`.
+[`hast`][hast] is a syntax tree representing HTML.  A `hast` tree is created from a `parser` parsing `content`.
 
-### Utilities
-`hast` utilities are functions that operate or modify `hast` trees.  `doc` APIs are usually implemented as `hast` utilities because `hast` provides a unified and structured representation of `content` that can be transformed independent of the source `content` type.
+`hast` utilities are functions that operate or modify `hast` trees.  `doc` methods are usually implemented with `hast` utilities because `hast` provides a unified and structured representation for transforming `content` irregardless of its underlying `mimeType`.
 
 ```ts
-function util(hast: Hast, options?: Record<string, any>): Hast;
+function util(hast: Hast, options?: object): Hast;
 ```
 
 > **Note**: All `hast` utilities in `unified-doc` should use the `unified-doc-util-*` naming convention.
 
 ## `compiler`
-A `compiler` compiles a `hast` tree into an output (usually a string).  The content/result of a `compiler` is usually used by a renderer to render the content.  This is a required field to specify a `doc` isntance because it affects how the `doc` is rendered and viewed.
+A `compiler` compiles a `hast` tree into an output (usually a string).  The results of a `compiler` is used by a renderer to render the `doc`.
 
 ```ts
-function compile(hast: Hast, options?: Record<string, any>): any;
+function compile(hast: Hast, options?: object): VFile;
 ```
 
 ## `sanitizeSchema`
-By default, the `doc`'s `hast` tree will be safely sanitized.  You can supply a custom sanitize schema for defining custom sanitization rules before `plugins` are applied.  Please see the [`hast-util-sanitize`][hast-util-sanitize] package for more details.
+By default, a `doc` will be safely sanitized.  You can supply a custom schema to specify custom sanitization rules before plugins are applied.  Please see the [`hast-util-sanitize`][hast-util-sanitize] package for more details.
 
 ## `searchAlgorithm`
-The `doc` provides a simple way to search its `text` content against a `query` string.  The interface for searching is implemented through a `searchAlgorithm`.  A `doc` is initialized with a `searchAlgorithm` defined by the following spec:
+A `doc` provides a simple way to search its `text` content against a `query` string.  A `searchAlgorithm` implements the behaviors of searching a `doc` and uses the following unified interface.
 
 ```ts
 type SearchAlgorithm = (
@@ -254,48 +268,46 @@ interface SearchResultSnippet extends SearchResult {
 }
 ```
 
-A `searchAlgorithm` implementation simply needs to return search results containing text offsets calculated based on the `text` content of the `doc` in relation to the `query` string.  The `doc` provides a simple default `searchAlgorithm` based on regexp search, but more advanced interfaces and algorithms can be attached to the `doc`.
+A `searchAlgorithm` implementation simply needs to return `SearchResults` containing text offsets relative to the `text` content of a `doc` when a `query` string is provided.
 
 > **Note**: All search algorithms in `unified-doc` should use the `unified-doc-search-*` naming convention.
 
-## `plugins`
-Plugins provide a way to further add features to the `doc`.  The `doc` is built using a number of private plugins.  The `doc` requires that public plugins:
-- be `hast`-based.
-- are applied after private plugins, so they do not affect the private APIs of the `doc`.
-- ideally do not mutate the tree and do not add `text` content into the tree, which may interfere with APIs that work with `doc.text()`.
+## Plugins
+Private plugins are used to implement `doc` APIs.  Public plugins are applied after private plugins and add further features to a `doc`.  We require that public plugins:
+- are interoperable with `hast`.
+- avoid mutating or affecting the `text` content of a `doc`.
 
 ## Wrappers
-A wrapper is an implementation that wraps the `doc` instance and exposes its APIs more conveniently in another ecosystem.  An example of a wrapper is `unified-doc-react`, a [react][react] wrapper for `unified-doc`.  Wrappers should:
+Wrappers implement and expose `doc` APIs in other ecosystems.  An example of a wrapper is `unified-doc-react`, a [`react`][react] wrapper for `unified-doc`.  Wrappers should:
 - specify a `compiler` and easily render the `doc` in the corresponding ecosystem.
-- expose the `doc` instance for convenient access to all `doc` API methods.
-- include a reference to the evaluated `doc` DOM node for convenient DOM manipulation.
-- never change the interface of the `doc` APIs.
-- remain non-opinionated about how `doc` APIs are used (i.e. simply pass the APIs through).
+- expose a `doc` instance for convenient access to `doc` API methods.
+- include a reference to the rendered `doc` DOM node for convenient DOM manipulation.
+- avoid obsfuscating `doc` APIs with wrapping code.
 
 ## Glossary
 The following are the author's definition of terms used in the project:
 
-- **`annotation`**: data that describes how a substring in the `text` content of a `doc` should be marked.
-- **`compiler`**: a function that compiles and converts a `hast` tree into output data, which is used to render and view the `doc`.
-- **`content`**: represents the physical materialization of `knowledge`.  This is the underlying data in a `doc` instance.
+- **`annotation`**: an object describing how `text` content in a `doc` should be marked.
+- **`compiler`**: a function that converts a `hast` tree into output data that can be used be a renderer to render a `doc`.
+- **`content`**: the physical materialization of `knowledge`.
 - **`document`**: an abstraction that manages `content`.
-- **`doc`**: an instance of `unified-doc` representing a `document`.
-- **`file`**: an object to store `content` and associated metadata.
-- **`filename`**: the name of the `file`.  A `filename` should include the file extension and is used by the `doc` to infer mime types in order to parse `content` with the appropriate `parser`.
-- **`hast`**: `doc` `content` represented in a structured HTML-based syntax tree.  `hast` trees allow unified transformations to be performed across different `content` types.
-- **`knowledge`**: refers to abstract human information that is acquired and shared among humans.
-- **`plugin`**: a function that can operate on the `hast` tree.
-- **`sanitizeSchema`**: all content is HTML-sanitized by default but a sanitize schema can define custom sanitization rules.
+- **`doc`**: an instance of a `document` implemented by `unified-doc`.
+- **`file`**: an object storing `content` and associated metadata.
+- **`filename`**: the name of a `file` that is used by a `doc` to infer the underlying `mimeType` for parsing `content` with an appropriate `parser`.
+- **`hast`**: a syntax tree representing HTML.  A `hast` tree is created from a `parser` parsing `content`.  It is used by a `doc` to implement many APIs that rely on a unified and structured representation of the underlying `content`.
+- **`knowledge`**: abstract human information that is acquired and shared among humans.
+- **`mimeType`**: a standard used to identify the nature and format for associated `content`.
+- **`sanitizeSchema`**: a schema describing custom sanitzation rules. A `doc` is safely sanitized by default.
 - **`searchAlgorithm`**: a function that takes a string query with configurable options, and returns search results while searching across the `text` content in a `doc`.
-- **`searchResult`**: a search result should include offsets to indicate where it occurs in the `text` content of a `doc`.
-- **`searchResultSnippet`**: a search result snippet is an extension of a search result that contains preceding and postceding text surrounding the matched search value.
-- **`string`**: representation of the `doc` source content in string form.
-- **`text`**: text-only content (from text nodes) extracted from the `doc` source content.  This is usually free of any metadata and markup.  The `text` value is used in many `doc` APIs (e.g. `annotations` and `search`).
+- **`searchResult`**: a search result includes offsets to indicate where the matched value occurs in the `text` content of a `doc`.
+- **`searchResultSnippet`**: a search result snippet is an extension of a search result that provides snippet information (preceding and postceding text surrounding the matched search value).
+- **`string`**: string representation of the `content` of a `doc`.  This is usually the same value as the `content` provided to a `doc`.
+- **`text`**: derived content obtained by extracting values of all `text` nodes in the `hast` representation of the source `content`.  The `text` content is free of markup and metadata, and supports many important `doc` features (annotations and searching).
 - **`unified`**: the [project][unified] that unifies content as structured data.
 - **`unified-doc`**: this [project][unified-doc] that unifies document APIs on top of a unified content layer.
 - **`util`**: usually refers to `hast` utilities that operate on `hast` trees.
 - **`vfile`**: a lightweight data structure representing a `doc` as a virtual `file`.
-- **`wrapper`**: a wrapping function that implements the `doc` instance and APIs conveniently in another ecosystem.
+- **`wrapper`**: a wrapping function that implements and exposes `doc` APIs in other ecosystems.
 
 <!-- Links -->
 [hast]: https://github.com/syntax-tree/hast

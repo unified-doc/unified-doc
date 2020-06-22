@@ -70,15 +70,15 @@ Provide configurable options to initialize a `doc` instance.
 
 ```ts
 interface Options {
+  content: string;
+  filename: string;
   annotations?: Annotation[];
   annotationCallbacks?: AnnotationCallbacks;
   compiler?: Compiler;
-  content?: string | Buffer;
-  filename: string;
   plugins?: Plugin | Plugin[];
   sanitizeSchema?: SanitizeSchema;
   searchAlgorithm?: SearchAlgorithm;
-  searchOptions?: Record<string, any>;
+  searchOptions?: SearchOptions;
 }
 
 type SearchAlgorithm = (
@@ -86,6 +86,11 @@ type SearchAlgorithm = (
   query: string,
   options?: Record<string, any>,
 ) => SearchResult[];
+
+interface SearchOptions {
+  minMatchCharLength?: number;
+  snippetOffsetPadding?: number;
+}
 
 interface SearchResult {
   start: number;
@@ -108,7 +113,7 @@ Specify annotation callbacks for annotated text nodes.
 Provide a valid [rehype][rehype] compiler (e.g. `rehype-react`, `rehype-stringify`) to compile the content.
 
 ##### `options.content`
-The document content can be provided as a simple `string` or a `Buffer`.
+The document content is provided as a string.
 
 ##### `options.filename`
 The document filename should always include the file extension (e.g. `.md`), which will determine how the content is parsed.
@@ -123,7 +128,7 @@ Specify how the document is sanitized with a custom sanitize schema.
 Provide the underlying search algorithm used to search the document.  A simple regex search algorithm is used by default.  Search algorithms operate by returning search results (with offsets) for a given `query` when searching against a document's `text` content.
 
 ##### `options.searchOptions`
-Provide configurable search options for the associated search algorithm.
+Provide configurable search options for the associated search algorithm (e.g. `minMatchCharLength`, `snippetOffsetPadding`).
 
 #### Doc Instance
 
@@ -161,35 +166,44 @@ const doc = unifiedDoc({
 
 ```
 
-##### `doc.content`
-Original contents passed to the `doc`.
-
-##### `doc.filename`
-Filename passed to the `doc`.
-
 ##### `doc.compile(): VFile`
 Compiles and returns a `VFile` with compiled `content`/`result` based on the provided compiler.
 
 ##### `doc.file(extension?: string): FileData`
 We can easily return file data in various formats by providing a supported extension (e.g. `.html`, `.txt`).  If an extension is not provided, the source file is returned.
 
-```js
-doc.file('.txt');
-// {
-//   content: '> **some** markdown content',
-//   extension: '.txt',
-//   name: 'doc.txt',
-//   stem: 'doc',
-//   type: 'text/plain',
-// }
+The core supported file extensions and behaviors are:
+- `null`: returns the source file without modification.
+- `.html`: returns the compiled `html` contents in a `.html` file.
+- `.txt`: returns only the `text` content in a `.txt` file.
+- `.uni`: returns the `hast` content and other metadata in a `.uni` file.
 
-doc.file('.html')
+```js
+const content = '> **some** markdown content';
+
+console.log(doc.file()); // outputs source file
+// {
+  // content: '> **some** markdown content',
+  // extension: '.md',
+  // name: 'doc.md',
+  // stem: 'doc',
+  // type: 'text/markdown',
+// }
+console.log(doc.file('.html')); // outputs html file
 // {
   // content: '<blockquote><strong>some</strong>markdown content</blockquote>',
   // extension: '.html',
   // name: 'doc.html',
   // stem: 'doc',
   // type: 'text/html',
+// }
+console.log(doc.file('.txt')); // outputs txt file with only text content
+// {
+  // content: 'some markdown content',
+  // extension: '.txt',
+  // name: 'doc.txt',
+  // stem: 'doc',
+  // type: 'text/plain',
 // }
 ```
 
@@ -202,7 +216,7 @@ doc.parse();
 ```
 
 ##### `doc.search(query: string, options?: Record<string, any>): SearchResultSnippet[]`
-Searches on the `doc`'s `text` content with a provided `query` and configurable options and returns `SearchResultSnippet`.  This method supports a simple but robust way to search the `doc` irregardless of its content type, and provides ways to integrate custom `searchAlgorithm` with the same interface as illustrated in the example below::
+Searches on the `text` content of a `doc` when a `query` string and configurable `options` is provided.  Returns `SearchResultSnippet`.  This method supports a simple and robust way to search on a `doc` irregardless of its underlying `mimeType`. Custom `searchAlgorithm` with the same unified interface can be easily integrated,
 
 ```js
 doc.search('some|content', { enableRegexp: true });
@@ -213,14 +227,14 @@ doc.search('some|content', { enableRegexp: true });
 ```
 
 ##### `doc.string(): string`
-Returns the string representation of the source document content.
+Returns the string representation of `content`.  The default string encoding is `utf-8`.
 
 ```js
 doc.string(); // '> **some** markdown content'
 ```
 
 ##### `doc.text(): string`
-Provides a very simple but important way to extract the `text` content from a `doc`.  This `text` content is usually human-readable content that is free of metadata and markup, and is obtained from the values of all text nodes in the `hast` representation of the `content`.  This `text` content is used with various features in `unified-doc` such as `annotations` and `search`
+The `text` content of a `doc` is obtained by extracting values of all `text` nodes in the `hast` representation of the source `content`.  The `text` content is free of markup and metadata, and supports many important `doc` features (annotations and searching).
 
 ```js
 doc.text(); // 'some markdown content'

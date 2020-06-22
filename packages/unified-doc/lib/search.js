@@ -1,16 +1,14 @@
-export function getSnippets(textContent, searchResults, options = {}) {
-  const { snippetOffsetPadding = 0 } = options;
-
+export function getSnippets({ content, searchResults, snippetOffsetPadding }) {
   return searchResults.map((searchResult) => {
-    const { start, end } = searchResult;
+    const { start, end, value } = searchResult;
     return {
       ...searchResult,
       snippet: [
-        textContent.slice(Math.max(0, start - snippetOffsetPadding), start),
-        textContent.slice(start, end),
-        textContent.slice(
+        content.slice(Math.max(0, start - snippetOffsetPadding), start),
+        value,
+        content.slice(
           end,
-          Math.min(textContent.length, end + snippetOffsetPadding),
+          Math.min(content.length, end + snippetOffsetPadding),
         ),
       ],
     };

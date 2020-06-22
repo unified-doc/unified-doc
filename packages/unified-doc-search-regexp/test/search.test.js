@@ -4,7 +4,6 @@ const content = 'a TO the b TO the c';
 
 describe('search', () => {
   it('returns empty array for empty content', () => {
-    expect(search(null, '')).toEqual([]);
     expect(search('', '')).toEqual([]);
   });
 
@@ -62,26 +61,5 @@ describe('search', () => {
       { start: 2, end: 4, value: 'TO' },
       { start: 11, end: 13, value: 'TO' },
     ]);
-  });
-
-  it('handles min match character length', () => {
-    expect(search(content, 't', { minMatchCharLength: 0 })).toEqual([
-      { start: 2, end: 3, value: 'T' },
-      { start: 5, end: 6, value: 't' },
-      { start: 11, end: 12, value: 'T' },
-      { start: 14, end: 15, value: 't' },
-    ]);
-    expect(search(content, 't', { minMatchCharLength: 1 })).toEqual([
-      { start: 2, end: 3, value: 'T' },
-      { start: 5, end: 6, value: 't' },
-      { start: 11, end: 12, value: 'T' },
-      { start: 14, end: 15, value: 't' },
-    ]);
-    expect(search(content, 't', { minMatchCharLength: 2 })).toEqual([]);
-    expect(search(content, 'to', { minMatchCharLength: 2 })).toEqual([
-      { start: 2, end: 4, value: 'TO' },
-      { start: 11, end: 13, value: 'TO' },
-    ]);
-    expect(search(content, 'to', { minMatchCharLength: 3 })).toEqual([]);
   });
 });

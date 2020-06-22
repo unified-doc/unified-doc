@@ -25,10 +25,6 @@ export {
 };
 
 export interface Doc {
-  // attributes
-  content: string | Buffer;
-  filename: string;
-  // methods
   compile: () => VFile;
   file: (extension?: string) => FileData;
   parse: () => Hast;
@@ -41,11 +37,11 @@ export interface Doc {
 }
 
 export interface Options {
+  content: string;
   filename: string;
   annotations?: Annotation[];
   annotationCallbacks?: AnnotationCallbacks;
   compiler?: Compiler;
-  content?: string | Buffer;
   plugins?: Plugin | Plugin[];
   sanitizeSchema?: SanitizeSchema;
   searchAlgorithm?: SearchAlgorithm;
@@ -53,6 +49,7 @@ export interface Options {
 }
 
 export interface SearchOptions {
+  minMatchCharLength?: number;
   snippetOffsetPadding?: number;
 }
 

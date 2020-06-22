@@ -1,6 +1,6 @@
 import { getSnippets } from '../lib/search';
 
-const textContent = 'some markdown content';
+const content = 'some markdown content';
 const searchResults = [
   { start: 3, end: 6, value: 'e m' },
   { start: 11, end: 16, value: 'wn co' },
@@ -9,25 +9,25 @@ const searchResults = [
 describe('search', () => {
   describe('getSnippets', () => {
     it('returns empty snippets for empty search results', () => {
-      expect(getSnippets(textContent, [])).toEqual([]);
-    });
-
-    it('does not return "snippet" field when snippetOffsetPadding is falsy', () => {
-      expect(getSnippets(textContent, searchResults)).toEqual([
-        { start: 3, end: 6, value: 'e m', snippet: ['', 'e m', ''] },
-        { start: 11, end: 16, value: 'wn co', snippet: ['', 'wn co', ''] },
-      ]);
       expect(
-        getSnippets(textContent, searchResults, { snippetOffsetPadding: 0 }),
-      ).toEqual([
-        { start: 3, end: 6, value: 'e m', snippet: ['', 'e m', ''] },
-        { start: 11, end: 16, value: 'wn co', snippet: ['', 'wn co', ''] },
-      ]);
+        getSnippets({ content, searchResults: [], snippetOffsetPadding: 0 }),
+      ).toEqual([]);
     });
 
     it('returns snippets based on offset padding', () => {
       expect(
-        getSnippets(textContent, searchResults, { snippetOffsetPadding: 3 }),
+        getSnippets({ content, searchResults, snippetOffsetPadding: 0 }),
+      ).toEqual([
+        { start: 3, end: 6, value: 'e m', snippet: ['', 'e m', ''] },
+        {
+          start: 11,
+          end: 16,
+          value: 'wn co',
+          snippet: ['', 'wn co', ''],
+        },
+      ]);
+      expect(
+        getSnippets({ content, searchResults, snippetOffsetPadding: 3 }),
       ).toEqual([
         { start: 3, end: 6, value: 'e m', snippet: ['som', 'e m', 'ark'] },
         {
@@ -38,7 +38,7 @@ describe('search', () => {
         },
       ]);
       expect(
-        getSnippets(textContent, searchResults, { snippetOffsetPadding: 7 }),
+        getSnippets({ content, searchResults, snippetOffsetPadding: 7 }),
       ).toEqual([
         { start: 3, end: 6, value: 'e m', snippet: ['som', 'e m', 'arkdown'] },
         {

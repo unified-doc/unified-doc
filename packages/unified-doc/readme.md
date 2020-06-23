@@ -47,9 +47,6 @@ console.log(doc.search('nt'));
   // { start: 17, end: 19, value: 'nt', snippet: ['', 'nt', ''] },
 // ]
 
-console.log(doc.string());
-// '> **some** markdown content'
-
 console.log(doc.text());
 // 'some markdown content'
 ```
@@ -88,11 +85,12 @@ type SearchAlgorithm = (
 ) => SearchResult[];
 
 interface SearchOptions {
-  minMatchCharLength?: number;
+  minQueryLength?: number;
   snippetOffsetPadding?: number;
 }
 
 interface SearchResult {
+  [key]: string;
   start: number;
   end: number;
   value: string;
@@ -128,7 +126,7 @@ Specify how the document is sanitized with a custom sanitize schema.
 Provide the underlying search algorithm used to search the document.  A simple regex search algorithm is used by default.  Search algorithms operate by returning search results (with offsets) for a given `query` when searching against a document's `text` content.
 
 ##### `options.searchOptions`
-Provide configurable search options for the associated search algorithm (e.g. `minMatchCharLength`, `snippetOffsetPadding`).
+Provide configurable search options for the associated search algorithm (e.g. `minQueryLength`, `snippetOffsetPadding`).
 
 #### Doc Instance
 
@@ -143,7 +141,6 @@ A `doc` instance exposes many unified APIs when working with documents.
     query: string,
     options?: Record<string, any>,
   ) => SearchResultSnippet[];
-  string: () => string;
   text: () => string;
 }
 
@@ -224,13 +221,6 @@ doc.search('some|content', { enableRegexp: true });
   // { start: 0, end: 5, value: 'some', snippet: ['', 'some', '']},
   // { start: 14, end: 21, value: 'content', snippet: ['', 'content', '']},
 // ]
-```
-
-##### `doc.string(): string`
-Returns the string representation of `content`.  The default string encoding is `utf-8`.
-
-```js
-doc.string(); // '> **some** markdown content'
 ```
 
 ##### `doc.text(): string`

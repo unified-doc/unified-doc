@@ -7,33 +7,22 @@ describe('search', () => {
       content: htmlContent,
       filename: 'doc.html',
     });
-    const string = doc.string();
     const text = doc.text();
-    expect(string).toEqual(htmlContent);
     expect(text).not.toEqual(htmlContent);
     expect(text).toEqual('some\ncontent');
-
-    expect(string).not.toContain('bad pattern');
     expect(doc.search('bad pattern')).toEqual([]);
-
-    expect(string).toContain('blockquote');
     expect(text).not.toContain('blockquote');
     expect(doc.search('blockquote')).toEqual([]);
-
-    expect(string).toContain('some');
     expect(text).toContain('some');
     expect(doc.search('some')).toEqual([
       { start: 0, end: 4, value: 'some', snippet: ['', 'some', '\ncontent'] },
     ]);
     expect(text.slice(0, 4)).toEqual('some');
-
-    expect(string).not.toContain('SO');
     expect(text).not.toContain('SO');
     expect(doc.search('SO')).toEqual([
       { start: 0, end: 2, value: 'so', snippet: ['', 'so', 'me\ncontent'] },
     ]);
     expect(text.slice(0, 2)).toEqual('so');
-
     expect(
       doc.search('SO', {
         isCaseSensitive: true,
@@ -41,12 +30,12 @@ describe('search', () => {
     ).toEqual([]);
   });
 
-  it('applies minMatchCharLength option', () => {
+  it('applies minQueryLength option', () => {
     expect(
       api({
         content: htmlContent,
         filename: 'doc.html',
-        searchOptions: { minMatchCharLength: 1 },
+        searchOptions: { minQueryLength: 1 },
       }).search('nt'),
     ).toEqual([
       { start: 7, end: 9, value: 'nt', snippet: ['some\nco', 'nt', 'ent'] },
@@ -56,7 +45,7 @@ describe('search', () => {
       api({
         content: htmlContent,
         filename: 'doc.html',
-        searchOptions: { minMatchCharLength: 3 },
+        searchOptions: { minQueryLength: 3 },
       }).search('nt'),
     ).toEqual([]);
   });
@@ -107,19 +96,15 @@ describe('search', () => {
         },
       ];
     }
-
     const doc = api({
       content: htmlContent,
       filename: 'doc.html',
       searchAlgorithm: searchCustom,
       searchOptions: { snippetOffsetPadding: 10 },
     });
-    const string = doc.string();
     const text = doc.text();
-    expect(string).toEqual(htmlContent);
     expect(text).not.toEqual(htmlContent);
     expect(text).toEqual('some\ncontent');
-
     expect(doc.search('static query', { disabled: true })).toEqual([]);
     expect(doc.search('static query', { disabled: false })).toEqual([
       { start: 0, end: 5, value: 'static', snippet: ['', 'static', 'content'] },

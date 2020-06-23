@@ -131,30 +131,6 @@ describe('processor', () => {
     expect(processor.parse()).toHaveProperty('type', 'root');
   });
 
-  it('returns string content of original file', () => {
-    const processor = createProcessor({
-      file: vfile({
-        basename: 'doc.md',
-        contents: markdownContent,
-      }),
-    });
-    expect(processor.string()).toEqual(markdownContent);
-  });
-
-  it('returns string content of original file ignoring effects of plugins', () => {
-    const processor = createProcessor({
-      file: vfile({
-        basename: 'doc.md',
-        contents: markdownContent,
-      }),
-      plugins: [toc],
-    });
-    expect(
-      JSON.stringify(processor.parse()).match(/toc/gi).length,
-    ).toBeGreaterThan(1);
-    expect(processor.string()).toEqual(markdownContent);
-  });
-
   it('returns text content of parsed tree', () => {
     const processor = createProcessor({
       file: vfile({

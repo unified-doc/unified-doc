@@ -12,7 +12,6 @@ describe('initialize', () => {
       'file',
       'parse',
       'search',
-      'string',
       'text',
     ]);
   });

@@ -5,6 +5,7 @@ export type SearchAlgorithm = (
 ) => SearchResult[];
 
 export interface SearchResult {
+  [key: string]: any;
   start: number;
   end: number;
   value: string;

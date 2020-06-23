@@ -52,6 +52,7 @@ interface Options {
 }
 
 interface SearchResult {
+  [key]: string;
   start: number;
   end: number;
   value: string;

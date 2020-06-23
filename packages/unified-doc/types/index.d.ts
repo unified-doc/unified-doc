@@ -32,7 +32,6 @@ export interface Doc {
     query: string,
     options?: Record<string, any>,
   ) => SearchResultSnippet[];
-  string: () => string;
   text: () => string;
 }
 
@@ -49,7 +48,7 @@ export interface Options {
 }
 
 export interface SearchOptions {
-  minMatchCharLength?: number;
+  minQueryLength?: number;
   snippetOffsetPadding?: number;
 }
 

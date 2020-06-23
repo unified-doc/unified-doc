@@ -73,7 +73,6 @@ export function createProcessor(options = {}) {
   return {
     compile: () => processor.processSync(file),
     parse: () => processor.runSync(processor.parse(file)),
-    string: () => file.toString(),
     text: () => {
       if (!file.data.text) {
         processor.processSync(file);

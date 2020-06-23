@@ -178,24 +178,14 @@ console.log(doc.parse());
 // { type: 'root', children: [...] }
 ```
 
-### `doc.string(): string`
-Returns the string representation of `content`.  The default string encoding is `utf-8`.
-
-```js
-const content = '> **some** markdown content';
-console.log(doc.string()); // '> **some** markdown content'
-```
-
 ### `doc.text(): string`
 The `text` content of a `doc` is obtained by extracting values of all `text` nodes in the `hast` representation of the source `content`.  The `text` content is free of markup and metadata, and supports many important `doc` features (annotations and searching).
 
 ```js
 const content1 = '> **some** markdown content';
-console.log(doc1.string()); // '> **some** markdown content';
 console.log(doc1.text()); // 'some markdown content';
 
 const content2 = '<blockquote><strong>some</strong> markdown content</blockquote>';
-console.log(doc2.string()); // '<blockquote><strong>some</strong> markdown content</blockquote>';
 console.log(doc2.text()); // 'some markdown content';
 ```
 
@@ -204,7 +194,7 @@ Searches on the `text` content of a `doc` when a `query` string and configurable
 
 ```js
 const content = '> **some** markdown content';
-const searchOptions = { minMatchCharLength: 2, snippetOffsetPadding: 10 }
+const searchOptions = { minQueryLength: 2, snippetOffsetPadding: 10 }
 
 doc.search('some|content', { enableRegexp: true });
 // [
@@ -258,6 +248,7 @@ type SearchAlgorithm = (
 ) => SearchResult[];
 
 interface SearchResult {
+  [key]: string;
   start: number;
   end: number;
   value: string;
@@ -301,7 +292,6 @@ The following are the author's definition of terms used in the project:
 - **`searchAlgorithm`**: a function that takes a string query with configurable options, and returns search results while searching across the `text` content in a `doc`.
 - **`searchResult`**: a search result includes offsets to indicate where the matched value occurs in the `text` content of a `doc`.
 - **`searchResultSnippet`**: a search result snippet is an extension of a search result that provides snippet information (preceding and postceding text surrounding the matched search value).
-- **`string`**: string representation of the `content` of a `doc`.  This is usually the same value as the `content` provided to a `doc`.
 - **`text`**: derived content obtained by extracting values of all `text` nodes in the `hast` representation of the source `content`.  The `text` content is free of markup and metadata, and supports many important `doc` features (annotations and searching).
 - **`unified`**: the [project][unified] that unifies content as structured data.
 - **`unified-doc`**: this [project][unified-doc] that unifies document APIs on top of a unified content layer.

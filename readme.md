@@ -1,4 +1,4 @@
-# 📄 unified-doc
+# unified-doc
 unified document APIs.
 
 ## Contents
@@ -15,7 +15,7 @@ Working with documents should be simple and unified.  We should be able to:
 - apply annotations and formatting to the document.
 - convert the document to a variety of file formats.
 - use a unified search interface that is simple to implement and works with any content type.
-- retrieve useful representations of the document (e.g. source content, string content, text content, files, syntax tree).
+- retrieve useful representations of the document (e.g. source content, text content, files, syntax tree).
 - enrich the document through an ecosystem of plugins.
 - avoid working with problems relating to specific content types, and instead work with APIs that are built on simple and unified data and interfaces.
 - support new content types and extend existing APIs to them for free.

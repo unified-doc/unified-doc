@@ -50,9 +50,9 @@ export default function unifiedDoc(options = {}) {
   }
 
   function search(query, options = {}) {
-    const { minMatchCharLength = 1, snippetOffsetPadding = 10 } = searchOptions;
+    const { minQueryLength = 1, snippetOffsetPadding = 100 } = searchOptions;
 
-    if (query.length < minMatchCharLength) {
+    if (query.length < minQueryLength) {
       return [];
     }
 
@@ -65,10 +65,6 @@ export default function unifiedDoc(options = {}) {
     });
   }
 
-  function string() {
-    return processor.string();
-  }
-
   function text() {
     return processor.text();
   }
@@ -78,7 +74,6 @@ export default function unifiedDoc(options = {}) {
     file: _file,
     parse,
     search,
-    string,
     text,
   };
 }

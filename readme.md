@@ -44,7 +44,7 @@ Parsers parse source content into unified [`hast`][hast] trees.  The following p
 - [`unified-doc-parse-text`][unified-doc-parse-text]
 
 ### Search Algorithms
-Search algorithms use a unified interface to return search results when searching against a `doc`'s `text` content.
+Search algorithms use a unified interface to return search results when searching against a the `textContent` of a `doc`
 - [`unified-doc-search-regexp`][unified-doc-search-regexp]
 
 ### Hast Utils

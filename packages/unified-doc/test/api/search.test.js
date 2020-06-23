@@ -7,7 +7,7 @@ describe('search', () => {
       content: htmlContent,
       filename: 'doc.html',
     });
-    const text = doc.text();
+    const text = doc.textContent();
     expect(text).not.toEqual(htmlContent);
     expect(text).toEqual('some\ncontent');
     expect(doc.search('bad pattern')).toEqual([]);
@@ -102,7 +102,7 @@ describe('search', () => {
       searchAlgorithm: searchCustom,
       searchOptions: { snippetOffsetPadding: 10 },
     });
-    const text = doc.text();
+    const text = doc.textContent();
     expect(text).not.toEqual(htmlContent);
     expect(text).toEqual('some\ncontent');
     expect(doc.search('static query', { disabled: true })).toEqual([]);

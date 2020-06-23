@@ -47,7 +47,7 @@ console.log(doc.search('nt'));
   // { start: 17, end: 19, value: 'nt', snippet: ['', 'nt', ''] },
 // ]
 
-console.log(doc.text());
+console.log(doc.textContent());
 // 'some markdown content'
 ```
 
@@ -102,7 +102,7 @@ interface SearchResultSnippet extends SearchResult {
 ```
 
 ##### `options.annotations`
-Document annotations inform how text nodes should be marked based on the provided annotation data (e.g. text offsets, classnames, style).
+Specify how `textContent` in a `doc` should be marked.
 
 ##### `options.annotationCallbacks`
 Specify annotation callbacks for annotated text nodes.
@@ -123,7 +123,7 @@ Valid [rehype][rehype] plugins can be provided to further customize the document
 Specify how the document is sanitized with a custom sanitize schema.
 
 ##### `options.searchAlgorithm`
-Provide the underlying search algorithm used to search the document.  A simple regex search algorithm is used by default.  Search algorithms operate by returning search results (with offsets) for a given `query` when searching against a document's `text` content.
+Provide the underlying search algorithm used to search the document.  A simple regex search algorithm is used by default.  Search algorithms operate by returning search results (with offsets) for a given `query` when searching against a document's `textContent`.
 
 ##### `options.searchOptions`
 Provide configurable search options for the associated search algorithm (e.g. `minQueryLength`, `snippetOffsetPadding`).
@@ -141,7 +141,7 @@ A `doc` instance exposes many unified APIs when working with documents.
     query: string,
     options?: Record<string, any>,
   ) => SearchResultSnippet[];
-  text: () => string;
+  textContent: () => string;
 }
 
 interface FileData {
@@ -171,9 +171,9 @@ We can easily return file data in various formats by providing a supported exten
 
 The core supported file extensions and behaviors are:
 - `null`: returns the source file without modification.
-- `.html`: returns the compiled `html` contents in a `.html` file.
-- `.txt`: returns only the `text` content in a `.txt` file.
-- `.uni`: returns the `hast` content and other metadata in a `.uni` file.
+- `.html`: returns the compiled `html` in a `.html` file.
+- `.txt`: returns the `textContent` in a `.txt` file.
+- `.uni`: returns the `hast` tree in a `.uni` file.
 
 ```js
 const content = '> **some** markdown content';
@@ -194,7 +194,7 @@ console.log(doc.file('.html')); // outputs html file
   // stem: 'doc',
   // type: 'text/html',
 // }
-console.log(doc.file('.txt')); // outputs txt file with only text content
+console.log(doc.file('.txt')); // outputs txt file with only textContent
 // {
   // content: 'some markdown content',
   // extension: '.txt',
@@ -213,7 +213,7 @@ doc.parse();
 ```
 
 ##### `doc.search(query: string, options?: Record<string, any>): SearchResultSnippet[]`
-Searches on the `text` content of a `doc` when a `query` string and configurable `options` is provided.  Returns `SearchResultSnippet`.  This method supports a simple and robust way to search on a `doc` irregardless of its underlying `mimeType`. Custom `searchAlgorithm` with the same unified interface can be easily integrated,
+Searches on the `textContent` of a `doc` when a `query` string and configurable `options` is provided.  Returns `SearchResultSnippet`.  This method supports a simple and robust way to search on a `doc` irregardless of its underlying `mimeType`. Custom `searchAlgorithm` with the same unified interface can be easily integrated,
 
 ```js
 doc.search('some|content', { enableRegexp: true });
@@ -223,11 +223,11 @@ doc.search('some|content', { enableRegexp: true });
 // ]
 ```
 
-##### `doc.text(): string`
-The `text` content of a `doc` is obtained by extracting values of all `text` nodes in the `hast` representation of the source `content`.  The `text` content is free of markup and metadata, and supports many important `doc` features (annotations and searching).
+##### `doc.textContent(): string`
+The `textContent` of a `doc` is obtained by extracting values of all text nodes in the `hast` representation of the source `content`.  The `textContent` is free of markup and metadata, and supports many important `doc` features (annotations and searching).
 
 ```js
-doc.text(); // 'some markdown content'
+doc.textContent(); // 'some markdown content'
 ```
 
 <!-- Links -->

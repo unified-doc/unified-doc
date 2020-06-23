@@ -100,7 +100,7 @@ interface TextOffset = {
 }
 ```
 
-A `TextOffset` for a `text` node tracks the start and end offset of its text value relative to the `text` representation of the provided `hast` tree.
+A `TextOffset` for a `text` node tracks the start and end offset of its text value relative to the `textContent` representation of the provided `hast` tree.
 
 The following pseudocode should aid this understanding:
 

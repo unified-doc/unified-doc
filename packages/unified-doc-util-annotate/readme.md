@@ -232,7 +232,7 @@ interface Options {
 }
 ```
 
-An `Annotation` is an object that contains requried `id`, `start` and `end` field.  The `start` and `end` field are offset values relative to the `text` representation of the provided `hast` tree.  The annotation algorithm uses these offsets against the tree's `text` content to decide how to insert `mark` nodes with associated data while maintaining the semantic structure of the tree.
+An `Annotation` is an object that contains requried `id`, `start` and `end` field.  The `start` and `end` field are offset values relative to the `textContent` of the provided `hast` tree.  The annotation algorithm uses these offsets against the tree's `textContent` to decide how to insert `mark` nodes with associated data while maintaining the semantic structure of the tree.
 
 The following pseudocode should aid this understanding:
 

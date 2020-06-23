@@ -51,7 +51,7 @@ describe('file', () => {
       expect(fileData3.type).toEqual('text/plain');
     });
 
-    it('returns a text file data with only text content when ".txt" extension is provided', () => {
+    it('returns a text file data with only textContent when ".txt" extension is provided', () => {
       const fileData = getFileData({
         extension: '.txt',
         file: vfile({

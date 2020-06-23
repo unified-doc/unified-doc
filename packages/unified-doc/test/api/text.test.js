@@ -4,34 +4,34 @@ import { htmlContent, markdownContent } from '../fixtures';
 import api from '../../lib/api';
 
 describe('text', () => {
-  it('gets the text content of the parsed tree given the provided .txt content', () => {
+  it('gets the textContent of the parsed tree given the provided .txt content', () => {
     const doc1 = api({
       content: markdownContent,
       filename: 'doc.txt',
     });
-    expect(doc1.text()).toEqual(markdownContent);
+    expect(doc1.textContent()).toEqual(markdownContent);
 
     const doc2 = api({
       content: htmlContent,
       filename: 'doc.txt',
     });
-    expect(doc2.text()).toEqual(htmlContent);
+    expect(doc2.textContent()).toEqual(htmlContent);
   });
 
-  it('ggets the text content of the parsed tree given the  .md content', () => {
+  it('ggets the textContent of the parsed tree given the  .md content', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',
     });
-    expect(doc.text()).toEqual('\nsome markdown content\n');
+    expect(doc.textContent()).toEqual('\nsome markdown content\n');
   });
 
-  it('gets the text content of the parsed tree given the  .html content', () => {
+  it('gets the textContent of the parsed tree given the  .html content', () => {
     const doc = api({
       content: htmlContent,
       filename: 'doc.html',
     });
-    expect(doc.text()).toEqual('some\ncontent');
+    expect(doc.textContent()).toEqual('some\ncontent');
   });
 
   it('ignores effects of plugins', () => {
@@ -39,7 +39,7 @@ describe('text', () => {
       content: '# Heading 1 with **bold** text',
       filename: 'doc.md',
     });
-    expect(doc1.text()).toEqual('Heading 1 with bold text');
+    expect(doc1.textContent()).toEqual('Heading 1 with bold text');
 
     const doc2 = api({
       content: '# Heading 1 with **bold** text',
@@ -49,6 +49,6 @@ describe('text', () => {
     expect(JSON.stringify(doc2.parse()).match(/toc/gi).length).toBeGreaterThan(
       1,
     );
-    expect(doc2.text()).toEqual('Heading 1 with bold text');
+    expect(doc2.textContent()).toEqual('Heading 1 with bold text');
   });
 });

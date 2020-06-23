@@ -12,7 +12,7 @@ describe('initialize', () => {
       'file',
       'parse',
       'search',
-      'text',
+      'textContent',
     ]);
   });
 });

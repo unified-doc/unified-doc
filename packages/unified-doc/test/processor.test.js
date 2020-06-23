@@ -131,18 +131,18 @@ describe('processor', () => {
     expect(processor.parse()).toHaveProperty('type', 'root');
   });
 
-  it('returns text content of parsed tree', () => {
+  it('returns textContent of parsed tree', () => {
     const processor = createProcessor({
       file: vfile({
         basename: 'doc.md',
         contents: markdownContent,
       }),
     });
-    expect(processor.text()).not.toEqual(markdownContent);
-    expect(processor.text()).toEqual('\nsome markdown content\n');
+    expect(processor.textContent()).not.toEqual(markdownContent);
+    expect(processor.textContent()).toEqual('\nsome markdown content\n');
   });
 
-  it('returns text content of parsed tree ignoring effects of plugins', () => {
+  it('returns textContent of parsed tree ignoring effects of plugins', () => {
     const processor = createProcessor({
       file: vfile({
         basename: 'doc.md',
@@ -153,6 +153,6 @@ describe('processor', () => {
     expect(
       JSON.stringify(processor.parse()).match(/toc/gi).length,
     ).toBeGreaterThan(1);
-    expect(processor.text()).toEqual('\nsome markdown content\n');
+    expect(processor.textContent()).toEqual('\nsome markdown content\n');
   });
 });

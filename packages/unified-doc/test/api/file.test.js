@@ -15,7 +15,7 @@ describe('file', () => {
     expect(file.type).toEqual('text/markdown');
   });
 
-  it('returns a valid text file with only text content when ".txt" extension is provided', () => {
+  it('returns a valid text file with only textContent when ".txt" extension is provided', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',
@@ -80,8 +80,8 @@ describe('file', () => {
     });
     const htmlFile = doc.file('.html');
     const { content } = htmlFile;
-    expect(content).toContain("<mark");
-    expect(content).toContain("</mark>");
+    expect(content).toContain('<mark');
+    expect(content).toContain('</mark>');
     expect(content).toContain('data-annotation-id="a"');
     expect(content).toContain('data-annotation-id="b"');
     expect(content).toContain('data-annotation-id="c"');
@@ -100,7 +100,7 @@ describe('file', () => {
     });
     const uniFile = doc.file('.uni');
     const { content } = uniFile;
-    expect(content).toContain("mark");
+    expect(content).toContain('mark');
     expect(content).toContain('dataAnnotationId');
   });
 });

@@ -32,11 +32,7 @@ export function getFileData({
     }
     // TODO: formalize .uni spec
     case extensionTypes.UNI: {
-      content = JSON.stringify(
-        { hast },
-        null,
-        2,
-      );
+      content = JSON.stringify({ hast }, null, 2);
       extension = extensionTypes.UNI;
       type = mimeTypes.UNI;
       break;

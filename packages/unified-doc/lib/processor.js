@@ -16,7 +16,7 @@ import { inferMimeType } from './file';
 const pluginfy = (transform) => (...args) => (tree) => transform(tree, ...args);
 
 function extractText(hast, file) {
-  file.data.text = toString(hast);
+  file.data.textContent = toString(hast);
 }
 
 export function createProcessor(options = {}) {
@@ -73,11 +73,11 @@ export function createProcessor(options = {}) {
   return {
     compile: () => processor.processSync(file),
     parse: () => processor.runSync(processor.parse(file)),
-    text: () => {
-      if (!file.data.text) {
+    textContent: () => {
+      if (!file.data.textContent) {
         processor.processSync(file);
       }
-      return file.data.text;
+      return file.data.textContent;
     },
   };
 }

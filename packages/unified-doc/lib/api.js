@@ -55,17 +55,17 @@ export default function unifiedDoc(options = {}) {
       return [];
     }
 
-    const textContent = text();
-    const searchResults = searchAlgorithm(textContent, query, options);
+    const content = textContent();
+    const searchResults = searchAlgorithm(content, query, options);
     return getSnippets({
-      content: textContent,
+      content,
       searchResults,
       snippetOffsetPadding,
     });
   }
 
-  function text() {
-    return processor.text();
+  function textContent() {
+    return processor.textContent();
   }
 
   return {
@@ -73,6 +73,6 @@ export default function unifiedDoc(options = {}) {
     file: _file,
     parse,
     search,
-    text,
+    textContent,
   };
 }

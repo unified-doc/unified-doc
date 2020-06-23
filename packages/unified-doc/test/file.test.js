@@ -88,12 +88,7 @@ describe('file', () => {
     });
 
     it('returns unified file data when ".uni" extension is provided', () => {
-      const annotations = [
-        { id: 'a', start: 0, end: 4 },
-        { id: 'b', start: 3, end: 8 },
-      ];
       const fileData = getFileData({
-        annotations,
         extension: '.uni',
         file: vfile({
           basename: 'doc.uni',
@@ -106,8 +101,6 @@ describe('file', () => {
       expect(fileData.content).toContain('strong');
       expect(fileData.content).not.toContain('some markdown');
       expect(fileData.content).toContain('markdown content');
-      expect(parsedText).toHaveProperty('annotations', annotations);
-      expect(parsedText).toHaveProperty('basename', 'doc.uni');
       expect(parsedText).toHaveProperty('hast');
       expect(parsedText).toHaveProperty('hast.type');
       expect(parsedText).toHaveProperty('hast.children');

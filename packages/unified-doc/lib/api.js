@@ -11,7 +11,7 @@ export default function unifiedDoc(options = {}) {
     annotationCallbacks = {},
     compiler,
     content,
-    filename = 'file',
+    filename,
     plugins = [],
     sanitizeSchema = {},
     searchAlgorithm = searchRegexp,
@@ -38,7 +38,6 @@ export default function unifiedDoc(options = {}) {
 
   function _file(extension) {
     return getFileData({
-      annotations,
       extension,
       file,
       hast: parse(),

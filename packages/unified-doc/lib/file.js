@@ -9,7 +9,6 @@ export function inferMimeType(filename) {
 }
 
 export function getFileData({
-  annotations = [],
   file,
   hast = null,
   extension: extensionType = null,
@@ -31,10 +30,10 @@ export function getFileData({
       type = inferMimeType(extension);
       break;
     }
-    // TODO: formalize and abstract this into a package (i.e. awkward to pass annotations to this method)
+    // TODO: formalize .uni spec
     case extensionTypes.UNI: {
       content = JSON.stringify(
-        { annotations, basename: file.basename, hast },
+        { hast },
         null,
         2,
       );

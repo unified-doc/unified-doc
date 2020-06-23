@@ -61,14 +61,33 @@ describe('file', () => {
     expect(parsedContent).toHaveProperty('hast.children');
     expect(parsedContent).toHaveProperty('hast.position.start');
     expect(parsedContent).toHaveProperty('hast.position.end');
-    expect(parsedContent).toHaveProperty('annotations');
     expect(file.extension).toEqual('.uni');
     expect(file.name).toEqual('doc.uni');
     expect(file.stem).toEqual('doc');
     expect(file.type).toEqual('text/uni');
   });
 
-  it('returns the annotated unified ".html" and ".uni" file', () => {
+  it('returns the annotated ".html" file', () => {
+    const annotations = [
+      { id: 'a', start: 0, end: 4 },
+      { id: 'b', start: 2, end: 8 },
+      { id: 'c', start: 8, end: 10 },
+    ];
+    const doc = api({
+      annotations,
+      content: markdownContent,
+      filename: 'doc.md',
+    });
+    const htmlFile = doc.file('.html');
+    const { content } = htmlFile;
+    expect(content).toContain("<mark");
+    expect(content).toContain("</mark>");
+    expect(content).toContain('data-annotation-id="a"');
+    expect(content).toContain('data-annotation-id="b"');
+    expect(content).toContain('data-annotation-id="c"');
+  });
+
+  it('returns the annotated ".uni" file', () => {
     const annotations = [
       { id: 'a', start: 0, end: 4 },
       { id: 'b', start: 2, end: 8 },
@@ -80,7 +99,8 @@ describe('file', () => {
       filename: 'doc.md',
     });
     const uniFile = doc.file('.uni');
-    const parsedUniContent = JSON.parse(uniFile.content);
-    expect(parsedUniContent).toHaveProperty('annotations', annotations);
+    const { content } = uniFile;
+    expect(content).toContain("mark");
+    expect(content).toContain('dataAnnotationId');
   });
 });

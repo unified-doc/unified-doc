@@ -32,7 +32,7 @@ export interface Doc {
     query: string,
     options?: Record<string, any>,
   ) => SearchResultSnippet[];
-  text: () => string;
+  textContent: () => string;
 }
 
 export interface Options {

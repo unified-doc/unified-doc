@@ -1,30 +1,36 @@
 {
-  "name": "unified-doc-search-regexp",
-  "version": "0.1.11-beta.0",
-  "description": "unified-doc search algorithm to return snippets using simple regular expressions",
+  "name": "unified-doc-search-micromatch",
+  "version": "0.1.0-beta.0",
+  "description": "unified-doc micromatch search algorithm",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",
-  "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-regexp",
+  "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-micromatch",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
   "keywords": [
     "unified",
     "doc",
     "search",
-    "regexp",
     "algorithm",
     "document",
     "file",
     "content",
     "unist",
     "hast",
-    "nlp"
+    "nlp",
+    "micromatch",
+    "glob",
+    "glob-pattern",
+    "glob-matching",
+    "wildcard",
+    "bash"
   ],
   "main": "dist/index.js",
   "module": "dist/index.module.js",
   "source": "index.js",
   "typings": "types/index.d.ts",
   "dependencies": {
+    "micromatch": "^4.0.2",
     "unified-doc-types": "file:../unified-doc-types"
   }
 }

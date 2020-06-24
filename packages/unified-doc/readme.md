@@ -123,7 +123,7 @@ Valid [rehype][rehype] plugins can be provided to further customize the document
 Specify how the document is sanitized with a custom sanitize schema.
 
 ##### `options.searchAlgorithm`
-Provide the underlying search algorithm used to search the document.  A simple regex search algorithm is used by default.  Search algorithms operate by returning search results (with offsets) for a given `query` when searching against a document's `textContent`.
+Provide the underlying search algorithm used to search the document.  A search algorithm based on [`micromatch`][micromatch] is used by default.  Search algorithms operate by returning search results (with offsets) for a given `query` when searching against a document's `textContent`.
 
 ##### `options.searchOptions`
 Provide configurable search options for the associated search algorithm (e.g. `minQueryLength`, `snippetOffsetPadding`).
@@ -216,10 +216,9 @@ doc.parse();
 Searches on the `textContent` of a `doc` when a `query` string and configurable `options` is provided.  Returns `SearchResultSnippet`.  This method supports a simple and robust way to search on a `doc` irregardless of its underlying `mimeType`. Custom `searchAlgorithm` with the same unified interface can be easily integrated,
 
 ```js
-doc.search('some|content', { enableRegexp: true });
+doc.search('some');
 // [
   // { start: 0, end: 5, value: 'some', snippet: ['', 'some', '']},
-  // { start: 14, end: 21, value: 'content', snippet: ['', 'content', '']},
 // ]
 ```
 
@@ -231,5 +230,6 @@ doc.textContent(); // 'some markdown content'
 ```
 
 <!-- Links -->
+[micromatch]: https://github.com/micromatch/micromatch
 [rehype]: https://github.com/rehypejs/rehype
 [hast]: https://github.com/syntax-tree/hast

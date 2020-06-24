@@ -44,8 +44,8 @@ Parsers parse source content into unified [`hast`][hast] trees.  The following p
 - [`unified-doc-parse-text`][unified-doc-parse-text]
 
 ### Search Algorithms
-Search algorithms use a unified interface to return search results when searching against a the `textContent` of a `doc`
-- [`unified-doc-search-regexp`][unified-doc-search-regexp]
+Search algorithms use a unified interface to return search results when searching against a the `textContent` of a `doc`.
+- [`unified-doc-search-micromatch`][unified-doc-search-micromatch]
 
 ### Hast Utils
 `hast` utilities operate and transform `hast` trees.
@@ -104,7 +104,7 @@ This project is:
 [unified-doc-dom]: https://github.com/unified-doc/unified-doc-dom
 [unified-doc-parse-text]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-parse-text
 [unified-doc-react]: https://github.com/unified-doc/unified-doc-react
-[unified-doc-search-regexp]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-regexp
+[unified-doc-search-micromatch]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-micromatch
 [unified-doc-util-annotate]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-annotate
 [unified-doc-util-text-offsets]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-text-offsets
 

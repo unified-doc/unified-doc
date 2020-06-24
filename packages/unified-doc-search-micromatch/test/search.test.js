@@ -29,37 +29,35 @@ describe('search', () => {
     ]);
   });
 
-  it('escapes regexp when regexp is not explicitly enabled', () => {
-    expect(search(content, '*')).toEqual([]);
-    expect(() => search(content, '*', { enableRegexp: true })).toThrow(
-      'Invalid regular expression: /*/: Nothing to repeat',
-    );
-  });
-
-  it('returns offsets for regexp patterns', () => {
-    expect(search(content, 'a|b|c', { enableRegexp: true })).toEqual([
-      { start: 0, end: 1, value: 'a' },
-      { start: 9, end: 10, value: 'b' },
-      { start: 18, end: 19, value: 'c' },
-    ]);
-    expect(search(content, '(?<=TO).*(?=TO)', { enableRegexp: true })).toEqual([
-      { start: 4, end: 11, value: ' the b ' },
-    ]);
-  });
-
   it('handles case sensitivity', () => {
-    expect(search(content, 'to', { isCaseSensitive: false })).toEqual([
+    expect(search(content, 'to', { nocase: true })).toEqual([
       { start: 2, end: 4, value: 'TO' },
       { start: 11, end: 13, value: 'TO' },
     ]);
-    expect(search(content, 'TO', { isCaseSensitive: false })).toEqual([
+    expect(search(content, 'TO', { nocase: true })).toEqual([
       { start: 2, end: 4, value: 'TO' },
       { start: 11, end: 13, value: 'TO' },
     ]);
-    expect(search(content, 'to', { isCaseSensitive: true })).toEqual([]);
-    expect(search(content, 'TO', { isCaseSensitive: true })).toEqual([
+    expect(search(content, 'to', { nocase: false })).toEqual([]);
+    expect(search(content, 'TO', { nocase: false })).toEqual([
       { start: 2, end: 4, value: 'TO' },
       { start: 11, end: 13, value: 'TO' },
+    ]);
+  });
+
+  it('performs glob/bash matching based on micromatch features', () => {
+    expect(search(content, 'a*b')).toEqual([
+      { start: 0, end: 10, value: 'a TO the b' },
+    ]);
+    expect(search(content, 'a????')).toEqual([
+      { start: 0, end: 5, value: 'a TO ' },
+    ]);
+    expect(search(content, 'a TO the (b|c)')).toEqual([
+      { start: 0, end: 10, value: 'a TO the b' },
+    ]);
+    expect(search(content, 'a TO the (c|d)')).toEqual([]);
+    expect(search(content, 'a TO the !(c|d)')).toEqual([
+      { start: 0, end: 9, value: 'a TO the ' },
     ]);
   });
 });

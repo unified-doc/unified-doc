@@ -196,10 +196,9 @@ Searches on the `textContent` of a `doc` when a `query` string and configurable 
 const content = '> **some** markdown content';
 const searchOptions = { minQueryLength: 2, snippetOffsetPadding: 10 }
 
-doc.search('some|content', { enableRegexp: true });
+doc.search('some');
 // [
   // { start: 0, end: 5, value: 'some', snippet: ['', 'some', ' markdown c']},
-  // { start: 14, end: 21, value: 'content', snippet: [' markdown ', 'content', '']},
 // ]
 ```
 
@@ -259,7 +258,7 @@ interface SearchResultSnippet extends SearchResult {
 }
 ```
 
-A `searchAlgorithm` implementation simply needs to return `SearchResults` containing text offsets relative to the `textContent` of a `doc` when a `query` string is provided.
+A `searchAlgorithm` implementation simply needs to return `SearchResults` containing text offsets relative to the `textContent` of a `doc` when a `query` string is provided.  The flexibility to attach a custom `searchAlgorithm` to a `doc` allows implementors to pick algorithms that best fit their needs.
 
 > **Note**: All search algorithms in `unified-doc` should use the `unified-doc-search-*` naming convention.
 

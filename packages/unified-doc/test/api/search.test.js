@@ -2,7 +2,7 @@ import { htmlContent } from '../fixtures';
 import api from '../../lib/api';
 
 describe('search', () => {
-  it('searches with the default search algorithm and algorithm options (regexp)', () => {
+  it('searches with the default search algorithm and algorithm options (micromatch)', () => {
     const doc = api({
       content: htmlContent,
       filename: 'doc.html',
@@ -10,24 +10,24 @@ describe('search', () => {
     const text = doc.textContent();
     expect(text).not.toEqual(htmlContent);
     expect(text).toEqual('some\ncontent');
-    expect(doc.search('bad pattern')).toEqual([]);
     expect(text).not.toContain('blockquote');
+    expect(doc.search('bad pattern')).toEqual([]);
     expect(doc.search('blockquote')).toEqual([]);
-    expect(text).toContain('some');
     expect(doc.search('some')).toEqual([
       { start: 0, end: 4, value: 'some', snippet: ['', 'some', '\ncontent'] },
     ]);
-    expect(text.slice(0, 4)).toEqual('some');
-    expect(text).not.toContain('SO');
     expect(doc.search('SO')).toEqual([
       { start: 0, end: 2, value: 'so', snippet: ['', 'so', 'me\ncontent'] },
     ]);
-    expect(text.slice(0, 2)).toEqual('so');
-    expect(
-      doc.search('SO', {
-        isCaseSensitive: true,
-      }),
-    ).toEqual([]);
+    expect(doc.search('SO', { nocase: false })).toEqual([]);
+    expect(doc.search('s*c')).toEqual([
+      {
+        start: 0,
+        end: 6,
+        value: 'some\nc',
+        snippet: ['', 'some\nc', 'ontent'],
+      },
+    ]);
   });
 
   it('applies minQueryLength option', () => {

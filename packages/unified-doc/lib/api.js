@@ -1,4 +1,4 @@
-import searchRegexp from 'unified-doc-search-regexp';
+import searchMicromatch from 'unified-doc-search-micromatch';
 import vfile from 'vfile';
 
 import { getFileData } from './file';
@@ -14,7 +14,7 @@ export default function unifiedDoc(options = {}) {
     filename,
     plugins = [],
     sanitizeSchema = {},
-    searchAlgorithm = searchRegexp,
+    searchAlgorithm = searchMicromatch,
     searchOptions = {},
   } = options;
 

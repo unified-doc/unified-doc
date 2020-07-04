@@ -1,6 +1,6 @@
 {
   "name": "unified-doc-search-micromatch",
-  "version": "0.1.1-beta.0",
+  "version": "0.1.2-beta.0",
   "description": "unified-doc micromatch search algorithm",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",

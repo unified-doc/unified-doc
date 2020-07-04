@@ -71,11 +71,15 @@ interface Options {
   filename: string;
   annotations?: Annotation[];
   compiler?: PluggableList;
-  parsers?: PluggableList;
+  parsers?: Parsers;
   plugins?: PluggableList;
   sanitizeSchema?: SanitizeSchema;
   searchOptions?: SearchOptions;
   searchAlgorithm?: SearchAlgorithm;
+}
+
+interface Parsers {
+  [mimeType: string]: PluggableList,
 }
 
 type SearchAlgorithm = (

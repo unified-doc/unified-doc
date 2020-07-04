@@ -8,7 +8,6 @@ import { getSnippets } from './search';
 export default function unifiedDoc(options = {}) {
   const {
     annotations = [],
-    annotationCallbacks = {},
     compiler,
     content,
     filename,
@@ -25,7 +24,6 @@ export default function unifiedDoc(options = {}) {
 
   const processor = createProcessor({
     annotations,
-    annotationCallbacks,
     compiler,
     file,
     plugins,

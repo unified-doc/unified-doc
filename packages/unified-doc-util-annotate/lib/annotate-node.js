@@ -2,11 +2,8 @@ import h from 'hastscript';
 
 export function getAnnotatedNodes(
   nodeSegments,
-  annotationCallbacks = {},
   appliedAnnotationIds = new Set(),
 ) {
-  const { onClick, onMouseEnter, onMouseOut } = annotationCallbacks;
-
   return nodeSegments.map((nodeSegment) => {
     const { annotations, value } = nodeSegment;
     let annotatedNode = { type: 'text', value };
@@ -15,30 +12,20 @@ export function getAnnotatedNodes(
         .slice()
         .reverse() // create inner nodes first
         .forEach((annotation) => {
-          const { id, classNames, style } = annotation;
-          const properties = {
-            className: classNames,
-            dataAnnotationId: id,
-            style,
-          };
+          const { id, classNames, dataset = {}, style } = annotation;
+
+          const properties = {};
+          Object.keys(dataset).forEach((key) => {
+            const datasetKey = `data${key[0].toUpperCase()}${key.slice(1)}`;
+            properties[datasetKey] = dataset[key];
+          });
+          properties.className = classNames;
+          properties.dataAnnotationId = id;
+          properties.style = style;
+
           if (!appliedAnnotationIds.has(id)) {
             properties.id = id;
             appliedAnnotationIds.add(id);
-          }
-          if (onClick) {
-            properties.onClick = (event) => {
-              onClick(annotation, event);
-            };
-          }
-          if (onMouseEnter) {
-            properties.onMouseEnter = (event) => {
-              onMouseEnter(annotation, event);
-            };
-          }
-          if (onMouseOut) {
-            properties.onMouseOut = (event) => {
-              onMouseOut(annotation, event);
-            };
           }
           annotatedNode = h('mark', properties, annotatedNode);
         });

@@ -70,12 +70,12 @@ interface Options {
   content: string;
   filename: string;
   annotations?: Annotation[];
-  annotationCallbacks?: AnnotationCallbacks;
-  compiler?: Compiler;
-  plugins?: Plugin | Plugin[];
+  compiler?: PluggableList;
+  parsers?: PluggableList;
+  plugins?: PluggableList;
   sanitizeSchema?: SanitizeSchema;
-  searchAlgorithm?: SearchAlgorithm;
   searchOptions?: SearchOptions;
+  searchAlgorithm?: SearchAlgorithm;
 }
 
 type SearchAlgorithm = (
@@ -104,11 +104,8 @@ interface SearchResultSnippet extends SearchResult {
 ##### `options.annotations`
 Specify how `textContent` in a `doc` should be marked.
 
-##### `options.annotationCallbacks`
-Specify annotation callbacks for annotated text nodes.
-
 ##### `options.compiler`
-Provide a valid [rehype][rehype] compiler (e.g. `rehype-react`, `rehype-stringify`) to compile the content.
+Provide a valid [rehype][rehype] compiler (e.g. `rehype-react`, `rehype-stringify`) to compile the content.  Apply the `compiler` in the `PluggableList` interface e.g. `[compiler]` or `[[compiler, compilerOptions]]`.
 
 ##### `options.content`
 The document content is provided as a string.
@@ -116,8 +113,11 @@ The document content is provided as a string.
 ##### `options.filename`
 The document filename should always include the file extension (e.g. `.md`), which will determine how the content is parsed.
 
+##### `options.parsers`
+Provide an object associating a parser to a mime type.  Inferred mime type from the `filename` of a provided `content` will use this parser.  Parsers could include multiple steps, which is applied in the `PluggableList` interface e.g. `[textParse]` or `[remarkParse, remark2rehype]`.
+
 ##### `options.plugins`
-Valid [rehype][rehype] plugins can be provided to further customize the document.
+Valid [rehype][rehype] plugins can be provided to further customize the document.  Apply `plugins` in the `PluggableList` interface e.g. `[plugin1, [plugin2, plugin2Options]]`.
 
 ##### `options.sanitizeSchema`
 Specify how the document is sanitized with a custom sanitize schema.
@@ -128,7 +128,7 @@ Provide the underlying search algorithm used to search the document.  A search a
 ##### `options.searchOptions`
 Provide configurable search options for the associated search algorithm (e.g. `minQueryLength`, `snippetOffsetPadding`).
 
-#### Doc Instance
+#### `doc` Instance
 
 A `doc` instance exposes many unified APIs when working with documents.
 

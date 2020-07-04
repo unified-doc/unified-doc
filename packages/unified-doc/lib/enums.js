@@ -5,6 +5,8 @@ export const extensionTypes = {
 };
 
 export const mimeTypes = {
-  DEFAULT: 'text/plain',
-  UNI: 'text/uni', // TODO: confirm with unified team!
+  HTML: 'text/html',
+  MARKDOWN: 'text/markdown',
+  TEXT: 'text/plain',
+  UNI: 'text/uni', // TODO: formally spec this with unified team!
 };

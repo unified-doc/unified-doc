@@ -1,15 +1,5 @@
-import {
-  Annotation,
-  AnnotationCallback,
-  AnnotationCallbacks,
-  Hast,
-} from 'unified-doc-types';
+import { Annotation, Hast } from 'unified-doc-types';
 
-export { Annotation, AnnotationCallback, AnnotationCallbacks };
+export { Annotation };
 
-export interface Options {
-  annotations: Annotation[];
-  annotationCallbacks?: AnnotationCallbacks;
-}
-
-export default function annotate(hast: Hast, options: Options): Hast;
+export default function annotate(hast: Hast, annotations: Annotation[]): Hast;

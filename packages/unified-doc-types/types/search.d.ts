@@ -9,4 +9,5 @@ export interface SearchResult {
   start: number;
   end: number;
   value: string;
+  data?: Record<string, any>;
 }

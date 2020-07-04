@@ -1,23 +1,19 @@
 import {
   Annotation,
-  AnnotationCallbacks,
-  Compiler,
   FileData,
   Hast,
-  Plugin,
   SanitizeSchema,
   SearchAlgorithm,
   SearchResult,
 } from 'unified-doc-types';
+import { PluggableList } from 'unified';
 import { VFile } from 'vfile';
 
 export {
   Annotation,
-  AnnotationCallbacks,
-  Compiler,
   FileData,
   Hast,
-  Plugin,
+  PluggableList,
   SanitizeSchema,
   SearchAlgorithm,
   SearchResult,
@@ -39,12 +35,12 @@ export interface Options {
   content: string;
   filename: string;
   annotations?: Annotation[];
-  annotationCallbacks?: AnnotationCallbacks;
-  compiler?: Compiler;
-  plugins?: Plugin | Plugin[];
+  compiler?: PluggableList;
+  parsers?: PluggableList;
+  plugins?: PluggableList;
   sanitizeSchema?: SanitizeSchema;
-  searchAlgorithm?: SearchAlgorithm;
   searchOptions?: SearchOptions;
+  searchAlgorithm?: SearchAlgorithm;
 }
 
 export interface SearchOptions {

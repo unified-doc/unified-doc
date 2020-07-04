@@ -74,6 +74,7 @@ const hast = {
               tagName: 'mark',
               properties: {
                 dataAnnotationId: 'a',
+                dataCategory: 'A',
                 id: 'a',
                 classNames: ['a', 'b'],
               },
@@ -96,12 +97,12 @@ const hast = {
 };
 ```
 
-`unified-doc-util-annotate` also supports annotating over multiple text nodes and overlapping annotations.
+`unified-doc-util-annotate` also supports annotating over multiple text nodes and overlapping annotations, and applying custom properties to the annotated mark nodes (`classNames`, `style`, `dataset` attributes).
 
 ```js
 const annotations = [
-  { id: 'a', classNames: ['a', 'b'], start: 3, end: 8 },
-  { id: 'b', style: { background: 'red' }, start: 6, end: 10 },
+  { id: 'a', start: 3, end: 8 , classNames: ['a', 'b'], dataset: { category: 'A' } },
+  { id: 'b', start: 6, end: 10, style: { background: 'red' } },
 ];
 
 console.log(annotate(hast, { annotations }));
@@ -130,8 +131,9 @@ const hast = {
               tagName: 'mark',
               properties: {
                 id: 'a',
-                dataAnnotationId: 'a',
                 classNames: ['a', 'b'],
+                dataAnnotationId: 'a',
+                dataCategory: 'A',
               },
               children: {
                 type: 'text',
@@ -146,6 +148,7 @@ const hast = {
           properties: {
             classNames: ['a', 'b'],
             dataAnnotationId: 'a',
+            dataCategory: 'A',
           },
           children: [
             {
@@ -198,10 +201,10 @@ const hast = {
 ## API
 
 ```ts
-function annotate(hast: Hast, options: Options): Hast
+function annotate(hast: Hast, annotations: Annotation[]): Hast
 ```
 
-Accepts a valid `hast` tree with options and applies `annotations` and `annotationCallbacks`.  Returns a new tree.
+Accepts a valid `hast` tree with options and applies `annotations`.  Returns a new tree.
 
 ### Interfaces
 
@@ -211,28 +214,15 @@ interface Annotation {
   start: number;
   end: number;
   classNames?: string[];
+  dataset?: Record<string, any>;
   data?: Record<string, any>;
   style?: Record<string, any>;
 }
-
-interface AnnotationCallbacks {
-  onClick?: AnnotationCallback;
-  onMouseEnter?: AnnotationCallback;
-  onMouseOut?: AnnotationCallback;
-}
-
-type AnnotationCallback = (
-  annotation: Annotation,
-  event?: MouseEvent,
-) => void;
-
-interface Options {
-  annotations: Annotation[];
-  annotationCallbacks?: AnnotationCallbacks;
-}
 ```
 
-An `Annotation` is an object that contains requried `id`, `start` and `end` field.  The `start` and `end` field are offset values relative to the `textContent` of the provided `hast` tree.  The annotation algorithm uses these offsets against the tree's `textContent` to decide how to insert `mark` nodes with associated data while maintaining the semantic structure of the tree.
+An `Annotation` is an object that contains requried `id`, `start` and `end` field.  Optional ways to customize the annotation can be provided with the `classNames`, `style` and `dataset` properties.  Additional contextual data not used for annotation rendering can be defined under the `data` property.
+
+The `start` and `end` field are offset values relative to the `textContent` of the provided `hast` tree.  The annotation algorithm uses these offsets against the tree's `textContent` to decide how to insert `mark` nodes with associated data while maintaining the semantic structure of the tree.
 
 The following pseudocode should aid this understanding:
 

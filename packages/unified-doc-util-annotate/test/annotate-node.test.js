@@ -47,7 +47,7 @@ describe('annotated-node', () => {
       ]);
     });
 
-    it('returns nested annotated node if a many annotations are specified', () => {
+    it('returns nested annotated node if many annotations are specified', () => {
       expect(
         getAnnotatedNodes([
           {
@@ -128,35 +128,37 @@ describe('annotated-node', () => {
       ]);
     });
 
-    it('applies callbacks ', () => {
-      console.log = jest.fn();
-      const annotationCallbacks = {
-        onClick: console.log,
-        onMouseEnter: console.log,
-      };
-      const annotatedNode = getAnnotatedNodes(
-        [
+    it('applies dataset attributes', () => {
+      expect(
+        getAnnotatedNodes([
           {
-            annotations: [{ id: 'a', start: 0, end: 3 }],
+            annotations: [
+              {
+                id: 'a',
+                start: 0,
+                end: 3,
+                dataset: {
+                  category: 'A',
+                  classification: 'class-a',
+                },
+              },
+            ],
             value: '01234',
           },
-        ],
-        annotationCallbacks,
-      )[0];
-      expect(annotatedNode.properties.onClick).toBeInstanceOf(Function);
-      expect(annotatedNode.properties.onMouseEnter).toBeInstanceOf(Function);
-      expect(annotatedNode.properties.onMouseOut).toEqual(undefined);
-
-      annotatedNode.properties.onClick();
-      expect(console.log).toBeCalledWith(
-        { id: 'a', start: 0, end: 3 },
-        undefined,
-      );
-      annotatedNode.properties.onMouseEnter();
-      expect(console.log).toBeCalledWith(
-        { id: 'a', start: 0, end: 3 },
-        undefined,
-      );
+        ]),
+      ).toEqual([
+        {
+          type: 'element',
+          tagName: 'mark',
+          properties: {
+            id: 'a',
+            dataAnnotationId: 'a',
+            dataCategory: 'A',
+            dataClassification: 'class-a',
+          },
+          children: [{ type: 'text', value: '01234' }],
+        },
+      ]);
     });
   });
 

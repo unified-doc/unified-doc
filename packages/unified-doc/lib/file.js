@@ -5,7 +5,7 @@ import mime from 'mime-types';
 import { extensionTypes, mimeTypes } from './enums';
 
 export function inferMimeType(filename) {
-  return mime.lookup(filename) || mimeTypes.DEFAULT;
+  return mime.lookup(filename) || mimeTypes.TEXT;
 }
 
 export function getFileData({
@@ -30,7 +30,6 @@ export function getFileData({
       type = inferMimeType(extension);
       break;
     }
-    // TODO: formalize .uni spec
     case extensionTypes.UNI: {
       content = JSON.stringify({ hast }, null, 2);
       extension = extensionTypes.UNI;

@@ -12,9 +12,7 @@ function test(node) {
   return node.type === 'text' && node.data && node.data.textOffset;
 }
 
-export default function annotate(sourceHast, options) {
-  const { annotations, annotationCallbacks } = options;
-
+export default function annotate(sourceHast, annotations = []) {
   if (annotations.length === 0) {
     return sourceHast;
   }
@@ -37,7 +35,6 @@ export default function annotate(sourceHast, options) {
     const nodeSegments = getNodeSegments(node, overlappingAnnotations);
     const annotatedNodes = getAnnotatedNodes(
       nodeSegments,
-      annotationCallbacks,
       appliedAnnotationIds,
     );
 

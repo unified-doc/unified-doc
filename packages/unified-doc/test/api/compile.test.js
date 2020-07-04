@@ -19,15 +19,12 @@ describe('compile', () => {
 
   it('transforms to React given a react compiler', () => {
     const doc = api({
-      compiler: [rehype2react, { createElement }],
+      compiler: [[rehype2react, { createElement }]],
       content: markdownContent,
       filename: 'doc.md',
     });
     const compiled = doc.compile();
-    expect(compiled.contents).toEqual(markdownContent);
-    // @ts-ignore TODO: remove once official typing is fixed
-    expect(compiled.result).toHaveProperty('type', 'div');
-    // @ts-ignore TODO: remove once official typing is fixed
-    expect(compiled.result).toHaveProperty('props');
+    expect(compiled).toHaveProperty('contents', markdownContent);
+    expect(compiled).toHaveProperty('result.type', 'div');
   });
 });

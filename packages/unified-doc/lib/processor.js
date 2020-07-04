@@ -2,7 +2,6 @@ import deepmerge from 'deepmerge';
 import sanitize from 'hast-util-sanitize';
 import gh from 'hast-util-sanitize/lib/github.json';
 import toString from 'hast-util-to-string';
-import mime from 'mime-types';
 import html from 'rehype-parse';
 import stringify from 'rehype-stringify';
 import markdown from 'remark-parse';
@@ -11,7 +10,14 @@ import unified from 'unified';
 import text from 'unified-doc-parse-text';
 import annotate from 'unified-doc-util-annotate';
 
+import { mimeTypes } from './enums';
 import { inferMimeType } from './file';
+
+const defaultParsers = {
+  [mimeTypes.HTML]: [html],
+  [mimeTypes.MARKDOWN]: [markdown, remark2rehype],
+  [mimeTypes.TEXT]: [text],
+};
 
 const pluginfy = (transform) => (...args) => (tree) => transform(tree, ...args);
 
@@ -22,53 +28,31 @@ function extractText(hast, file) {
 export function createProcessor(options = {}) {
   const {
     annotations = [],
-    annotationCallbacks = {},
     compiler = stringify,
     file,
+    parsers: providedParsers = defaultParsers,
     plugins = [],
     sanitizeSchema = {},
   } = options;
 
-  // create unified processor and apply parser by infering mime type
+  // create unified processor and apply parser against inferred mime type
   const processor = unified();
+  const parsers = {
+    ...defaultParsers,
+    ...providedParsers,
+  };
   const mimeType = inferMimeType(file.basename);
-  const defaultExtension = mime.extension(mimeType);
-  switch (defaultExtension) {
-    case 'html':
-      processor.use(html);
-      break;
-    case 'markdown':
-      processor.use(markdown).use(remark2rehype);
-      break;
-    case 'txt':
-    default:
-      processor.use(text);
-  }
+  const parser = parsers[mimeType] || parsers[mimeTypes.TEXT];
+  processor.use(parser);
 
   // sanitize the tree
   processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
 
-  // apply private plugins (order matters)
-  processor.use(pluginfy(annotate), { annotations, annotationCallbacks });
+  // apply private plugins -> public plugins -> compiler (order matters)
+  processor.use(pluginfy(annotate), annotations);
   processor.use(() => extractText);
-
-  // apply public plugins
-  plugins.forEach((plugin) => {
-    if (Array.isArray(plugin)) {
-      // @ts-ignore TODO: check best practices for applying plugin+options dynamically
-      processor.use(...plugin);
-    } else {
-      processor.use(plugin);
-    }
-  });
-
-  // apply compiler
-  if (Array.isArray(compiler)) {
-    // @ts-ignore TODO: check best practices for applying plugin+options dynamically
-    processor.use(...compiler);
-  } else {
-    processor.use(compiler);
-  }
+  processor.use(plugins);
+  processor.use(compiler);
 
   return {
     compile: () => processor.processSync(file),

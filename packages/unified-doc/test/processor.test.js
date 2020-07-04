@@ -62,18 +62,15 @@ describe('processor', () => {
 
     it('compiles result using a custom compiler (react)', () => {
       const processor = createProcessor({
-        compiler: [rehype2react, { createElement }],
+        compiler: [[rehype2react, { createElement }]],
         file: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
       });
       const compiled = processor.compile();
-      // @ts-ignore TODO: remove once official typing is fixed
-      expect(compiled.result).toHaveProperty('type', 'div');
-      // @ts-ignore TODO: remove once official typing is fixed
-      expect(compiled.result.props).toHaveProperty('children');
-      expect(compiled.contents).toEqual(markdownContent);
+      expect(compiled).toHaveProperty('result.type', 'div');
+      expect(compiled).toHaveProperty('contents', markdownContent);
     });
 
     it('applies sanitize schema', () => {
@@ -154,5 +151,27 @@ describe('processor', () => {
       JSON.stringify(processor.parse()).match(/toc/gi).length,
     ).toBeGreaterThan(1);
     expect(processor.textContent()).toEqual('\nsome markdown content\n');
+  });
+
+  it('applies custom parser (overriding default parser)', () => {
+    const customParser = function () {
+      this.Parser = (_doc) => {
+        return {
+          type: 'root',
+          children: [],
+        };
+      };
+    };
+    const processor = createProcessor({
+      parsers: {
+        'text/markdown': [customParser],
+      },
+      file: vfile({
+        basename: 'doc.md',
+        contents: markdownContent,
+      }),
+    });
+    expect(processor.parse()).toEqual({ type: 'root', children: [] });
+    expect(processor.textContent()).toEqual('');
   });
 });

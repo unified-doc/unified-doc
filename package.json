@@ -26,18 +26,18 @@
     "unified-doc-util-text-offsets": "file:packages/unified-doc-util-text-offsets"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.10.2",
-    "@types/jest": "^26.0.0",
-    "babel-jest": "^26.0.1",
+    "@babel/preset-env": "^7.10.4",
+    "@types/jest": "^26.0.3",
+    "babel-jest": "^26.1.0",
     "husky": "^4.2.5",
-    "jest": "^26.0.1",
+    "jest": "^26.1.0",
     "lerna": "^3.22.1",
-    "microbundle": "^0.12.1",
+    "microbundle": "^0.12.2",
     "react": "^16.13.1",
     "rehype-react": "^6.0.0",
     "rehype-toc": "^3.0.1",
-    "typescript": "^3.9.5",
-    "xo": "^0.32.0"
+    "typescript": "^3.9.6",
+    "xo": "^0.32.1"
   },
   "husky": {
     "hooks": {

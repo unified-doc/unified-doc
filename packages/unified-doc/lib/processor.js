@@ -32,7 +32,7 @@ export function createProcessor(options = {}) {
     file,
     parsers: providedParsers = defaultParsers,
     plugins = [],
-    sanitizeSchema = {},
+    sanitizeSchema,
   } = options;
 
   // create unified processor and apply parser against inferred mime type
@@ -46,7 +46,9 @@ export function createProcessor(options = {}) {
   processor.use(parser);
 
   // sanitize the tree
-  processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
+  if (sanitizeSchema) {
+    processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
+  }
 
   // apply private plugins -> public plugins -> compiler (order matters)
   processor.use(pluginfy(annotate), annotations);

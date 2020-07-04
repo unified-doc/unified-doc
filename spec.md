@@ -235,7 +235,7 @@ function compile(hast: Hast, options?: object): VFile;
 ```
 
 ## `sanitizeSchema`
-By default, a `doc` will be safely sanitized.  You can supply a custom schema to specify custom sanitization rules before plugins are applied.  Please see the [`hast-util-sanitize`][hast-util-sanitize] package for more details.
+By default, a `doc` will be safely sanitized if `{}` is provided as a value.  No sanitizing is applied if `null` is provided.  You can supply a custom schema to specify custom sanitization rules before plugins are applied.  Please see the [`hast-util-sanitize`][hast-util-sanitize] package for more details.
 
 ## `searchAlgorithm`
 A `doc` provides a simple way to search its `textContent` against a `query` string.  A `searchAlgorithm` implements the behaviors of searching a `doc` and uses the following unified interface.

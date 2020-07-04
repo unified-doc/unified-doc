@@ -73,9 +73,9 @@ describe('processor', () => {
       expect(compiled).toHaveProperty('contents', markdownContent);
     });
 
-    it('applies sanitize schema', () => {
+    it('applies no/default/custom sanitize schema', () => {
       const htmlContent =
-        '<div classname="red" style="background: red;">text</div>';
+        '<div class="red" style="background: red;">text</div>';
 
       const processor1 = createProcessor({
         file: vfile({
@@ -83,16 +83,27 @@ describe('processor', () => {
           contents: htmlContent,
         }),
       });
-      expect(processor1.compile().contents).toEqual('<div>text</div>');
+      expect(processor1.compile().contents).toEqual(
+        `<html><head></head><body>${htmlContent}</body></html>`,
+      );
 
       const processor2 = createProcessor({
         file: vfile({
           basename: 'doc.html',
           contents: htmlContent,
         }),
+        sanitizeSchema: {},
+      });
+      expect(processor2.compile().contents).toEqual('<div>text</div>');
+
+      const processor3 = createProcessor({
+        file: vfile({
+          basename: 'doc.html',
+          contents: htmlContent,
+        }),
         sanitizeSchema: { attributes: { '*': ['style'] } },
       });
-      expect(processor2.compile().contents).toEqual(
+      expect(processor3.compile().contents).toEqual(
         '<div style="background: red;">text</div>',
       );
     });

@@ -73,7 +73,7 @@ interface Options {
   compiler?: PluggableList;
   parsers?: Parsers;
   plugins?: PluggableList;
-  sanitizeSchema?: SanitizeSchema;
+  sanitizeSchema?: SanitizeSchema | null;
   searchOptions?: SearchOptions;
   searchAlgorithm?: SearchAlgorithm;
 }

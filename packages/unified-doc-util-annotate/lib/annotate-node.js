@@ -7,6 +7,7 @@ export function getAnnotatedNodes(
   return nodeSegments.map((nodeSegment) => {
     const { annotations, value } = nodeSegment;
     let annotatedNode = { type: 'text', value };
+
     if (annotations.length > 0) {
       annotations
         .slice()
@@ -22,14 +23,15 @@ export function getAnnotatedNodes(
           properties.className = classNames;
           properties.dataAnnotationId = id;
           properties.style = style;
-
           if (!appliedAnnotationIds.has(id)) {
             properties.id = id;
             appliedAnnotationIds.add(id);
           }
+
           annotatedNode = h('mark', properties, annotatedNode);
         });
     }
+
     return annotatedNode;
   });
 }

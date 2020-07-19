@@ -18,7 +18,7 @@ describe('textContent', () => {
     expect(doc2.textContent()).toEqual(htmlContent);
   });
 
-  it('ggets the textContent of the parsed tree given the  .md content', () => {
+  it('gets the textContent of the parsed tree given the  .md content', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',

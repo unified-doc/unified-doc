@@ -26,9 +26,9 @@
   "source": "index.js",
   "typings": "types/index.d.ts",
   "dependencies": {
-    "hastscript": "^5.1.2",
+    "hastscript": "^6.0.0",
     "unified-doc-types": "file:../unified-doc-types",
     "unified-doc-util-text-offsets": "file:../unified-doc-util-text-offsets",
-    "unist-util-visit-parents": "^3.0.2"
+    "unist-util-visit": "^2.0.3"
   }
 }

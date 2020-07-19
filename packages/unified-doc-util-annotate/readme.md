@@ -10,7 +10,7 @@ npm install unified-doc-util-annotate
 
 ## Use
 
-Given a hast tree parsed from some HTML content:
+Given a `hast` tree parsed from some HTML content:
 
 
 ```js
@@ -45,7 +45,7 @@ const hast = {
 };
 
 const annotations = [
-  { id: 'a', classNames: ['a', 'b'], start: 1, end: 4 },
+  { id: 'a', start: 1, end: 4, classNames: ['a', 'b'] },
 ];
 
 console.log(annotate(hast, { annotations }));
@@ -74,7 +74,6 @@ const hast = {
               tagName: 'mark',
               properties: {
                 dataAnnotationId: 'a',
-                dataCategory: 'A',
                 id: 'a',
                 classNames: ['a', 'b'],
               },
@@ -204,7 +203,7 @@ const hast = {
 function annotate(hast: Hast, annotations: Annotation[]): Hast
 ```
 
-Accepts a valid `hast` tree with options and applies `annotations`.  Returns a new tree.
+Accepts a valid `hast` tree and applies `annotations`.  Returns a new tree.
 
 ### Interfaces
 
@@ -220,27 +219,27 @@ interface Annotation {
 }
 ```
 
-An `Annotation` is an object that contains requried `id`, `start` and `end` field.  Optional ways to customize the annotation can be provided with the `classNames`, `style` and `dataset` properties.  Additional contextual data not used for annotation rendering can be defined under the `data` property.
+An `Annotation` is an object requiring the `id`, `start` and `end` properties.  Annotated `mark` nodes can be customized by specifying the optional `classNames`, `style` and `dataset` properties.  Additional annotation not used for rendering can be organized under the `data` attribute.
 
-The `start` and `end` field are offset values relative to the `textContent` of the provided `hast` tree.  The annotation algorithm uses these offsets against the tree's `textContent` to decide how to insert `mark` nodes with associated data while maintaining the semantic structure of the tree.
+The `start` and `end` properties are offset values relative to the `textContent` of the provided `hast` tree.  The annotation algorithm uses these offsets to determine how to insert annotated `mark` nodes while preserving the semantic structure of the rest of the content.
 
 The following pseudocode should aid this understanding:
 
 ```js
 const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
-const htmlText = 'some\ncontent';
+const textContent = 'some\ncontent';
 const textNodes = ['some', '\ncontent'];
 const textNodeOffsets = [
   { start: 0, end: 4 }, // from "[some]\ncontent"
   { start: 4, end: 12 }, // from "some[\ncontent]"
 ];
 
-const htmlHast = { ... };
+const hast = { ... };
 const annotations = [
   { id: 'a', classNames: ['a', 'b'], start: 3, end: 8 },
   { id: 'b', style: { background: 'red' }, start: 6, end: 10 },
 ];
-const expectedTextSegments = [
+const annotatedTextSegments = [
   {
     value: 'som', // from "[som]e" text node
     textOffset: { start: 0, end: 3},
@@ -273,12 +272,7 @@ const expectedTextSegments = [
   },
 ];
 
-/**
- * Apply expectedTextSegments with annotation properties
- * to relevant text nodes in the hast tree.
- * Preserves the semantic structure of the tree.
- */
-const annotated = annotate(htmlHast, { annotations });
+const annotated = annotate(hast, { annotations });
 ```
 
 <!-- Links -->

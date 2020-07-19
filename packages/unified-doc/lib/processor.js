@@ -21,7 +21,7 @@ const defaultParsers = {
 
 const pluginfy = (transform) => (...args) => (tree) => transform(tree, ...args);
 
-function extractText(hast, file) {
+function extractTextContent(hast, file) {
   file.data.textContent = toString(hast);
 }
 
@@ -29,20 +29,20 @@ export function createProcessor(options = {}) {
   const {
     annotations = [],
     compiler = stringify,
-    file,
-    parsers: providedParsers = defaultParsers,
+    parsers = defaultParsers,
     plugins = [],
     sanitizeSchema,
+    vfile,
   } = options;
 
   // create unified processor and apply parser against inferred mime type
   const processor = unified();
-  const parsers = {
+  const mergedParsers = {
     ...defaultParsers,
-    ...providedParsers,
+    ...parsers,
   };
-  const mimeType = inferMimeType(file.basename);
-  const parser = parsers[mimeType] || parsers[mimeTypes.TEXT];
+  const mimeType = inferMimeType(vfile.basename);
+  const parser = mergedParsers[mimeType] || mergedParsers[mimeTypes.TEXT];
   processor.use(parser);
 
   // sanitize the tree
@@ -52,18 +52,29 @@ export function createProcessor(options = {}) {
 
   // apply private plugins -> public plugins -> compiler (order matters)
   processor.use(pluginfy(annotate), annotations);
-  processor.use(() => extractText);
+  processor.use(() => extractTextContent);
   processor.use(plugins);
   processor.use(compiler);
 
+  function compile() {
+    return processor.processSync(vfile);
+  }
+
+  function parse() {
+    return processor.runSync(processor.parse(vfile));
+  }
+
+  function textContent() {
+    const hasProcessed = vfile.data.textContent;
+    if (!hasProcessed) {
+      compile();
+    }
+    return vfile.data.textContent;
+  }
+
   return {
-    compile: () => processor.processSync(file),
-    parse: () => processor.runSync(processor.parse(file)),
-    textContent: () => {
-      if (!file.data.textContent) {
-        processor.processSync(file);
-      }
-      return file.data.textContent;
-    },
+    compile,
+    parse,
+    textContent,
   };
 }

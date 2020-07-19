@@ -117,7 +117,7 @@ const expectedTextSegments = [
 Compiles `content` into output results that is stored on a [`vfile`][vfile].  Renderers can use the compiled results to render the document.  Compiled results are defined and configured by assigning a specific `compiler` to the `doc`.  More details on [`compilers`](#compiler) is provided in a later section.
 
 ### `doc.file(extension?: string): FileData`
-Supports easy ways to convert between file formats by providing a supported `extension` argument (e.g. source file, `.html`, `.txt`, `.uni`).  File data for the provided extension is returned.  The formal spec for `FileData` is provided below.
+Supports easy ways to convert between file formats by providing a supported `extension` argument (e.g. source file, `.html`, `.txt`).  File data for the provided extension is returned.  The formal spec for `FileData` is provided below.
 
 ```ts
 interface FileData {
@@ -133,7 +133,6 @@ The core supported file extensions and behaviors are:
 - `null`: returns the source file without modification.
 - `.html`: returns the compiled `html` in a `.html` file.
 - `.txt`: returns the `textContent` in a `.txt` file.
-- `.uni`: returns the `hast` tree in a `.uni` file.
 
 ```js
 const content = '> **some** markdown content';

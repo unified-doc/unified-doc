@@ -15,7 +15,7 @@ describe('processor', () => {
 
     it('compiles to string using the default compiler', () => {
       const processor = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
@@ -26,7 +26,7 @@ describe('processor', () => {
     it('accepts compilers in array-form', () => {
       const processor = createProcessor({
         compiler: [stringify],
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
@@ -36,7 +36,7 @@ describe('processor', () => {
 
     it('compiles based on file extension', () => {
       const processor1 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.txt',
           contents: markdownContent,
         }),
@@ -44,7 +44,7 @@ describe('processor', () => {
       expect(processor1.compile().contents).toEqual(markdownContent);
 
       const processor2 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
@@ -52,7 +52,7 @@ describe('processor', () => {
       expect(processor2.compile().contents).toContain('<blockquote>');
 
       const processor3 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.html',
           contents: markdownContent,
         }),
@@ -63,7 +63,7 @@ describe('processor', () => {
     it('compiles result using a custom compiler (react)', () => {
       const processor = createProcessor({
         compiler: [[rehype2react, { createElement }]],
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
@@ -78,7 +78,7 @@ describe('processor', () => {
         '<div class="red" style="background: red;">text</div>';
 
       const processor1 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.html',
           contents: htmlContent,
         }),
@@ -88,7 +88,7 @@ describe('processor', () => {
       );
 
       const processor2 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.html',
           contents: htmlContent,
         }),
@@ -97,7 +97,7 @@ describe('processor', () => {
       expect(processor2.compile().contents).toEqual('<div>text</div>');
 
       const processor3 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.html',
           contents: htmlContent,
         }),
@@ -110,7 +110,7 @@ describe('processor', () => {
 
     it('applies plugins (supports either plugin or [plugin, options])', () => {
       const processor1 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
@@ -119,7 +119,7 @@ describe('processor', () => {
       expect(processor1.compile().contents).toContain('toc');
 
       const processor2 = createProcessor({
-        file: vfile({
+        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
@@ -131,7 +131,7 @@ describe('processor', () => {
 
   it('parses to hast', () => {
     const processor = createProcessor({
-      file: vfile({
+      vfile: vfile({
         basename: 'doc.md',
         contents: markdownContent,
       }),
@@ -141,7 +141,7 @@ describe('processor', () => {
 
   it('returns textContent of parsed tree', () => {
     const processor = createProcessor({
-      file: vfile({
+      vfile: vfile({
         basename: 'doc.md',
         contents: markdownContent,
       }),
@@ -150,9 +150,9 @@ describe('processor', () => {
     expect(processor.textContent()).toEqual('\nsome markdown content\n');
   });
 
-  it('returns textContent of parsed tree ignoring effects of plugins', () => {
+  it('returns textContent of parsed tree ignoring effects of public plugins', () => {
     const processor = createProcessor({
-      file: vfile({
+      vfile: vfile({
         basename: 'doc.md',
         contents: markdownContent,
       }),
@@ -177,7 +177,7 @@ describe('processor', () => {
       parsers: {
         'text/markdown': [customParser],
       },
-      file: vfile({
+      vfile: vfile({
         basename: 'doc.md',
         contents: markdownContent,
       }),

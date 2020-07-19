@@ -177,7 +177,6 @@ The core supported file extensions and behaviors are:
 - `null`: returns the source file without modification.
 - `.html`: returns the compiled `html` in a `.html` file.
 - `.txt`: returns the `textContent` in a `.txt` file.
-- `.uni`: returns the `hast` tree in a `.uni` file.
 
 ```js
 const content = '> **some** markdown content';

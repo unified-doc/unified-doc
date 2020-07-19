@@ -2,6 +2,7 @@ import map from 'unist-util-map';
 
 export default function textOffsets(hast) {
   let start = 0;
+
   return map(hast, (node) => {
     if (node.type === 'text' && typeof node.value === 'string') {
       const textOffset = {
@@ -9,6 +10,7 @@ export default function textOffsets(hast) {
         end: (start += node.value.length),
       };
       const nodeData = node.data || {};
+
       return {
         ...node,
         data: {
@@ -17,6 +19,7 @@ export default function textOffsets(hast) {
         },
       };
     }
+
     return node;
   });
 }

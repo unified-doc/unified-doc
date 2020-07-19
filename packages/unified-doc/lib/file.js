@@ -9,45 +9,37 @@ export function inferMimeType(filename) {
 }
 
 export function getFileData({
-  file,
-  hast = null,
   extension: extensionType = null,
+  hast = null,
+  vfile,
 }) {
   let content;
-  let extension;
+  let extension = extensionType;
   let type;
 
   switch (extensionType) {
     case extensionTypes.HTML: {
       content = toHtml(hast);
-      extension = extensionType;
       type = inferMimeType(extension);
       break;
     }
     case extensionTypes.TEXT: {
       content = toString(hast);
-      extension = extensionType;
       type = inferMimeType(extension);
       break;
     }
-    case extensionTypes.UNI: {
-      content = JSON.stringify({ hast }, null, 2);
-      extension = extensionTypes.UNI;
-      type = mimeTypes.UNI;
-      break;
-    }
     default: {
-      content = file.contents;
-      extension = file.extname;
-      type = inferMimeType(file.basename);
+      content = vfile.contents;
+      extension = vfile.extname;
+      type = inferMimeType(vfile.basename);
     }
   }
 
   return {
     content,
     extension,
-    name: `${file.stem}${extension}`,
-    stem: file.stem,
+    name: `${vfile.stem}${extension}`,
+    stem: vfile.stem,
     type,
   };
 }

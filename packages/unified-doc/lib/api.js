@@ -1,5 +1,5 @@
 import searchMicromatch from 'unified-doc-search-micromatch';
-import vfile from 'vfile';
+import _vfile from 'vfile';
 
 import { getFileData } from './file';
 import { createProcessor } from './processor';
@@ -17,7 +17,7 @@ export default function unifiedDoc(options = {}) {
     searchOptions = {},
   } = options;
 
-  const file = vfile({
+  const vfile = _vfile({
     contents: content,
     basename: filename,
   });
@@ -25,20 +25,20 @@ export default function unifiedDoc(options = {}) {
   const processor = createProcessor({
     annotations,
     compiler,
-    file,
     plugins,
     sanitizeSchema,
+    vfile,
   });
 
   function compile() {
     return processor.compile();
   }
 
-  function _file(extension) {
+  function file(extension) {
     return getFileData({
       extension,
-      file,
       hast: parse(),
+      vfile,
     });
   }
 
@@ -68,7 +68,7 @@ export default function unifiedDoc(options = {}) {
 
   return {
     compile,
-    file: _file,
+    file,
     parse,
     search,
     textContent,

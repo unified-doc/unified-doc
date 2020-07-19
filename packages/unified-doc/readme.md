@@ -44,12 +44,12 @@ expect(doc.file('.txt')).toEqual({
 expect(doc.parse()).toEqual({ // hast tree
   type: 'root',
   children: [...],
-})
+});
 
 expect(doc.search('nt')).toEqual([
   { start: 16, end: 18, value: 'nt', snippet: ['some markdown co', 'nt', 'ent'] },
   { start: 19, end: 21, value: 'nt', snippet: ['some markdown conte', 'nt', ''] },
-])
+]);
 
 expect(doc.textContent()).toEqual('some markdown content');
 ```
@@ -77,8 +77,8 @@ interface Options {
   parsers?: Parsers;
   plugins?: PluggableList;
   sanitizeSchema?: SanitizeSchema | null;
-  searchOptions?: SearchOptions;
   searchAlgorithm?: SearchAlgorithm;
+  searchOptions?: SearchOptions;
 }
 
 interface Annotation {
@@ -104,7 +104,6 @@ type SearchAlgorithm = (
 ) => SearchResult[];
 
 interface SearchResult {
-  [key: string]: any;
   start: number;
   end: number;
   value: string;
@@ -189,7 +188,7 @@ Compiles and returns a `VFile` with compiled `content`/`result` based on the pro
 Easily return file data in for supported extensions (e.g. `.html`, `.txt`).  If an extension is not provided, the source file is returned.
 
 The supported file extensions and behaviors are:
-- `null`: returns the source file without modification.
+- `undefined`: returns the source file without modification.
 - `.html`: returns the compiled `html` in a `.html` file.
 - `.txt`: returns the `textContent` in a `.txt` file.
 
@@ -202,7 +201,7 @@ expect(doc.file()).toEqual({ // outputs source file
   name: 'doc.md',
   stem: 'doc',
   type: 'text/markdown',
-})
+});
 
 expect(doc.file('.html')).toEqual({ // outputs html file
   content: '<blockquote><strong>some</strong>markdown content</blockquote>',

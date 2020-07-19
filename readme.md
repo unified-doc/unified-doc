@@ -8,19 +8,22 @@ unified document APIs.
 - [Development](#development)
 
 ## Intro
-`unified-doc` provides a set of APIs to easily work with content in various document/file formats.  With `unified-doc`, we can easily
+Vast amounts of human knowledge is stored digitally in different document formats.  It is cheap to create, store, render, and manage content within the same document format, but much harder to perform the same operations for content across different document formats.  Some form of [unified][unified] bridge is required to significantly lower the friction for working across document formats, and subsequently improve aquisition and sharing of human knowledge.
 
+Instead of implementing custom programs per content type to parse/render/search/annotate/export content, `unified-doc` implements a set of unified document APIs for supported content types.  This allows extension of existing APIs to newly introduced content types, and for supported content types to benefit from new API methods.
+
+With `unified-doc`, we can easily
+
+With `unified-doc`, we can easily
 - compile and render any content to HTML.
 - format and style the document.
 - annotate the document.
 - search on the document's text content.
 - export the document in a variety of file formats.
-- retrieve useful representations of the doucment (source content, text content, syntax tree).
+- preserve the semantic structure of the source content.
+- retrieve useful representations of the document (source content, text content, syntax tree).
 - enrich the document through an ecosystem of plugins.
-
-Instead of implementing custom render/search/annotation/export programs based on specific content types, `unified-doc` implements a unified set of APIs for supported content types.  This allows easy extension of existing APIs to newly introduced content types, and for supported content types to benefit from new API methods.
-
-`unified-doc` renders semantic HTML documents that are interoperable with web technologies.
+- evolve with interoperable web technologies.
 
 ## Spec
 Please refer to the [Spec](./spec.md) documentation for more details on goals, definitions, and implementations in `unified-doc`.

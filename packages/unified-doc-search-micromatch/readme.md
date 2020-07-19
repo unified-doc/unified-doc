@@ -58,10 +58,10 @@ Please refer to the [`micromatch`][micromatch] options documentation for configu
 
 ```js
 interface SearchResult {
-  [key]: string;
   start: number;
   end: number;
   value: string;
+  data?: Record<string, any>;
 }
 ```
 

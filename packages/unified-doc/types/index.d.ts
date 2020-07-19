@@ -39,8 +39,8 @@ export interface Options {
   parsers?: Parsers;
   plugins?: PluggableList;
   sanitizeSchema?: SanitizeSchema | null;
-  searchOptions?: SearchOptions;
   searchAlgorithm?: SearchAlgorithm;
+  searchOptions?: SearchOptions;
 }
 
 export interface Parsers {

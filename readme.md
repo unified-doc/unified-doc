@@ -13,8 +13,6 @@ Vast amounts of human knowledge is stored digitally in different document format
 Instead of implementing custom programs per content type to parse/render/search/annotate/export content, `unified-doc` implements a set of unified document APIs for supported content types.  This allows extension of existing APIs to newly introduced content types, and for supported content types to benefit from new API methods.
 
 With `unified-doc`, we can easily
-
-With `unified-doc`, we can easily
 - compile and render any content to HTML.
 - format and style the document.
 - annotate the document.

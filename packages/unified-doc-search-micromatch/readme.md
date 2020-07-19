@@ -1,6 +1,6 @@
 # unified-doc-search-micromatch
 
-[**unified-doc**][unified-doc] [`micromatch`][micromatch] search algorithm.
+[**unified-doc**][unified-doc] [`micromatch`][micromatch] [search algorithm][search-algorithm].
 
 ## Install
 
@@ -10,7 +10,7 @@ npm install unified-doc-search-micromatch
 
 ## Use
 
-Supports the matching features in the `micromatch` package when performing search queries:
+Supports the matching features in the `micromatch` package when searching `doc` instances managed by `unified-doc`.
 
 ```js
 const content = 'a TO the b TO the c';
@@ -68,3 +68,4 @@ interface SearchResult {
 <!-- Links -->
 [micromatch]: https://github.com/micromatch/micromatch
 [unified-doc]: https://github.com/unified-doc/unified-doc
+[search-algorithm]: https://github.com/unified-doc/unified-doc/blob/main/spec.md#search-algorithm

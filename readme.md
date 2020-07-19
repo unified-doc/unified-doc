@@ -3,48 +3,43 @@ unified document APIs.
 
 ## Contents
 - [Intro](#intro)
-- [Specs](#specs)
+- [Spec](#spec)
 - [Packages](#packages)
 - [Development](#development)
 
 ## Intro
-The [`unified`][unified] initiative provides specs, tools, and a foundation to unify and structure content of varying formats.  `unified-doc` seeks to unify common document APIs that operate on top of a unified content layer.
+`unified-doc` provides a set of APIs to easily work with content in various document/file formats.  With `unified-doc`, we can easily
 
-Working with documents should be simple and unified.  We should be able to:
-- parse and render any content to HTML for easy viewing in the browser.
-- apply annotations and formatting to the document.
-- convert the document to a variety of file formats.
-- use a unified search interface that is simple to implement and works with any content type.
-- retrieve useful representations of the document (e.g. source content, text content, files, syntax tree).
+- compile and render any content to HTML.
+- format and style the document.
+- annotate the document.
+- search on the document's text content.
+- export the document in a variety of file formats.
+- retrieve useful representations of the doucment (source content, text content, syntax tree).
 - enrich the document through an ecosystem of plugins.
-- avoid working with problems relating to specific content types, and instead work with APIs that are built on simple and unified data and interfaces.
-- support new content types and extend existing APIs to them for free.
-- support new APIs and extend them to supported content types for free.
-- use these APIs in both Node + browsers.
-- evolve with web technologies.
 
-The above statements represent the goals that the `unified-doc` project is working towards: building simple and unified document APIs.
+Instead of implementing custom render/search/annotation/export programs based on specific content types, `unified-doc` implements a unified set of APIs for supported content types.  This allows easy extension of existing APIs to newly introduced content types, and for supported content types to benefit from new API methods.
+
+`unified-doc` renders semantic HTML documents that are interoperable with web technologies.
 
 ## Spec
-Please refer to the [Spec](./spec.md) documentation for more details ono how the `unified-doc` project is defined and implemented.
+Please refer to the [Spec](./spec.md) documentation for more details on goals, definitions, and implementations in `unified-doc`.
 
 ## Packages
-The following packages are used in the `unified-doc` ecosystem.
+The following packages are used in the `unified-doc` interface.
 
 ### API
-Unified document APIs accessible for both Node and DOM.
+Unified document APIs for Node, CLI, and/or DOM.
 - [`unified-doc`][unified-doc]
 - [`unified-doc-cli`][unified-doc-cli]
 - [`unified-doc-dom`][unified-doc-dom]
 
 ### Parsers
-Parsers parse source content into unified [`hast`][hast] trees.  The following parsers are integrated in `unified-doc`.
-- [`rehype-parse`][rehype-parse]
-- [`remark-parse`][remark-parse]
+Parsers parse source content into [`hast`][hast] trees.
 - [`unified-doc-parse-text`][unified-doc-parse-text]
 
 ### Search Algorithms
-Search algorithms use a unified interface to return search results when searching against a the `textContent` of a `doc`.
+Search algorithms use a unified search interface to return search results based on the provided `query` and `textContent` of a document by using a custom implementation.
 - [`unified-doc-search-micromatch`][unified-doc-search-micromatch]
 
 ### Hast Utils
@@ -53,17 +48,23 @@ Search algorithms use a unified interface to return search results when searchin
 - [`unified-doc-util-text-offsets`][unified-doc-util-text-offsets]
 
 ### Wrappers
-Wrappers implement `unified-doc` APIs in other ecosystems.
+Wrappers implement `unified-doc` APIs in other interfaces.
 - [`unified-doc-react`][unified-doc-react]
+
+### Types
+Shared Typescript typings used across `unified-doc` packages.
+- [`unified-doc-types`][unified-doc-types]
 
 ## Development
 This project is:
-- made possible by many awesome open-source projects (e.g. [unified][unified]).
+- implemented with the [unified][unified] interface.
 - linted with `xo` + `prettier` + `tsc`.
-- developed and bundled with `microbundle`.
+- developed and built with `microbundle`.
 - tested with `jest`.
-- softly-typed with `typescript` (only public APIs are typed).  Typescript definitions used across packages are defined in `unified-docs-types` and the project is typed using `checkJs`.
-- managed with `lerna` with the following scripts to organize the monorepo development:
+- softly-typed with `typescript` with `checkJs` (only public APIs are typed).
+- managed with `lerna`
+
+Monorepo scripts:
   ```sh
   # install dependencies and bootstrap with lerna
   npm run bootstrap
@@ -96,15 +97,14 @@ This project is:
 <!-- Links -->
 [hast]: https://github.com/syntax-tree/hast
 [rehype]: https://github.com/rehypejs/rehype
-[rehype-parse]: https://github.com/rehypejs/rehype/tree/main/packages/rehype-parse
-[remark-parse]: https://github.com/remarkjs/remark/tree/master/packages/remark-parse
 [unified]: https://github.com/unifiedjs
-[unified-doc]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc
+[unified-doc]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc
 [unified-doc-cli]: https://github.com/unified-doc/unified-doc-cli
 [unified-doc-dom]: https://github.com/unified-doc/unified-doc-dom
-[unified-doc-parse-text]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-parse-text
+[unified-doc-parse-text]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-parse-text
 [unified-doc-react]: https://github.com/unified-doc/unified-doc-react
-[unified-doc-search-micromatch]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-search-micromatch
-[unified-doc-util-annotate]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-annotate
-[unified-doc-util-text-offsets]: https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-text-offsets
+[unified-doc-search-micromatch]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-search-micromatch
+[unified-doc-types]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-types
+[unified-doc-util-annotate]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-annotate
+[unified-doc-util-text-offsets]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-text-offsets
 

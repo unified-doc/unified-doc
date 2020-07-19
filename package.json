@@ -15,6 +15,7 @@
     "lint": "xo --fix; tsc",
     "test": "jest --watch packages",
     "test:run": "jest",
+    "prepare": "npm run clean; npm run build",
     "publish": "lerna publish"
   },
   "dependencies": {
@@ -41,7 +42,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run lint; npm run test:run; npm run clean; npm run build"
+      "pre-push": "npm prepare; npm run lint; npm run test:run"
     }
   },
   "prettier": {

@@ -1,6 +1,4 @@
-import { Node } from 'hast';
-
-import { Annotation } from './annotation';
+export { Node as Hast } from 'hast';
 
 export interface FileData {
   content: string;
@@ -10,12 +8,4 @@ export interface FileData {
   type: string;
 }
 
-export type Hast = Node;
-
 export type SanitizeSchema = Record<string, any>;
-
-export interface UniFile {
-  annotations: Annotation[];
-  basename: string;
-  hast: Hast;
-}

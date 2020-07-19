@@ -1,6 +1,6 @@
 # unified-doc-types
 
-[typescript][typescript] typings for [**unified-doc**][unified-doc].
+[**unified-doc**][unified-doc] [typescript][typescript] typings.
 
 ## Install
 
@@ -27,8 +27,8 @@ const fileData: FileData = {
 };
 
 const results: SearchResult[] = [
-  { start: 0, end: 2, 'so' },
-  { start: 6, end: 8, 'rk' },
+  { start: 0, end: 2, value: 'so', data: { weight: 2 } },
+  { start: 6, end: 8, value: 'rk', data: { weight: 5 } },
 ];
 ```
 

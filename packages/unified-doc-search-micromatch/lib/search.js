@@ -26,5 +26,6 @@ export default function search(content, query, options = {}) {
       }
     }
   }
+
   return searchResults;
 }

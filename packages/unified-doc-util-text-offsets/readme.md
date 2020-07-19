@@ -10,7 +10,7 @@ npm install unified-doc-util-text-offsets
 
 ## Use
 
-Given a hast tree parsed from some HTML content:
+Given a `hast` tree parsed from some HTML content:
 
 ```js
 import textOffsets from 'unified-doc-util-text-offsets';
@@ -100,23 +100,22 @@ interface TextOffset = {
 }
 ```
 
-A `TextOffset` for a `text` node tracks the start and end offset of its text value relative to the `textContent` representation of the provided `hast` tree.
+A `TextOffset` for a `text` node tracks the start and end offset of its value relative to the `textContent` representation of the provided `hast` tree.
 
-The following pseudocode should aid this understanding:
+The following pseudocode aims to guide this understanding:
 
 ```js
 const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
-const htmlText = 'some\ncontent';
+const textContent = 'some\ncontent';
 const textNodes = ['some', '\ncontent'];
 const textNodeOffsets = [
   { start: 0, end: 4 }, // from "[some]\ncontent"
   { start: 4, end: 12 }, // from "some[\ncontent]"
 ];
 
-const htmlHast = { ... };
 
-// apply textNodesOffsets to relevant text nodes in the hast tree.
-const withTextOffsets = textOffsets(htmlHast)
+const hast = { ... };
+const withTextOffsets = textOffsets(hast); // textOffset data added to text nodes.
 ```
 
 <!-- Links -->

@@ -4,7 +4,7 @@
   "description": "unified-doc hast utility to add text offsets to text nodes",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc",
-  "repository": "https://github.com/unified-doc/unified-doc/tree/master/packages/unified-doc-util-text-offsets",
+  "repository": "https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-text-offsets",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
   "keywords": [

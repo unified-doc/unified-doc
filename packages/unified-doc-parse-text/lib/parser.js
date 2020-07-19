@@ -8,6 +8,7 @@ export default function parser(doc) {
 
   const lines = doc.split(/\n/g);
   const lastLine = lines[lines.length - 1];
+
   const position = {
     start: {
       column: 1,

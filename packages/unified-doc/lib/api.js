@@ -11,6 +11,7 @@ export default function unifiedDoc(options = {}) {
     compiler,
     content,
     filename,
+    parsers = {},
     plugins = [],
     sanitizeSchema = {},
     searchAlgorithm = searchMicromatch,
@@ -25,6 +26,7 @@ export default function unifiedDoc(options = {}) {
   const processor = createProcessor({
     annotations,
     compiler,
+    parsers,
     plugins,
     sanitizeSchema,
     vfile,

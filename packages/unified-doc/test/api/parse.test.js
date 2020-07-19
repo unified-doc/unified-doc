@@ -46,4 +46,23 @@ describe('parse', () => {
     expect(hast).toHaveProperty('children.0.type', 'text');
     expect(hast).toHaveProperty('children.0.value', htmlContent);
   });
+
+  it('applies custom parser (overriding default parser)', () => {
+    const customParser = function () {
+      this.Parser = (_doc) => {
+        return {
+          type: 'root',
+          children: [],
+        };
+      };
+    };
+    const doc = api({
+      content: htmlContent,
+      filename: 'doc.html',
+      parsers: {
+        'text/html': customParser,
+      },
+    });
+    expect(doc.parse()).toEqual({ type: 'root', children: [] });
+  });
 });

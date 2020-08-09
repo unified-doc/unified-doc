@@ -1,9 +1,9 @@
 {
   "name": "unified-doc-util-annotate",
   "version": "1.0.0",
-  "description": "unified-doc hast util to annotate text nodes",
+  "description": "unified-doc hast util to annotate text nodes.",
   "license": "MIT",
-  "homepage": "https://github.com/unified-doc",
+  "homepage": "https://github.com/unified-doc/unified-doc",
   "repository": "https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-annotate",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",

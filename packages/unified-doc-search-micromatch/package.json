@@ -1,9 +1,9 @@
 {
   "name": "unified-doc-search-micromatch",
   "version": "1.0.0",
-  "description": "unified-doc micromatch search algorithm",
+  "description": "unified-doc micromatch search algorithm.",
   "license": "MIT",
-  "homepage": "https://github.com/unified-doc",
+  "homepage": "https://github.com/unified-doc/unified-doc",
   "repository": "https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-search-micromatch",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",

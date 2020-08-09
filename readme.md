@@ -27,7 +27,7 @@ With `unified-doc`, we can easily
 Please refer to the [Spec](./spec.md) documentation for more details on goals, definitions, and implementations in `unified-doc`.
 
 ## Packages
-The following packages are used in the `unified-doc` interface.
+The following packages are managed under the `unified-doc` project.
 
 ### API
 Unified document APIs for Node, CLI, and/or DOM.
@@ -66,34 +66,34 @@ This project is:
 - managed with `lerna`
 
 Monorepo scripts:
-  ```sh
-  # install dependencies and bootstrap with lerna
-  npm run bootstrap
+```sh
+# install dependencies and bootstrap with lerna
+npm run bootstrap
 
-  # build all packages with microbundle
-  npm run build
+# build all packages with microbundle
+npm run build
 
-  # clean all packages (rm dist + node_modules)
-  npm run clean
+# clean all packages (rm dist + node_modules)
+npm run clean
 
-  # watch/rebuild all packages with microbundle
-  npm run dev
+# watch/rebuild all packages with microbundle
+npm run dev
 
-  # link all packages with lerna
-  npm run link
+# link all packages with lerna
+npm run link
 
-  # lint all packages with xo + prettier + tsc
-  npm run lint
+# lint all packages with xo + prettier + tsc
+npm run lint
 
-  # test all packages with jest in --watch mode (make sure to run the 'dev' script)
-  npm run test
+# test all packages with jest in --watch mode (make sure to run the 'dev' script)
+npm run test
 
-  # test all packages in a single run
-  npm run test:run
+# test all packages in a single run
+npm run test:run
 
-  # publish all packages with lerna
-  npm run publish
-  ```
+# publish all packages with lerna
+npm run publish
+```
 
 <!-- Links -->
 [hast]: https://github.com/syntax-tree/hast

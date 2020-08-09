@@ -1,9 +1,9 @@
 {
   "name": "unified-doc",
   "version": "1.0.0",
-  "description": "unified document APIs",
+  "description": "unified document APIs.",
   "license": "MIT",
-  "homepage": "https://github.com/unified-doc",
+  "homepage": "https://github.com/unified-doc/unified-doc",
   "repository": "https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
@@ -33,19 +33,19 @@
   "typings": "types/index.d.ts",
   "dependencies": {
     "deepmerge": "^4.2.2",
-    "hast-util-sanitize": "^2.0.3",
+    "hast-util-sanitize": "^3.0.0",
     "hast-util-to-html": "^7.1.1",
     "hast-util-to-string": "^1.0.4",
     "mime-types": "^2.1.27",
     "rehype-parse": "^7.0.1",
     "rehype-stringify": "^8.0.0",
-    "remark-parse": "^8.0.2",
+    "remark-parse": "^8.0.3",
     "remark-rehype": "^7.0.0",
-    "unified": "^9.0.0",
+    "unified": "^9.1.0",
     "unified-doc-parse-text": "file:../unified-doc-parse-text",
     "unified-doc-search-micromatch": "file:../unified-doc-search-micromatch",
     "unified-doc-types": "file:../unified-doc-types",
     "unified-doc-util-annotate": "file:../unified-doc-util-annotate",
-    "vfile": "^4.1.1"
+    "vfile": "^4.2.0"
   }
 }

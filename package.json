@@ -2,7 +2,7 @@
   "private": true,
   "name": "unified-doc",
   "license": "MIT",
-  "homepage": "https://github.com/unified-doc",
+  "homepage": "https://github.com/unified-doc/unified-doc",
   "repository": "unified-doc/unified-doc",
   "bugs": "https://github.com/unified-doc/unified-doc/issues",
   "author": "Chris Zhou <chrisrzhou@pm.me>",
@@ -14,7 +14,7 @@
     "link": "lerna link convert",
     "lint": "xo --fix; tsc",
     "test": "jest --watch packages",
-    "test:run": "jest",
+    "test:ci": "jest",
     "prepare": "npm run clean; npm run build",
     "publish": "lerna publish"
   },
@@ -27,22 +27,22 @@
     "unified-doc-util-text-offsets": "file:packages/unified-doc-util-text-offsets"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.10.4",
-    "@types/jest": "^26.0.3",
-    "babel-jest": "^26.1.0",
+    "@babel/preset-env": "^7.11.0",
+    "@types/jest": "^26.0.9",
+    "babel-jest": "^26.2.2",
     "husky": "^4.2.5",
-    "jest": "^26.1.0",
+    "jest": "^26.2.2",
     "lerna": "^3.22.1",
     "microbundle": "^0.12.2",
     "react": "^16.13.1",
-    "rehype-react": "^6.0.0",
+    "rehype-react": "^6.1.0",
     "rehype-toc": "^3.0.1",
     "typescript": "^3.9.6",
     "xo": "^0.32.1"
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm prepare; npm run lint; npm run test:run"
+      "pre-push": "npm prepare; npm run lint; npm run test:ci"
     }
   },
   "prettier": {

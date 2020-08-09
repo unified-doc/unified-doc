@@ -25,6 +25,10 @@
   "module": "dist/index.module.js",
   "source": "index.js",
   "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types/index.d.ts"
+  ],
   "dependencies": {
     "hastscript": "^6.0.0",
     "unified-doc-types": "file:../unified-doc-types",

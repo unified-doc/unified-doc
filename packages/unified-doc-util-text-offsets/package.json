@@ -23,6 +23,10 @@
   "module": "dist/index.module.js",
   "source": "index.js",
   "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types/index.d.ts"
+  ],
   "dependencies": {
     "unified-doc-types": "file:../unified-doc-types",
     "unist-util-map": "^2.0.1"

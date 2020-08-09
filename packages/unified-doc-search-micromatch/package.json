@@ -29,6 +29,10 @@
   "module": "dist/index.module.js",
   "source": "index.js",
   "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types/index.d.ts"
+  ],
   "dependencies": {
     "micromatch": "^4.0.2",
     "unified-doc-types": "file:../unified-doc-types"

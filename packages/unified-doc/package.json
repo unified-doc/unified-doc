@@ -31,6 +31,10 @@
   "module": "dist/index.module.js",
   "source": "index.js",
   "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types/index.d.ts"
+  ],
   "dependencies": {
     "deepmerge": "^4.2.2",
     "hast-util-sanitize": "^3.0.0",

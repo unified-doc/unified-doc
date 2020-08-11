@@ -10,8 +10,8 @@ const node = {
   value: '0123456789',
 };
 
-describe('annotated-node', () => {
-  describe('getAnnotatedNodes', () => {
+describe('annotate-node', () => {
+  describe(getAnnotatedNodes, () => {
     it('returns plain text nodes if no annotations are attached', () => {
       expect(
         getAnnotatedNodes([
@@ -162,7 +162,7 @@ describe('annotated-node', () => {
     });
   });
 
-  describe('getOverLappingAnnotations', () => {
+  describe(getOverLappingAnnotations, () => {
     it('returns empty array when annotations do not overlap with node', () => {
       expect(getOverLappingAnnotations(node, [])).toEqual([]);
       expect(
@@ -221,7 +221,7 @@ describe('annotated-node', () => {
     });
   });
 
-  describe('getNodeSegments', () => {
+  describe(getNodeSegments, () => {
     it('creates node segments for a single annotation', () => {
       expect(getNodeSegments(node, [{ id: 'a', start: 10, end: 15 }])).toEqual([
         {

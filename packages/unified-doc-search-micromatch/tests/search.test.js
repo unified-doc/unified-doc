@@ -2,7 +2,7 @@ import search from '../lib/search';
 
 const content = 'a TO the b TO the c';
 
-describe('search', () => {
+describe(search, () => {
   it('returns empty array for empty content', () => {
     expect(search('', '')).toEqual([]);
   });

@@ -1,7 +1,7 @@
 import { hast } from './fixtures';
 import annotate from '../lib/annotate';
 
-describe('annotate', () => {
+describe(annotate, () => {
   it('returns the original tree if nothing to annotate', () => {
     expect(annotate(hast)).toBe(hast);
   });

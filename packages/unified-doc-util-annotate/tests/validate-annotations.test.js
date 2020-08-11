@@ -1,6 +1,6 @@
 import validateAnnotations from '../lib/validate-annotations';
 
-describe('validateAnnotations', () => {
+describe(validateAnnotations, () => {
   it('should return the same empty array', () => {
     expect(validateAnnotations([])).toEqual([]);
   });

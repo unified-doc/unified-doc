@@ -1,7 +1,7 @@
 import { hast } from './fixtures';
 import textOffsets from '../lib/text-offsets';
 
-describe('textOffsets', () => {
+describe(textOffsets, () => {
   it('should return a new unmodified tree', () => {
     const hast = { type: 'root', children: [] };
     expect(textOffsets(hast)).not.toBe(hast);

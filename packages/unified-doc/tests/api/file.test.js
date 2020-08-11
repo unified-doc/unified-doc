@@ -1,7 +1,7 @@
 import { markdownContent } from '../fixtures';
 import api from '../../lib/api';
 
-describe('file', () => {
+describe('api.file', () => {
   it('returns the source file if no extension is provided', () => {
     const doc = api({
       content: markdownContent,

@@ -5,14 +5,14 @@ import { inferMimeType, getFileData } from '../lib/file';
 
 describe('file', () => {
   // only test the default mime type since other behaviors are implemented/tested in "mime" package.
-  describe('inferMimeType', () => {
+  describe(inferMimeType, () => {
     it('infers default mimetype for invalid types', () => {
       expect(inferMimeType('no-extension')).toEqual('text/plain');
       expect(inferMimeType('file-with.bad-extension')).toEqual('text/plain');
     });
   });
 
-  describe('getFileData', () => {
+  describe(getFileData, () => {
     it('creates file data for a given vfile and infers mimetype', () => {
       const fileData1 = getFileData({
         vfile: vfile({

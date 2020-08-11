@@ -4,7 +4,7 @@ import rehype2react from 'rehype-react';
 import { markdownContent } from '../fixtures';
 import api from '../../lib/api';
 
-describe('compile', () => {
+describe('api.compile', () => {
   it('compiles serialized HTML if no compiler is provided', () => {
     const doc = api({
       content: markdownContent,

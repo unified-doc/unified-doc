@@ -7,7 +7,7 @@ const searchResults = [
 ];
 
 describe('search', () => {
-  describe('getSnippets', () => {
+  describe(getSnippets, () => {
     it('returns empty snippets for empty search results', () => {
       expect(
         getSnippets({ content, searchResults: [], snippetOffsetPadding: 0 }),

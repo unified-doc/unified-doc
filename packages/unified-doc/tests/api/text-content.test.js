@@ -3,7 +3,7 @@ import toc from 'rehype-toc';
 import { htmlContent, markdownContent } from '../fixtures';
 import api from '../../lib/api';
 
-describe('textContent', () => {
+describe('api.textContent', () => {
   it('gets the textContent of the parsed tree given the provided .txt content', () => {
     const doc1 = api({
       content: markdownContent,

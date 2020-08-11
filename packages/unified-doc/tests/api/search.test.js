@@ -1,7 +1,7 @@
 import { htmlContent } from '../fixtures';
 import api from '../../lib/api';
 
-describe('search', () => {
+describe('api.search', () => {
   it('searches with the default search algorithm and algorithm options (micromatch)', () => {
     const doc = api({
       content: htmlContent,

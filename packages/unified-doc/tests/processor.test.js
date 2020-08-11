@@ -8,7 +8,7 @@ import { markdownContent } from './fixtures';
 import { createProcessor } from '../lib/processor';
 
 describe('processor', () => {
-  describe('createProcessor', () => {
+  describe(createProcessor, () => {
     it('throws if file is not provided', () => {
       expect(() => createProcessor()).toThrow();
     });

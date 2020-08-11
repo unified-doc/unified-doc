@@ -2,7 +2,7 @@ import { htmlContent, markdownContent } from '../fixtures';
 import api from '../../lib/api';
 
 // only test the for a valid hast tree since hast is implemented/tested in "unified"
-describe('parse', () => {
+describe('api.parse', () => {
   it('parses text file extension into a hast tree', () => {
     const doc = api({
       content: htmlContent,

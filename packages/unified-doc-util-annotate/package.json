@@ -1,6 +1,6 @@
 {
   "name": "unified-doc-util-annotate",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "unified-doc hast util to annotate text nodes.",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc/unified-doc",

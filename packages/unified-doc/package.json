@@ -33,7 +33,7 @@
   "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "types/index.d.ts"
+    "types"
   ],
   "dependencies": {
     "deepmerge": "^4.2.2",

@@ -25,7 +25,7 @@
   "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "types/index.d.ts"
+    "types"
   ],
   "dependencies": {
     "unified-doc-types": "file:../unified-doc-types",

@@ -20,7 +20,7 @@
   ],
   "typings": "types/index.d.ts",
   "files": [
-    "types/index.d.ts"
+    "types"
   ],
   "dependencies": {
     "@types/hast": "^2.3.1"

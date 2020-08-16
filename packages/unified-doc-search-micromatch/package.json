@@ -31,7 +31,7 @@
   "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "types/index.d.ts"
+    "types"
   ],
   "dependencies": {
     "micromatch": "^4.0.2",

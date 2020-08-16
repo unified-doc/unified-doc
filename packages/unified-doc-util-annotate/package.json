@@ -27,7 +27,7 @@
   "typings": "types/index.d.ts",
   "files": [
     "dist",
-    "types/index.d.ts"
+    "types"
   ],
   "dependencies": {
     "hastscript": "^6.0.0",

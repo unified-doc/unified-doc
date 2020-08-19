@@ -1,7 +1,10 @@
 {
   "command": {
     "publish": {
-      "conventionalCommits": true
+      "conventionalCommits": true,
+      "ignoreChanges": [
+        "**/*.md"
+      ]
     }
   },
   "packages": [

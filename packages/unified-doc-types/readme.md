@@ -11,12 +11,7 @@ npm install unified-doc-types
 ## Use
 
 ```ts
-import { Annotation, FileData, SearchResult } from 'unified-doc';
-
-const annotations: Annotation[] = [
-  { id: 'a', start: 0, end: 5, classNames: ['class-a', 'class-b'] },
-  { id: 'b', start: 0, end: 5, style: { background: 'red' } },
-];
+import { FileData, Mark, SearchResult } from 'unified-doc';
 
 const fileData: FileData = {
   content: '> **some** markdown content',
@@ -25,6 +20,11 @@ const fileData: FileData = {
   stem: 'name',
   type: 'text/markdown'
 };
+
+const marks: Mark[] = [
+  { id: 'a', start: 0, end: 5, classNames: ['class-a', 'class-b'] },
+  { id: 'b', start: 0, end: 5, style: { background: 'red' } },
+];
 
 const results: SearchResult[] = [
   { start: 0, end: 2, value: 'so', data: { weight: 2 } },

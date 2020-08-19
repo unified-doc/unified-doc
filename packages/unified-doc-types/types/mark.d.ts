@@ -1,4 +1,4 @@
-export interface Annotation {
+export interface Mark {
   id: string;
   start: number;
   end: number;

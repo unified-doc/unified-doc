@@ -1,8 +1,7 @@
 {
   "command": {
     "publish": {
-      "conventionalCommits": true,
-      "yes": true
+      "conventionalCommits": true
     }
   },
   "packages": [

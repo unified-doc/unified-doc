@@ -1,4 +1,9 @@
 {
+  "command": {
+    "publish": {
+      "conventionalCommits": true
+    }
+  },
   "packages": [
     "packages/*"
   ],

@@ -13,6 +13,8 @@ npm install unified-doc-search-micromatch
 Supports the matching features in the `micromatch` package when searching `doc` instances managed by `unified-doc`.
 
 ```js
+import search from 'unified-doc-search-micromatch';
+
 const content = 'a TO the b TO the c';
 
 expect(search(content, 'TO', { nocase: true })).toEqual([
@@ -44,8 +46,10 @@ expect(search(content, 'a TO the !(c|d)')).toEqual([
 
 ## API
 
+Uses the unified `SearchAlgorithm` interface to search on `content` with provided `query` string and algorithm-specific `options`.  Returns unified search results.
+
 ```ts
-function SearchAlgorithm(
+function search(
   content: string,
   query: string,
   options?: Options,
@@ -56,7 +60,7 @@ Please refer to the [`micromatch`][micromatch] options documentation for configu
 
 ### Interfaces
 
-```js
+```ts
 interface SearchResult {
   start: number;
   end: number;

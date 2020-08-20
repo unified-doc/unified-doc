@@ -60,7 +60,7 @@ describe('processor', () => {
       expect(processor3.compile().contents).toContain(markdownContent);
     });
 
-    it('compiles result using a custom react compiler', () => {
+    it('compiles result using a custom compiler (react)', () => {
       const processor = createProcessor({
         compiler: [[rehype2react, { createElement }]],
         vfile: vfile({

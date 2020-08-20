@@ -72,8 +72,8 @@ Provide configurable options to initialize a `doc` instance.
 interface Options {
   content: string;
   filename: string;
-  annotations?: Annotation[];
   compiler?: PluggableList;
+  marks?: Mark[];
   parsers?: Parsers;
   plugins?: PluggableList;
   sanitizeSchema?: SanitizeSchema | null;
@@ -81,7 +81,7 @@ interface Options {
   searchOptions?: SearchOptions;
 }
 
-interface Annotation {
+interface Mark {
   id: string;
   start: number;
   end: number;
@@ -120,9 +120,6 @@ interface SearchResultSnippet extends SearchResult {
 }
 ```
 
-##### `options.annotations`
-Specify how `textContent` in a `doc` should be marked with annotation offsets and related data.
-
 ##### `options.compiler`
 Provide a valid [rehype][rehype] compiler (e.g. `rehype-react`, `rehype-stringify`) to compile the content.  Apply the `compiler` using the `PluggableList` interface e.g. `[compiler]` or `[[compiler, compilerOptions]]`.
 
@@ -131,6 +128,9 @@ The document source content is provided as a string.
 
 ##### `options.filename`
 The document filename should always include the file extension (e.g. `.md`), which will determine how the source content will be parsed with the corresponding parser.
+
+##### `options.marks`
+Specify how `textContent` in a `doc` should be marked using text offsets and related data.
 
 ##### `options.parsers`
 Provide an object with mime types as keys and parsers as values.  Inferred mime type from the `filename` will use an associated parser.  If no parser is found, a default text parser will be used.  Parsers are applied using the `PluggableList` interface and can include multiple steps e.g. `[textParse]` or `[remarkParse, remark2rehype]`.
@@ -240,7 +240,7 @@ expect(doc.search('some')).toEqual([
 ```
 
 ##### `doc.textContent(): string`
-The `textContent` of a `doc` is obtained by extracting values of all text nodes in the `hast` representation of the source `content`.  The `textContent` is free of markup and metadata, and supports many important `doc` features (annotations and searching).
+The `textContent` of a `doc` is obtained by extracting values of all text nodes in the `hast` representation of the source `content`.  The `textContent` is free of markup and metadata, and supports many important `doc` features (marks and search).
 
 ```js
 expect(doc.textContent()).toEqual('some markdown content');

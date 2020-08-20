@@ -4,8 +4,8 @@ import stringify from 'rehype-stringify';
 import toc from 'rehype-toc';
 import vfile from 'vfile';
 
-import { markdownContent } from './fixtures';
 import { createProcessor } from '../lib/processor';
+import { markdownContent } from './fixtures';
 
 describe('processor', () => {
   describe(createProcessor, () => {
@@ -13,7 +13,7 @@ describe('processor', () => {
       expect(() => createProcessor()).toThrow();
     });
 
-    it('compiles to string using the default compiler', () => {
+    it('compiles to stringified HTML using the default compiler', () => {
       const processor = createProcessor({
         vfile: vfile({
           basename: 'doc.md',
@@ -34,7 +34,7 @@ describe('processor', () => {
       expect(processor.compile().contents).toContain('<blockquote>');
     });
 
-    it('compiles based on file extension', () => {
+    it('compiles differently based on file extension despite having identical source content', () => {
       const processor1 = createProcessor({
         vfile: vfile({
           basename: 'doc.txt',
@@ -73,7 +73,7 @@ describe('processor', () => {
       expect(compiled).toHaveProperty('contents', markdownContent);
     });
 
-    it('applies no/default/custom sanitize schema', () => {
+    it('applies null/default/custom sanitize schema', () => {
       const htmlContent =
         '<div class="red" style="background: red;">text</div>';
 
@@ -108,13 +108,13 @@ describe('processor', () => {
       );
     });
 
-    it('applies plugins (supports either plugin or [plugin, options])', () => {
+    it('applies post plugins, supporting either plugin or [plugin, options] interface', () => {
       const processor1 = createProcessor({
         vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
-        plugins: [toc],
+        postPlugins: [toc],
       });
       expect(processor1.compile().contents).toContain('toc');
 
@@ -123,7 +123,7 @@ describe('processor', () => {
           basename: 'doc.md',
           contents: markdownContent,
         }),
-        plugins: [[toc, { cssClasses: { list: 'custom-list' } }]],
+        postPlugins: [[toc, { cssClasses: { list: 'custom-list' } }]],
       });
       expect(processor2.compile().contents).toContain('custom-list');
     });
@@ -150,13 +150,13 @@ describe('processor', () => {
     expect(processor.textContent()).toEqual('\nsome markdown content\n');
   });
 
-  it('returns textContent of parsed tree ignoring effects of public plugins', () => {
+  it('returns textContent of parsed tree ignoring effects of post plugins', () => {
     const processor = createProcessor({
       vfile: vfile({
         basename: 'doc.md',
         contents: markdownContent,
       }),
-      plugins: [toc],
+      postPlugins: [toc],
     });
     expect(
       JSON.stringify(processor.parse()).match(/toc/gi).length,

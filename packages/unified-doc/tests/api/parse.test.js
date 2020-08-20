@@ -1,5 +1,5 @@
-import { htmlContent, markdownContent } from '../fixtures';
 import api from '../../lib/api';
+import { htmlContent, markdownContent } from '../fixtures';
 
 // only test the for a valid hast tree since hast is implemented/tested in "unified"
 describe('api.parse', () => {

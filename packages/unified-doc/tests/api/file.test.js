@@ -1,5 +1,5 @@
-import { markdownContent } from '../fixtures';
 import api from '../../lib/api';
+import { markdownContent } from '../fixtures';
 
 describe('api.file', () => {
   it('returns the source file if no extension is provided', () => {
@@ -15,7 +15,7 @@ describe('api.file', () => {
     expect(file.type).toEqual('text/markdown');
   });
 
-  it('returns a valid text file with only textContent when ".txt" extension is provided', () => {
+  it('returns a text file with only textContent when ".txt" extension is provided', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',
@@ -29,7 +29,7 @@ describe('api.file', () => {
     expect(file.type).toEqual('text/plain');
   });
 
-  it('returns a valid html file when ".html" extension is provided', () => {
+  it('returns a html file when ".html" extension is provided', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',
@@ -45,23 +45,23 @@ describe('api.file', () => {
     expect(file.type).toEqual('text/html');
   });
 
-  it('returns the annotated ".html" file', () => {
-    const annotations = [
+  it('returns a marked ".html" file when marks are provided', () => {
+    const marks = [
       { id: 'a', start: 0, end: 4 },
       { id: 'b', start: 2, end: 8 },
       { id: 'c', start: 8, end: 10 },
     ];
     const doc = api({
-      annotations,
       content: markdownContent,
       filename: 'doc.md',
+      marks,
     });
     const htmlFile = doc.file('.html');
     const { content } = htmlFile;
     expect(content).toContain('<mark');
     expect(content).toContain('</mark>');
-    expect(content).toContain('data-annotation-id="a"');
-    expect(content).toContain('data-annotation-id="b"');
-    expect(content).toContain('data-annotation-id="c"');
+    expect(content).toContain('data-mark-id="a"');
+    expect(content).toContain('data-mark-id="b"');
+    expect(content).toContain('data-mark-id="c"');
   });
 });

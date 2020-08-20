@@ -7,12 +7,12 @@ import { getSnippets } from './search';
 
 export default function unifiedDoc(options = {}) {
   const {
-    annotations = [],
     compiler,
     content,
     filename,
+    marks = [],
     parsers = {},
-    plugins = [],
+    postPlugins = [],
     sanitizeSchema = {},
     searchAlgorithm = searchMicromatch,
     searchOptions = {},
@@ -24,10 +24,10 @@ export default function unifiedDoc(options = {}) {
   });
 
   const processor = createProcessor({
-    annotations,
     compiler,
+    marks,
     parsers,
-    plugins,
+    postPlugins,
     sanitizeSchema,
     vfile,
   });
@@ -50,11 +50,9 @@ export default function unifiedDoc(options = {}) {
 
   function search(query, options = {}) {
     const { minQueryLength = 1, snippetOffsetPadding = 100 } = searchOptions;
-
     if (query.length < minQueryLength) {
       return [];
     }
-
     const content = textContent();
     const searchResults = searchAlgorithm(content, query, options);
     return getSnippets({

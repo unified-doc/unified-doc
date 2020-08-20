@@ -1,10 +1,10 @@
 import toc from 'rehype-toc';
 
-import { htmlContent, markdownContent } from '../fixtures';
 import api from '../../lib/api';
+import { htmlContent, markdownContent } from '../fixtures';
 
 describe('api.textContent', () => {
-  it('gets the textContent of the parsed tree given the provided .txt content', () => {
+  it('returns the textContent from source text content', () => {
     const doc1 = api({
       content: markdownContent,
       filename: 'doc.txt',
@@ -18,7 +18,7 @@ describe('api.textContent', () => {
     expect(doc2.textContent()).toEqual(htmlContent);
   });
 
-  it('gets the textContent of the parsed tree given the  .md content', () => {
+  it('returns the textContent from source markdown content', () => {
     const doc = api({
       content: markdownContent,
       filename: 'doc.md',
@@ -26,7 +26,7 @@ describe('api.textContent', () => {
     expect(doc.textContent()).toEqual('\nsome markdown content\n');
   });
 
-  it('gets the textContent of the parsed tree given the  .html content', () => {
+  it('returns the textContent from source html content', () => {
     const doc = api({
       content: htmlContent,
       filename: 'doc.html',
@@ -34,7 +34,7 @@ describe('api.textContent', () => {
     expect(doc.textContent()).toEqual('some\ncontent');
   });
 
-  it('ignores effects of plugins', () => {
+  it('ignores effects of post plugins even if plugins affect the parsed hast tree', () => {
     const doc1 = api({
       content: '# Heading 1 with **bold** text',
       filename: 'doc.md',
@@ -44,7 +44,7 @@ describe('api.textContent', () => {
     const doc2 = api({
       content: '# Heading 1 with **bold** text',
       filename: 'doc.md',
-      plugins: [toc],
+      postPlugins: [toc],
     });
     expect(JSON.stringify(doc2.parse()).match(/toc/gi).length).toBeGreaterThan(
       1,

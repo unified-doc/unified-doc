@@ -1,8 +1,8 @@
-import { htmlContent } from '../fixtures';
 import api from '../../lib/api';
+import { htmlContent } from '../fixtures';
 
 describe('api.search', () => {
-  it('searches with the default search algorithm and algorithm options (micromatch)', () => {
+  it('searches with the default search algorithm and options (micromatch)', () => {
     const doc = api({
       content: htmlContent,
       filename: 'doc.html',
@@ -83,7 +83,7 @@ describe('api.search', () => {
     ]);
   });
 
-  it('searches with a custom search algorithm and snippets use the value returned by the algorithm', () => {
+  it('searches with a custom search algorithm', () => {
     function searchCustom(_content, _query, options = {}) {
       if (options.disabled) {
         return [];

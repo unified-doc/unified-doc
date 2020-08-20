@@ -13,7 +13,7 @@ describe('file', () => {
   });
 
   describe(getFileData, () => {
-    it('creates file data for a given vfile and infers mimetype', () => {
+    it('returns file data for a given vfile and infers mimetype', () => {
       const fileData1 = getFileData({
         vfile: vfile({
           basename: 'doc.md',
@@ -51,7 +51,7 @@ describe('file', () => {
       expect(fileData3.type).toEqual('text/plain');
     });
 
-    it('returns a text file data with only textContent when ".txt" extension is provided', () => {
+    it('returns text file data with only textContent when ".txt" extension is provided', () => {
       const fileData = getFileData({
         extension: '.txt',
         hast,
@@ -68,7 +68,7 @@ describe('file', () => {
       expect(fileData.type).toEqual('text/plain');
     });
 
-    it('returns a html file data when ".html" extension is provided', () => {
+    it('returns html file data when ".html" extension is provided', () => {
       const fileData = getFileData({
         extension: '.html',
         hast,

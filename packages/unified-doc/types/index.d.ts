@@ -1,7 +1,7 @@
 import {
-  Annotation,
   FileData,
   Hast,
+  Mark,
   SanitizeSchema,
   SearchAlgorithm,
   SearchResult,
@@ -10,9 +10,9 @@ import { PluggableList } from 'unified';
 import { VFile } from 'vfile';
 
 export {
-  Annotation,
   FileData,
   Hast,
+  Mark,
   PluggableList,
   SanitizeSchema,
   SearchAlgorithm,
@@ -34,10 +34,10 @@ export interface Doc {
 export interface Options {
   content: string;
   filename: string;
-  annotations?: Annotation[];
   compiler?: PluggableList;
+  marks?: Mark[];
   parsers?: Parsers;
-  plugins?: PluggableList;
+  postPlugins?: PluggableList;
   sanitizeSchema?: SanitizeSchema | null;
   searchAlgorithm?: SearchAlgorithm;
   searchOptions?: SearchOptions;

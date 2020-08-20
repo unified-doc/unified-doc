@@ -15,23 +15,19 @@ export function getFileData({
 }) {
   let content;
   let extension = extensionType;
-  let type;
 
   switch (extensionType) {
     case extensionTypes.HTML: {
       content = toHtml(hast);
-      type = inferMimeType(extension);
       break;
     }
     case extensionTypes.TEXT: {
       content = toString(hast);
-      type = inferMimeType(extension);
       break;
     }
     default: {
       content = vfile.contents;
       extension = vfile.extname;
-      type = inferMimeType(vfile.basename);
     }
   }
 
@@ -40,6 +36,6 @@ export function getFileData({
     extension,
     name: `${vfile.stem}${extension}`,
     stem: vfile.stem,
-    type,
+    type: inferMimeType(extension),
   };
 }

@@ -8,7 +8,7 @@ import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import unified from 'unified';
 import text from 'unified-doc-parse-text';
-import annotate from 'unified-doc-util-annotate';
+import mark from 'unified-doc-util-mark';
 
 import { mimeTypes } from './enums';
 import { inferMimeType } from './file';
@@ -27,20 +27,21 @@ function extractTextContent(hast, file) {
 
 export function createProcessor(options = {}) {
   const {
-    annotations = [],
     compiler = stringify,
+    marks = [],
     parsers = defaultParsers,
-    plugins = [],
+    postPlugins = [],
     sanitizeSchema,
     vfile,
   } = options;
 
-  // create unified processor and apply parser against inferred mime type
-  const processor = unified();
   const mergedParsers = {
     ...defaultParsers,
     ...parsers,
   };
+
+  // create unified processor and apply parser against inferred mime type
+  const processor = unified();
   const mimeType = inferMimeType(vfile.basename);
   const parser = mergedParsers[mimeType] || mergedParsers[mimeTypes.TEXT];
   processor.use(parser);
@@ -50,10 +51,10 @@ export function createProcessor(options = {}) {
     processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
   }
 
-  // apply private plugins -> public plugins -> compiler (order matters)
-  processor.use(pluginfy(annotate), annotations);
+  // apply private plugins -> post plugins -> compiler (order matters)
+  processor.use(pluginfy(mark), marks);
   processor.use(() => extractTextContent);
-  processor.use(plugins);
+  processor.use(postPlugins);
   processor.use(compiler);
 
   function compile() {
@@ -65,8 +66,7 @@ export function createProcessor(options = {}) {
   }
 
   function textContent() {
-    const hasProcessed = vfile.data.textContent;
-    if (!hasProcessed) {
+    if (!vfile.data.textContent) {
       compile();
     }
     return vfile.data.textContent;

@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [2.0.2](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.0.1...unified-doc@2.0.2) (2020-08-20)
+
+**Note:** Version bump only for package unified-doc
+
+
+
+
+
 ## [2.0.1](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.0.1...unified-doc@2.0.1) (2020-08-20)
 
 
@@ -14,6 +27,3 @@
 
 * - rename `annotations` to `marks` (as well as type interfaces `Annotation` -> `Mark`)
 - rename `plugins` to `postPlugins`
-
-
-

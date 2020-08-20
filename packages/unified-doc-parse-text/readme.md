@@ -15,14 +15,9 @@ import text from "unified-doc-parse-text";
 import unified from "unified";
 
 const processor = unified().use(text);
+const content = "\na to the \nb to the \n\nc to the d";
 
-processor.parse("\na to the \nb to the \n\nc to the d");
-```
-
-Yields a `hast` tree where the input content string is represented as a single text node.
-
-```js
-const parsed = {
+expect(processor.parse(content)).toEqual({
   type: 'root',
   children: [
     {
@@ -54,7 +49,7 @@ const parsed = {
       offset: 19,
     },
   },
-};
+});
 ```
 
 ## API
@@ -63,7 +58,7 @@ const parsed = {
 function parse(): void;
 ```
 
-Simply use the plugin with any unified processor.
+Use the parser with any unified processor.
 
 <!-- Links -->
 [hast]: https://github.com/syntax-tree/hast

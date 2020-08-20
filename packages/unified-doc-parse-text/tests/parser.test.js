@@ -1,7 +1,7 @@
 import parser from '../lib/parser';
 
 describe(parser, () => {
-  it('should parse a file with empty content', () => {
+  it('should parse empty content to empty trees', () => {
     expect(parser()).toEqual({
       type: 'root',
       children: [],
@@ -12,7 +12,7 @@ describe(parser, () => {
     });
   });
 
-  it('should parse a file with a single line of content', () => {
+  it('should parse a single line of content to a single text node', () => {
     expect(parser('a to the b to the c')).toEqual({
       type: 'root',
       children: [
@@ -48,7 +48,7 @@ describe(parser, () => {
     });
   });
 
-  it('should parse a file with many lines of content', () => {
+  it('should parse many lines of content to a single text node', () => {
     expect(parser('\na to the \nb to the \n\nc to the d')).toEqual({
       type: 'root',
       children: [

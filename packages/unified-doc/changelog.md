@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.3](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.0.2...unified-doc@2.0.3) (2020-08-20)
+
+
+### Bug Fixes
+
+* test/trigger conventional commit changelog ([9a82c50](https://github.com/unified-doc/unified-doc/commit/9a82c501d9eea778a7b9cc2137aa86dec8ca2302))
+
+
+
+
+
 ## [2.0.2](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.0.1...unified-doc@2.0.2) (2020-08-20)
 
 **Note:** Version bump only for package unified-doc

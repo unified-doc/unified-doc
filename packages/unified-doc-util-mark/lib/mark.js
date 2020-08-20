@@ -20,13 +20,10 @@ export default function mark(hast, marks = []) {
     if (!node.data || !node.data.textOffset) {
       return visit.CONTINUE;
     }
-
     const overlappingMarks = getOverLappingMarks(node, validatedMarks);
-
     if (overlappingMarks.length === 0) {
       return visit.CONTINUE;
     }
-
     const appliedMarkIds = new Set();
     const nodeSegments = getNodeSegments(node, overlappingMarks);
     const markedNodes = getMarkedNodes(nodeSegments, appliedMarkIds);
@@ -38,7 +35,6 @@ export default function mark(hast, marks = []) {
       .slice(0, currentNodeIndex)
       .concat(markedNodes)
       .concat(siblings.slice(currentNodeIndex + 1));
-
     return visit.CONTINUE;
   });
 

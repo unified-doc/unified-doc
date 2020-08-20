@@ -23,7 +23,7 @@ describe('processor', () => {
       expect(processor.compile().contents).toContain('<blockquote>');
     });
 
-    it('accepts compilers in array-form', () => {
+    it('accepts compilers in array interface', () => {
       const processor = createProcessor({
         compiler: [stringify],
         vfile: vfile({

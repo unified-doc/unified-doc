@@ -9,12 +9,12 @@ export default function textOffsets(hast) {
         start,
         end: (start += node.value.length),
       };
-      const nodeData = node.data || {};
+      const { data = {} } = node;
 
       return {
         ...node,
         data: {
-          ...nodeData,
+          ...data,
           textOffset,
         },
       };

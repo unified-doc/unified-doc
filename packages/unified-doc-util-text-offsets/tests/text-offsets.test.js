@@ -3,12 +3,12 @@ import textOffsets from '../lib/text-offsets';
 
 describe(textOffsets, () => {
   it('should return a new unmodified tree', () => {
-    const hast = { type: 'root', children: [] };
-    expect(textOffsets(hast)).not.toBe(hast);
-    expect(textOffsets(hast)).toEqual(hast);
+    const emptyHast = { type: 'root', children: [] };
+    expect(textOffsets(emptyHast)).not.toBe(emptyHast);
+    expect(textOffsets(emptyHast)).toEqual(emptyHast);
   });
 
-  it('should apply the correct text offsets only for text nodes', () => {
+  it('should apply the correct text offsets for text nodes only', () => {
     const withTextOffsets = textOffsets(hast);
     expect(withTextOffsets).not.toEqual(hast);
     expect(withTextOffsets).toEqual({

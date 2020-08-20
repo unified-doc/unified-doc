@@ -15,7 +15,7 @@ Instead of implementing custom programs per content type to parse/render/search/
 With `unified-doc`, we can easily
 - compile and render any content to HTML.
 - format and style the document.
-- annotate the document.
+- mark or annotate the document.
 - search on the document's text content.
 - export the document in a variety of file formats.
 - preserve the semantic structure of the source content.
@@ -45,7 +45,7 @@ Search algorithms use a unified search interface to return search results based 
 
 ### Hast Utils
 `hast` utilities operate and transform `hast` trees.
-- [`unified-doc-util-annotate`][unified-doc-util-annotate]
+- [`unified-doc-util-mark`][unified-doc-util-mark]
 - [`unified-doc-util-text-offsets`][unified-doc-util-text-offsets]
 
 ### Wrappers
@@ -106,6 +106,6 @@ npm run publish
 [unified-doc-react]: https://github.com/unified-doc/unified-doc-react
 [unified-doc-search-micromatch]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-search-micromatch
 [unified-doc-types]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-types
-[unified-doc-util-annotate]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-annotate
+[unified-doc-util-mark]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-mark
 [unified-doc-util-text-offsets]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-text-offsets
 

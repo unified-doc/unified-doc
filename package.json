@@ -23,7 +23,7 @@
     "unified-doc-parse-text": "file:packages/unified-doc-parse-text",
     "unified-doc-search-micromatch": "file:packages/unified-doc-search-micromatch",
     "unified-doc-types": "file:packages/unified-doc-types",
-    "unified-doc-util-annotate": "file:packages/unified-doc-util-annotate",
+    "unified-doc-util-mark": "file:packages/unified-doc-util-mark",
     "unified-doc-util-text-offsets": "file:packages/unified-doc-util-text-offsets"
   },
   "devDependencies": {

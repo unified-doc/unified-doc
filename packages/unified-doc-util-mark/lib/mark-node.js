@@ -32,7 +32,6 @@ export function getMarkedNodes(nodeSegments, appliedMarkIds = new Set()) {
 
 export function getOverLappingMarks(node, marks) {
   const { start: textOffsetStart, end: textOffsetEnd } = node.data.textOffset;
-
   const overLappingMarks = [];
   for (const mark of marks) {
     const { start, end } = mark;

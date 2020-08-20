@@ -19,7 +19,6 @@ export default function validateMarks(marks) {
   if (uniqueIds.size !== marks.length) {
     console.warn('Marks must contain unique "id" fields');
   }
-
   if (invalidOffsets) {
     console.warn('Marks should have "start" < "end"');
   }

@@ -23,7 +23,7 @@ const fileData: FileData = {
 
 const marks: Mark[] = [
   { id: 'a', start: 0, end: 5, classNames: ['class-a', 'class-b'] },
-  { id: 'b', start: 0, end: 5, style: { background: 'red' } },
+  { id: 'b', start: 0, end: 5, style: { background: 'red' }, data: { custom: true } },
 ];
 
 const results: SearchResult[] = [

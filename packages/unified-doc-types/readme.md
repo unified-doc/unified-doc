@@ -1,6 +1,8 @@
 # unified-doc-types
 
-[**unified-doc**][unified-doc] [typescript][typescript] typings.
+[**unified-doc**][unified-doc] [typescript][] typings.
+
+---
 
 ## Install
 
@@ -32,6 +34,6 @@ const results: SearchResult[] = [
 ];
 ```
 
-<!-- Links -->
+<!-- Definitions -->
 [typescript]: https://github.com/microsoft/TypeScript
 [unified-doc]: https://github.com/unified-doc/unified-doc

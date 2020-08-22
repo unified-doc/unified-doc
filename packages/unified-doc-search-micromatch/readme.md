@@ -1,6 +1,6 @@
 # unified-doc-search-micromatch
 
-[**unified-doc**][unified-doc] [`micromatch`][micromatch] [search algorithm][search-algorithm].
+[**unified-doc**][unified-doc] [`micromatch`][micromatch] search algorithm.
 
 ## Install
 
@@ -45,31 +45,45 @@ expect(search(content, 'a TO the !(c|d)')).toEqual([
 ```
 
 ## API
+- [`search(content, query[, options])`](#searchcontent-query-options)
 
-Uses the unified `SearchAlgorithm` interface to search on `content` with provided `query` string and algorithm-specific `options`.  Returns unified search results.
+Please refer to the [`micromatch`][micromatch] options documentation for configurable options and match behaviors.
 
+### `search(content, query[, options])`
+#### Interface
 ```ts
 function search(
   content: string,
   query: string,
-  options?: Options,
+  options?: Record<string, any>,
 ): SearchResult[]
 ```
 
-Please refer to the [`micromatch`][micromatch] options documentation for configurable options and match behaviors.
+Uses the unified `SearchAlgorithm` interface to search on `content` with a provided `query` string and algorithm-specific `options`.  Returns unified `SearchResult` data.
 
-### Interfaces
-
+#### Related interfaces
 ```ts
+type SearchAlgorithm = (
+  /** string content to search on */
+  content: string,
+  /** query string */
+  query: string,
+  /** search algorithm options */
+  options?: Record<string, any>,
+) => SearchResult[];
+
 interface SearchResult {
+  /** start offset of the search result relative to the `textContent` of the `doc` */
   start: number;
+  /** end offset of the search result relative to the `textContent` of the `doc` */
   end: number;
+  /** matched text value in the `doc` */
   value: string;
+  /** additional data can be stored here */
   data?: Record<string, any>;
 }
 ```
 
-<!-- Links -->
+<!-- Definitions -->
 [micromatch]: https://github.com/micromatch/micromatch
 [unified-doc]: https://github.com/unified-doc/unified-doc
-[search-algorithm]: https://github.com/unified-doc/unified-doc/blob/main/spec.md#search-algorithm

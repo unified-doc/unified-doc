@@ -1,6 +1,8 @@
 # unified-doc-util-text-offsets
 
-[**unified-doc**][unified-doc] [hast][hast] utility to add text offsets to text nodes.
+[**unified-doc**][unified-doc] [hast][] utility to add text offsets to text nodes.
+
+---
 
 ## Install
 
@@ -15,8 +17,7 @@ Given a `hast` tree parsed from some HTML content:
 ```js
 import textOffsets from 'unified-doc-util-text-offsets';
 
-const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
-
+// html: '<blockquote><strong>some</strong>\ncontent</blockquote>'
 const hast = {
   type: 'root',
   children: [
@@ -77,25 +78,17 @@ expect(textOffsets(hast)).toEqual({
 ```
 
 ## API
+- [`textOffsets(hast)`](#textOffsetshast)
 
+### `textOffsets(hast)`
+#### Interface
 ```ts
 function textOffsets(hast: Hast): Hast;
 ```
 
-Accepts a valid `hast` tree and adds `textOffset` data to text nodes.  Returns a new tree.
+Accepts a `hast` tree and adds `textOffset` data to text nodes.  Returns a new tree.
 
-### Interfaces
-
-```ts
-interface TextOffset = {
-  start: number;
-  end: number;
-}
-```
-
-A `TextOffset` for a `text` node tracks the start and end offset of its text value relative to the `textContent` representation of the provided `hast` tree.
-
-The following pseudocode helps visualize the expected behavior:
+A `TextOffset` for a `text` node tracks the start and end offset of its text value relative to the `textContent` representation of the provided `hast` tree.  The `textContent` representation of a `hast` tree is the concatenation of all text node values under the tree.  The following pseudocode helps visualize this behavior:
 
 ```js
 const html = '<blockquote><strong>some</strong>\ncontent</blockquote>';
@@ -110,6 +103,16 @@ const textOffsets = [
 const withTextOffsets = textOffsets(hast);
 ```
 
-<!-- Links -->
+#### Related interfaces
+```ts
+interface TextOffset = {
+  /** start offset of the text node value relative to the `textContent` of the `hast` tree */
+  start: number;
+  /** end offset of the text node value relative to the `textContent` of the `hast` tree */
+  end: number
+}
+```
+
+<!-- Definitions -->
 [hast]: https://github.com/syntax-tree/hast
 [unified-doc]: https://github.com/unified-doc/unified-doc

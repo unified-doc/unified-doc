@@ -46,7 +46,7 @@
     "rehype-stringify": "^8.0.0",
     "remark-parse": "^8.0.3",
     "remark-rehype": "^7.0.0",
-    "unified": "^9.1.0",
+    "unified": "^9.2.0",
     "unified-doc-parse-text": "file:../unified-doc-parse-text",
     "unified-doc-search-micromatch": "file:../unified-doc-search-micromatch",
     "unified-doc-types": "file:../unified-doc-types",

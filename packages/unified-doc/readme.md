@@ -9,6 +9,8 @@ npm install unified-doc
 
 ## Use
 
+A unified API to easily work with documents of supported content types.
+
 ```js
 import unifiedDoc from 'unified-doc';
 
@@ -17,8 +19,6 @@ const doc = unifiedDoc({
   filename: 'doc.md',
 });
 
-expect(doc.compile()).toBeInstanceOf(Vfile); // vfile instance
-
 expect(doc.file()).toEqual({
   content: '> **some** markdown content',
   extension: '.md',
@@ -26,6 +26,7 @@ expect(doc.file()).toEqual({
   stem: 'doc',
   type: 'text/markdown',
 });
+
 expect(doc.file('.html')).toEqual({
   content: '<blockquote><strong>some</strong>markdown content</blockquote>',
   extension: '.html',
@@ -33,6 +34,7 @@ expect(doc.file('.html')).toEqual({
   stem: 'doc',
   type: 'text/html',
 });
+
 expect(doc.file('.txt')).toEqual({
   content: 'some markdown content',
   extension: '.txt',
@@ -41,212 +43,184 @@ expect(doc.file('.txt')).toEqual({
   type: 'text/plain',
 });
 
+expect(doc.search('nt')).toEqual([
+  { 
+    start: 16,
+    end: 18,
+    value: 'nt',
+    snippet: ['some markdown co', 'nt', 'ent'],
+  },
+  {
+    start: 19,
+    end: 21,
+    value: 'nt',
+    snippet: ['some markdown conte', 'nt', ''],
+  },
+]);
+
+expect(doc.textContent()).toEqual('some markdown content');
+
 expect(doc.parse()).toEqual({ // hast tree
   type: 'root',
   children: [...],
 });
 
-expect(doc.search('nt')).toEqual([
-  { start: 16, end: 18, value: 'nt', snippet: ['some markdown co', 'nt', 'ent'] },
-  { start: 19, end: 21, value: 'nt', snippet: ['some markdown conte', 'nt', ''] },
-]);
-
-expect(doc.textContent()).toEqual('some markdown content');
+expect(doc.compile()).toBeInstanceOf(VFile); // vfile instance
 ```
-
-See the **API** section for more details on other configurable options and features.
 
 ## API
+- [`unifiedDoc(options)`](#unifiedDocoptions)
+- [`doc.compile()`](#doccompile)
+- [`doc.file([extension])`](#docfileextension)
+- [`doc.parse()`](#docparse)
+- [`doc.search(query[, options])`](#docsearchquery-options)
+- [`doc.textContent()`](#doctextContent)
+- [`options`](#options)
 
+### `unifiedDoc(options)`
+
+### `doc.compile()`
+#### Interface
 ```ts
-function unifiedDoc(options: Options): Doc;
+function compile(): VFile;
 ```
 
-### Interfaces
-
-#### Options
-
-Provide configurable options to initialize a `doc` instance.
-
+### `doc.file([extension])`
+#### Interface
 ```ts
-interface Options {
-  content: string;
-  filename: string;
-  compiler?: PluggableList;
-  marks?: Mark[];
-  parsers?: Parsers;
-  plugins?: PluggableList;
-  sanitizeSchema?: SanitizeSchema | null;
-  searchAlgorithm?: SearchAlgorithm;
-  searchOptions?: SearchOptions;
-}
-
-interface Mark {
-  id: string;
-  start: number;
-  end: number;
-  classNames?: string[];
-  dataset?: Record<string, any>;
-  data?: Record<string, any>;
-  style?: Record<string, any>;
-}
-
-interface Parsers {
-  [mimeType: string]: PluggableList,
-}
-
-type SanitizeSchema = Record<string, any>;
-
-type SearchAlgorithm = (
-  content: string,
-  query: string,
-  options?: Record<string, any>,
-) => SearchResult[];
-
-interface SearchResult {
-  start: number;
-  end: number;
-  value: string;
-  data?: Record<string, any>;
-}
-
-interface SearchOptions {
-  minQueryLength?: number;
-  snippetOffsetPadding?: number;
-}
-
-interface SearchResultSnippet extends SearchResult {
-  snippet: [string, string, string];
-}
+function file(extension?: string): FileData;
 ```
 
-##### `options.compiler`
-Provide a valid [rehype][rehype] compiler (e.g. `rehype-react`, `rehype-stringify`) to compile the content.  Apply the `compiler` using the `PluggableList` interface e.g. `[compiler]` or `[[compiler, compilerOptions]]`.
-
-##### `options.content`
-The document source content is provided as a string.
-
-##### `options.filename`
-The document filename should always include the file extension (e.g. `.md`), which will determine how the source content will be parsed with the corresponding parser.
-
-##### `options.marks`
-Specify how `textContent` in a `doc` should be marked using text offsets and related data.
-
-##### `options.parsers`
-Provide an object with mime types as keys and parsers as values.  Inferred mime type from the `filename` will use an associated parser.  If no parser is found, a default text parser will be used.  Parsers are applied using the `PluggableList` interface and can include multiple steps e.g. `[textParse]` or `[remarkParse, remark2rehype]`.
-
-##### `options.plugins`
-Valid [rehype][rehype] plugins can be provided to further customize the document.  Apply `plugins` using the `PluggableList` interface e.g. `[plugin1, [plugin2, plugin2Options]]`.
-
-##### `options.sanitizeSchema`
-Specify how the document is sanitized using a custom sanitize schema.
-
-##### `options.searchAlgorithm`
-Provide the underlying search algorithm used to search the document.  A default search algorithm based on [`micromatch`][micromatch] is used.  Search algorithms return search results (with offsets) for a given `query` when searching against a document's `textContent`.
-
-##### `options.searchOptions`
-Provide configurable search options for the any attached search algorithm (e.g. `minQueryLength`, `snippetOffsetPadding`).
-
-#### `doc` Instance
-
-A `doc` instance exposes the following unified document APIs:
-
+#### Related interfaces
 ```ts
-interface Doc {
-  compile: () => VFile;
-  file: (extension?: string) => FileData;
-  parse: () => Hast;
-  search: (
-    query: string,
-    options?: Record<string, any>,
-  ) => SearchResultSnippet[];
-  textContent: () => string;
-}
-
 interface FileData {
+  /** file content in string form */
   content: string;
+  /** file extension (includes preceding '.') */
   extension: string;
+  /** file name (includes extension) */
   name: string;
+  /** file name (without extension) */
   stem: string;
+  /** mime type of file */
   type: string;
 }
 ```
 
-We will use the following example `doc` instance to go over the API methods:
-
-```js
-const doc = unifiedDoc({
-  content: '> **some** markdown content',
-  filename: 'doc.md',
-});
+### `doc.parse()`
+#### Interface
+```ts
+function parse(): Hast;
 ```
 
-##### `doc.compile(): VFile`
-Compiles and returns a `VFile` with compiled `content`/`result` based on the provided compiler.
-
-##### `doc.file(extension?: string): FileData`
-Easily return file data in for supported extensions (e.g. `.html`, `.txt`).  If an extension is not provided, the source file is returned.
-
-The supported file extensions and behaviors are:
-- `undefined`: returns the source file without modification.
-- `.html`: returns the compiled `html` in a `.html` file.
-- `.txt`: returns the `textContent` in a `.txt` file.
-
-```js
-const content = '> **some** markdown content';
-
-expect(doc.file()).toEqual({ // outputs source file
-  content: '> **some** markdown content',
-  extension: '.md',
-  name: 'doc.md',
-  stem: 'doc',
-  type: 'text/markdown',
-});
-
-expect(doc.file('.html')).toEqual({ // outputs html file
-  content: '<blockquote><strong>some</strong>markdown content</blockquote>',
-  extension: '.html',
-  name: 'doc.html',
-  stem: 'doc',
-  type: 'text/html',
-});
-
-expect(doc.file('.txt')).toEqual({ // outputs txt file with only textContent
-  content: 'some markdown content',
-  extension: '.txt',
-  name: 'doc.txt',
-  stem: 'doc',
-  type: 'text/plain',
-});
+### `doc.search(query[, options])`
+#### Interface
+```ts
+function search(
+  /** search query string */
+  query: string,
+  /** algorithm-specific options based on attached search algorithm */
+  options?: Record<string, any>,
+): SearchResultSnippet[];
 ```
 
-##### `doc.parse(): Hast`
-Returns the [hast][hast] tree representation of the document content.
+#### Related interfaces
+```ts
+interface SearchResult {
+  /** start offset of the search result relative to the `textContent` of the `doc` */
+  start: number;
+  /** end offset of the search result relative to the `textContent` of the `doc` */
+  end: number;
+  /** matched text value in the `doc` */
+  value: string;
+  /** additional data can be stored here */
+  data?: Record<string, any>;
+}
 
-```js
-expect(doc.parse()).toEqual({
-  type: 'root',
-  children: [...],
-});
+interface SearchResultSnippet extends SearchResult {
+  /** 3-tuple string representing the [left, matched, right] of a matched search result.  left/right are characters to the left/right of the matched text value, and its length is configurable in `SearchOptions.snippetOffsetPadding` */
+  snippet: [string, string, string];
+}
 ```
 
-##### `doc.search(query: string, options?: Record<string, any>): SearchResultSnippet[]`
-Searches on the `textContent` of a `doc` with the provided `query` string.  Returns `SearchResultSnippet`.  Uses the attached search algorithm provided in `options.searchAlgorithm`.  Algorithm-specific options can be provided in the second parameter.
-
-```js
-expect(doc.search('some')).toEqual([
-  { start: 0, end: 5, value: 'some', snippet: ['', 'some', 'markdown content']},
-]);
+### `doc.textContent()`
+#### Interface
+```ts
+function textContent(): string;
 ```
 
-##### `doc.textContent(): string`
-The `textContent` of a `doc` is obtained by extracting values of all text nodes in the `hast` representation of the source `content`.  The `textContent` is free of markup and metadata, and supports many important `doc` features (marks and search).
-
-```js
-expect(doc.textContent()).toEqual('some markdown content');
+### `options`
+#### Interface
+```ts
+interface Options {
+  /** required content must be provided */
+  content: string;
+  /** required filename must be provided.  This infers the mimeType of the content and subsequently how content will be parsed */
+  filename: string;
+  /** attach a compiler (with optional options) in the `PluggableList` interface to determine how the content will be compiled */
+  compiler?: PluggableList;
+  /** an array of `Mark` data that is used by the mark algorithm to insert `mark` nodes with matching offsets */
+  marks?: Mark[];
+  /** specify new parsers or override existing parsers with this map */
+  parsers?: Parsers;
+  /** apply plugins to further customize the `doc`.  These plugins are applied after internal plugins (hence the 'post' prefix), and will not affect private APIs such as `textContent` and `parse` */
+  postPlugins?: PluggableList;
+  /** provide a sanitize schema for sanitizing the `doc`.  By default, the `doc` is safely sanitized.  If `null` is provided as a value, the `doc` will not be sanitized. */
+  sanitizeSchema?: SanitizeSchema | null;
+  /** attach a search algorithm that implements the `SearchAlgorithm` interface to support custom search behaviors on a `doc` */
+  searchAlgorithm?: SearchAlgorithm;
+  /** unified search options independent of the attached search algorithm */
+  searchOptions?: SearchOptions;
+}
 ```
 
-<!-- Links -->
+#### Related interfaces
+```ts
+/**
+ * An object used by a mark algorithm to mark text nodes based on text offset positions
+ */
+interface Mark {
+  /** unique ID for mark (required for mark algorithm to work) */
+  id: string;
+  /** start offset of the mark relative to the `textContent` of the `doc` */
+  start: number;
+  /** end offset of the mark relative to the `textContent` of the `doc` */
+  end: number;
+  /** apply optional CSS classnames to marked nodes */
+  classNames?: string[];
+  /** apply optional dataset attributes (i.e. `data-*`) to marked nodes */
+  dataset?: Record<string, any>;
+  /** additional data can be stored here */
+  data?: Record<string, any>;
+  /** apply optional styles to marked nodes */
+  style?: Record<string, any>;
+}
+
+/**
+ * Mapping of mimeTypes to unified parsers.
+ * New parsers can be introduced and existing parsers can be overwritten.
+ * Parsers are provided in the `PluggableList` interface.
+ * Parsers may consist of multiple steps.
+ */
+interface Parsers {
+  [mimeType: string]: PluggableList;
+}
+
+// see https://github.com/syntax-tree/hast-util-sanitize
+type SanitizeSchema = Record<string, any>;
+
+/**
+ * Unified search options affecting any attached search algorithm.
+ */
+interface SearchOptions {
+  /** only execute `doc.search` if the query is at least of the specified length */
+  minQueryLength?: number;
+  /** return snippets padded with extra characters on the left/right of the matched value based on the specified padding length */
+  snippetOffsetPadding?: number;
+}
+```
+
+<!-- Definitions -->
 [micromatch]: https://github.com/micromatch/micromatch
 [rehype]: https://github.com/rehypejs/rehype
 [hast]: https://github.com/syntax-tree/hast

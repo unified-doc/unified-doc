@@ -174,7 +174,7 @@ expect(doc.file()).toEqual({
 });
 
 expect(doc.file('.html')).toEqual({
-  content: '<blockquote><strong>some</strong>markdown content</blockquote>',
+  content: '<blockquote><strong>some</strong> markdown content</blockquote>',
   extension: '.html',
   name: 'doc.html',
   stem: 'doc',
@@ -236,7 +236,7 @@ const doc = unifiedDoc({
   filename: 'doc.md',
   parsers: {
     'text/html': [parser1, parser2, parser3], // overwrite html parser with a custom multi-step parser
-    'application/pdf': [pdfParser],  // does not exist, but any contribution in work here is greatly valuable
+    'application/pdf': [pdfParser],  // a unified pdf parser is in high demand!
   },
 });
 ```
@@ -305,7 +305,7 @@ const doc = unifiedDoc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   marks: [
-    { id: 'a', start: 5, end: 13, className="class-a" },
+    { id: 'a', start: 5, end: 13, classNames: ['class-a'] },
   ],
 });
 
@@ -351,7 +351,7 @@ expect(doc.file()).toEqual({
 
 // returns corresponding HTML file
 expect(doc.file('.html')).toEqual({
-  content: '<blockquote><strong>some</strong>markdown content</blockquote>',
+  content: '<blockquote><strong>some</strong> markdown content</blockquote>',
   extension: '.html',
   name: 'doc.html',
   stem: 'doc',

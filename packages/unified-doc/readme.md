@@ -14,11 +14,14 @@ A unified API to easily work with documents of supported content types.
 ```js
 import unifiedDoc from 'unified-doc';
 
+// easily initialize a `doc` instance with access to document APIs.
+// any supported content type benefits from the same APIs.
 const doc = unifiedDoc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
 
+// export source file
 expect(doc.file()).toEqual({
   content: '> **some** markdown content',
   extension: '.md',
@@ -27,14 +30,16 @@ expect(doc.file()).toEqual({
   type: 'text/markdown',
 });
 
+// export file as html
 expect(doc.file('.html')).toEqual({
-  content: '<blockquote><strong>some</strong>markdown content</blockquote>',
+  content: '<blockquote><strong>some</strong> markdown content</blockquote>',
   extension: '.html',
   name: 'doc.html',
   stem: 'doc',
   type: 'text/html',
 });
 
+// export file as text (only textContent is extracted)
 expect(doc.file('.txt')).toEqual({
   content: 'some markdown content',
   extension: '.txt',
@@ -43,6 +48,7 @@ expect(doc.file('.txt')).toEqual({
   type: 'text/plain',
 });
 
+// easily search on a doc
 expect(doc.search('nt')).toEqual([
   { 
     start: 16,
@@ -58,13 +64,16 @@ expect(doc.search('nt')).toEqual([
   },
 ]);
 
+// retrieve just the textContent of the document
 expect(doc.textContent()).toEqual('some markdown content');
 
+// retrieve the `hast` (syntax tree) representation of the document
 expect(doc.parse()).toEqual({ // hast tree
   type: 'root',
   children: [...],
 });
 
+// compile the document to use the results for rendering
 expect(doc.compile()).toBeInstanceOf(VFile); // vfile instance
 ```
 
@@ -77,18 +86,79 @@ expect(doc.compile()).toBeInstanceOf(VFile); // vfile instance
 - [`doc.textContent()`](#doctextContent)
 - [`options`](#options)
 
+A `doc` refers to an instance of `unified-doc`.
+
 ### `unifiedDoc(options)`
+
+Initialize a `doc` instance that provides a set of useful methods to working with documents.  Any supported content type benefits from the API methods.  As of the time of this writing, `unified-doc` supports `.html`, `.md`, `.txt` content types but future support of popular content types are in active development (e.g. `.xml`, `.json`, `.csv`, `.docx`)!
+
+```js
+// initialize as markdown content
+const doc1 = unifiedDoc({
+  content: '> **some** markdown content',
+  filename: 'doc.md',
+});
+// initialize as html content
+const doc2 = unifiedDoc({
+  content: '<blockquote><strong>some</strong> markdown content</blockquote>',
+  filename: 'doc.html',
+});
+// initialize as text content
+const doc3 = unifiedDoc({
+  content: '<blockquote><strong>some</strong> markdown content</blockquote>',
+  filename: 'doc.txt',
+});
+```
+
+The `doc` instance can be configured by providing other properties.  This will be elaborated more in the [`options`](#options) section.
 
 ### `doc.compile()`
 #### Interface
 ```ts
 function compile(): VFile;
 ```
+Returns the results of the compiled content based on the `compiler` attached to the `doc`.  The results are stored as a [`VFile`][VFile], and can be used by various renderers.  By default, a HTML string compiler is used, and stringifed HTML is returned by this method.
 
 ### `doc.file([extension])`
 #### Interface
 ```ts
 function file(extension?: string): FileData;
+```
+Returns `FileData` for the specified extension.  This is a useful way to convert and output different file formats.  Supported extensions include `'.html'`, `'.txt'`.  If no extension is provided, the source file should be returned.  Future extensions can be implemented, providing a powerful way to convert file formats for any supported content type
+
+#### Example
+```js
+const doc = unifiedDoc({
+  content: '> **some** markdown content',
+  filename: 'doc.md',
+});
+
+// export source file
+expect(doc.file()).toEqual({
+  content: '> **some** markdown content',
+  extension: '.md',
+  name: 'doc.md',
+  stem: 'doc',
+  type: 'text/markdown',
+});
+
+// export file as html
+expect(doc.file('.html')).toEqual({
+  content: '<blockquote><strong>some</strong> markdown content</blockquote>',
+  extension: '.html',
+  name: 'doc.html',
+  stem: 'doc',
+  type: 'text/html',
+});
+
+// export file as text (only textContent is extracted)
+expect(doc.file('.txt')).toEqual({
+  content: 'some markdown content',
+  extension: '.txt',
+  name: 'doc.txt',
+  stem: 'doc',
+  type: 'text/plain',
+});
 ```
 
 #### Related interfaces
@@ -112,6 +182,15 @@ interface FileData {
 ```ts
 function parse(): Hast;
 ```
+Returns the `hast` representation of the content.  This content representation is used internally by the `doc`, but it can also be used by any `hast` utility.
+
+#### Example
+```js
+import toMdast from 'hast-util-to-mdast';
+
+const hast = doc.parse();
+const mdast = toMdast(hast);
+```
 
 ### `doc.search(query[, options])`
 #### Interface
@@ -122,6 +201,31 @@ function search(
   /** algorithm-specific options based on attached search algorithm */
   options?: Record<string, any>,
 ): SearchResultSnippet[];
+```
+
+Returns `SearchResultSnippet` based on the provided `query` string and search `options`.  Uses the `searchAlogrithm` attached to the `doc` for when executing a search against the `textContent` of a `doc`.
+
+#### Example
+```js
+const doc = unifiedDoc({
+  content: '> **some** markdown content',
+  filename: 'doc.md',
+});
+
+expect(doc.search('nt')).toEqual([
+  { 
+    start: 16,
+    end: 18,
+    value: 'nt',
+    snippet: ['some markdown co', 'nt', 'ent'],
+  },
+  {
+    start: 19,
+    end: 21,
+    value: 'nt',
+    snippet: ['some markdown conte', 'nt', ''],
+  },
+]);
 ```
 
 #### Related interfaces
@@ -148,8 +252,21 @@ interface SearchResultSnippet extends SearchResult {
 ```ts
 function textContent(): string;
 ```
+Returns the `textContent` of a `doc`.  This content is the concatenated value of all text nodes under a `doc`, and is used by many internal APIs (marking, searching).
+
+#### Example
+```js
+const doc = unifiedDoc({
+  content: '> **some** markdown content',
+  filename: 'doc.md',
+});
+
+expect(doc.textContent()).toEqual('some markdown content');
+```
 
 ### `options`
+Configure the `doc` instance with the following `options`:
+
 #### Interface
 ```ts
 interface Options {
@@ -172,6 +289,37 @@ interface Options {
   /** unified search options independent of the attached search algorithm */
   searchOptions?: SearchOptions;
 }
+```
+
+#### Example
+The following is an example of a doc with custom configurations.
+```js
+const doc = unifiedDoc({
+  content: '> **some** markdown content',
+  filename: 'doc.md',
+  compiler: [ // attach a custom compiler for custom content rendering
+    [customCompiler, customCompilerOptions],
+  ],
+  marks: [ // content will be marked in appropriate places
+    { id: 'a', start: 0, end: 4, classNames: ['class-a']},
+    { id: 'b', start: 0, end: 4, style: { background: 'red', color: 'white' } },
+  ],
+  parsers: {
+    'text/html': [parser1, parser2, parser3], // overwrite html parser with a custom multi-step parser
+    'application/pdf': [pdfParser],  // a unified pdf parser is in high demand!
+  },
+  postPlugins: [ // apply custom rehype plugins (post content processing)
+    [toc, tocOptions],
+  ],
+  sanitizeSchema: { // custom sanitization rules
+    attributes: { '*': ['style'] }
+  },
+  searchAlgorithm: customSearchAlgorithm, // attach a custom search algorithm relevant to your needs (e.g. elasticsearch, googlesearch etc)
+  searchOptions: { // unified search option behavior
+    minQueryLength: 5,
+    snippetOffsetPadding: 10,
+  },
+});
 ```
 
 #### Related interfaces
@@ -224,3 +372,4 @@ interface SearchOptions {
 [micromatch]: https://github.com/micromatch/micromatch
 [rehype]: https://github.com/rehypejs/rehype
 [hast]: https://github.com/syntax-tree/hast
+[vfile]: https://github.com/vfile/vfile

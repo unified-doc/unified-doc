@@ -1,3 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [1.1.1](https://github.com/unified-doc/unified-doc/compare/unified-doc-util-mark@1.1.0...unified-doc-util-mark@1.1.1) (2020-08-23)
+
+**Note:** Version bump only for package unified-doc-util-mark
+
+
+
+
+
 # [1.1.0](https://github.com/unified-doc/unified-doc/compare/unified-doc-util-mark@1.1.0...unified-doc-util-mark@1.1.0) (2020-08-20)
 
 
@@ -13,6 +26,3 @@
 ### BREAKING CHANGES
 
 * official release of unified-doc-util-mark (previously unified-doc-util-annotate)
-
-
-

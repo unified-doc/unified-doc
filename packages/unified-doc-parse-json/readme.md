@@ -1,6 +1,6 @@
 # unified-doc-parse-json
 
-[**unified-doc**][unified-doc] parser to parse JSON content into a [hast][hast] tree with a single `pre` node.
+[**unified-doc**][unified-doc] parser to parse JSON content into a [hast][hast] tree with a single code block node i.e.  `<pre><code>{JSON}</code></pre>`.
 
 ## Install
 
@@ -47,9 +47,8 @@ expect(processor.parse(content)).toEqual({
       },
       children: [
         {
-          type: 'text',
-          value:
-            '{\n    "1": "two",\n    "6": true,\n    "7": false,\n    "8": null,\n    "three": [\n        4,\n        "five"\n    ]\n}',
+          type: 'element',
+          tagName: 'code',
           position: {
             start: {
               column: 1,
@@ -62,11 +61,30 @@ expect(processor.parse(content)).toEqual({
               offset: 112,
             },
           },
+          children: [
+            {
+              type: 'text',
+              value:
+                '{\n    "1": "two",\n    "6": true,\n    "7": false,\n    "8": null,\n    "three": [\n        4,\n        "five"\n    ]\n}',
+              position: {
+                start: {
+                  column: 1,
+                  line: 1,
+                  offset: 0,
+                },
+                end: {
+                  column: 2,
+                  line: 10,
+                  offset: 112,
+                },
+              },
+            },
+          ],
+          properties: {
+            className: ['class-a', 'class-b'],
+          },
         },
       ],
-      properties: {
-        className: ['class-a', 'class-b'],
-      },
     },
   ],
   position: {
@@ -88,7 +106,7 @@ expect(processor.parse(content)).toEqual({
 
 ### `unified().use(json[, options])`
 
-Parse JSON content into a single `pre` node.  Use the parser with any unified processor.
+Parse JSON content into a single code block node i.e. `<pre><code>{JSON}</code></pre>`.  Use the parser with any unified processor.
 
 #### `options`
 

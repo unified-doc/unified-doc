@@ -44,9 +44,16 @@ export default function parser(doc, options = {}) {
         position,
         children: [
           {
-            type: 'text',
-            value,
+            type: 'element',
+            tagName: 'code',
             position,
+            children: [
+              {
+                type: 'text',
+                value,
+                position,
+              },
+            ],
           },
         ],
       },
@@ -55,7 +62,7 @@ export default function parser(doc, options = {}) {
   };
 
   if (classNames) {
-    hast.children[0].properties = {
+    hast.children[0].children[0].properties = {
       className: classNames,
     };
   }

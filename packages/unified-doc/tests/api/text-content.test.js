@@ -75,6 +75,8 @@ describe('api.textContent', () => {
     expect(JSON.stringify(doc2.parse()).match(/toc/gi).length).toBeGreaterThan(
       1,
     );
-    expect(doc2.textContent()).toEqual('Heading 1 with bold textHeading 1 with bold text');
+    expect(doc2.textContent()).toEqual(
+      'Heading 1 with bold textHeading 1 with bold text',
+    );
   });
 });

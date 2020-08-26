@@ -44,12 +44,19 @@ describe('api.parse', () => {
     });
     const hast = doc.parse();
     expect(hast).toHaveProperty('children.0.tagName', 'pre');
-    expect(hast).toHaveProperty('children.0.properties.className', [
+    expect(hast).toHaveProperty('children.0.children.0.tagName', 'code');
+    expect(hast).toHaveProperty('children.0.children.0.properties.className', [
       'hljs',
       'language-json',
     ]);
-    expect(hast).toHaveProperty('children.0.children.0.type', 'text');
-    expect(hast).toHaveProperty('children.0.children.0.value', jsonContent);
+    expect(hast).toHaveProperty(
+      'children.0.children.0.children.0.type',
+      'text',
+    );
+    expect(hast).toHaveProperty(
+      'children.0.children.0.children.0.value',
+      jsonContent,
+    );
   });
 
   it('parses any unsupported file extension into a hast tree', () => {

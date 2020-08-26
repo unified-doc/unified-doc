@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.1.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.0.5...unified-doc@2.1.0) (2020-08-26)
+
+
+### Features
+
+* **core:** support `prePlugins` option. ([2f151ef](https://github.com/unified-doc/unified-doc/commit/2f151efe1e9133e14c2ccee318053450eae303c2))
+* **core:** support json content type ([6f9e811](https://github.com/unified-doc/unified-doc/commit/6f9e811b31b0381375f353b8377421e733029daf))
+
+
+
+
+
 ## [2.0.5](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.0.4...unified-doc@2.0.5) (2020-08-23)
 
 **Note:** Version bump only for package unified-doc

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.1.1](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.1.0...unified-doc@2.1.1) (2020-08-26)
+
+
+### Bug Fixes
+
+* **unified-doc:** fix JSON parser to parse into code block (`<pre> + <code/>`) and not just `<pre>` ([720694c](https://github.com/unified-doc/unified-doc/commit/720694c732abad281c91f34342aae1b47a124edf))
+
+
+
+
+
 # [2.1.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.0.5...unified-doc@2.1.0) (2020-08-26)
 
 

@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
+    "unified-doc-parse-json": "file:packages/unified-doc-parse-json",
     "unified-doc-parse-text": "file:packages/unified-doc-parse-text",
     "unified-doc-search-micromatch": "file:packages/unified-doc-search-micromatch",
     "unified-doc-types": "file:packages/unified-doc-types",
@@ -30,7 +31,7 @@
     "@types/jest": "^26.0.9",
     "babel-jest": "^26.2.2",
     "husky": "^4.2.5",
-    "jest": "^26.2.2",
+    "jest": "^26.4.2",
     "lerna": "^3.22.1",
     "microbundle": "^0.12.2",
     "react": "^16.13.1",
@@ -57,6 +58,7 @@
     "prettier": true,
     "rules": {
       "capitalized-comments": "off",
+      "no-warning-comments": "off",
       "padding-line-between-statements": "off"
     }
   }

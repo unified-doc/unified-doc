@@ -128,4 +128,12 @@ export const hast = {
 export const htmlContent =
   '<blockquote><strong>some</strong>\ncontent</blockquote>';
 
+export const jsonContent = JSON.stringify({
+  1: 'two',
+  three: [4, 'five'],
+  '6': true,
+  '7': false,
+  '8': null,
+});
+
 export const markdownContent = '> **some** markdown content';

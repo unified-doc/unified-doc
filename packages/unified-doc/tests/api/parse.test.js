@@ -1,5 +1,5 @@
 import api from '../../lib/api';
-import { htmlContent, markdownContent } from '../fixtures';
+import { htmlContent, jsonContent, markdownContent } from '../fixtures';
 
 // only test the for a valid hast tree since hast is implemented/tested in "unified"
 describe('api.parse', () => {
@@ -34,6 +34,22 @@ describe('api.parse', () => {
     const hast = doc.parse();
     expect(hast).toHaveProperty('children.0.tagName', 'blockquote');
     expect(hast).toHaveProperty('children.0.children.0.tagName', 'strong');
+  });
+
+  it('parses json file extension into a hast tree (with default hljs and space formatting)', () => {
+    const doc = api({
+      content: jsonContent,
+      filename: 'doc.json',
+      sanitizeSchema: null,
+    });
+    const hast = doc.parse();
+    expect(hast).toHaveProperty('children.0.tagName', 'pre');
+    expect(hast).toHaveProperty('children.0.properties.className', [
+      'hljs',
+      'language-json',
+    ]);
+    expect(hast).toHaveProperty('children.0.children.0.type', 'text');
+    expect(hast).toHaveProperty('children.0.children.0.value', jsonContent);
   });
 
   it('parses any unsupported file extension into a hast tree', () => {

@@ -1,7 +1,7 @@
 import toc from 'rehype-toc';
 
 import api from '../../lib/api';
-import { htmlContent, markdownContent } from '../fixtures';
+import { htmlContent, jsonContent, markdownContent } from '../fixtures';
 
 describe('api.textContent', () => {
   it('returns the textContent from source text content', () => {
@@ -32,6 +32,14 @@ describe('api.textContent', () => {
       filename: 'doc.html',
     });
     expect(doc.textContent()).toEqual('some\ncontent');
+  });
+
+  it('returns the textContent from source json content', () => {
+    const doc = api({
+      content: jsonContent,
+      filename: 'doc.json',
+    });
+    expect(doc.textContent()).toEqual(jsonContent);
   });
 
   it('ignores effects of post plugins even if plugins affect the parsed hast tree', () => {

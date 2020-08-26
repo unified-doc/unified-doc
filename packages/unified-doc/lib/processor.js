@@ -7,14 +7,17 @@ import stringify from 'rehype-stringify';
 import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import unified from 'unified';
+import json from 'unified-doc-parse-json';
 import text from 'unified-doc-parse-text';
 import mark from 'unified-doc-util-mark';
 
 import { mimeTypes } from './enums';
 import { inferMimeType } from './file';
 
+// TODO: support customizations of default parsers with parserOptions
 const defaultParsers = {
   [mimeTypes.HTML]: [html],
+  [mimeTypes.JSON]: [[json, { classNames: ['hljs', 'language-json'] }]],
   [mimeTypes.MARKDOWN]: [markdown, remark2rehype],
   [mimeTypes.TEXT]: [text],
 };

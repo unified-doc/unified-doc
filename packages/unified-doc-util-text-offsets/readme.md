@@ -78,7 +78,6 @@ expect(textOffsets(hast)).toEqual({
 ```
 
 ## API
-- [`textOffsets(hast)`](#textOffsetshast)
 
 ### `textOffsets(hast)`
 #### Interface

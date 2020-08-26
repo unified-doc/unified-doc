@@ -91,7 +91,6 @@ expect(mark(hast, marks)).toEqual({
 ```
 
 ## API
-- [`mark(hast, marks)`](#markhast-marks)
 
 ### `mark(hast, marks)`
 #### Interface

@@ -88,9 +88,7 @@ expect(processor.parse(content)).toEqual({
 
 ### `unified().use(json[, options])`
 
-Parse JSON content into a single `pre` node.
-
-Use the parser with any unified processor.
+Parse JSON content into a single `pre` node.  Use the parser with any unified processor.
 
 #### `options`
 

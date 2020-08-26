@@ -54,16 +54,9 @@ expect(processor.parse(content)).toEqual({
 
 ## API
 
-- [`parse()`](#parse)
+### `unified().use(text)`
 
-### `parse()`
-#### Interface
-```ts
-function parse(): void;
-```
-Trivially parse text content into a single text node.
-
-Use the parser with any unified processor.
+Parse text content into a single text node.  Use the parser with any unified processor.
 
 <!-- Definitions -->
 [hast]: https://github.com/syntax-tree/hast

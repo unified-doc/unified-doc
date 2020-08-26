@@ -45,9 +45,6 @@ expect(search(content, 'a TO the !(c|d)')).toEqual([
 ```
 
 ## API
-- [`search(content, query[, options])`](#searchcontent-query-options)
-
-Please refer to the [`micromatch`][micromatch] options documentation for configurable options and match behaviors.
 
 ### `search(content, query[, options])`
 #### Interface
@@ -59,7 +56,10 @@ function search(
 ): SearchResult[]
 ```
 
-Uses the unified `SearchAlgorithm` interface to search on `content` with a provided `query` string and algorithm-specific `options`.  Returns unified `SearchResult` data.
+Uses the unified `SearchAlgorithm` interface to search on `content` with a provided `query` string and `micromatch`-specific `options`.  Returns unified `SearchResult` data.
+
+Please refer to the [`micromatch`][micromatch] documentation for configurable options and match behaviors.
+
 
 #### Related interfaces
 ```ts

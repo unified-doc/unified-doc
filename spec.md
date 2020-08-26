@@ -13,7 +13,7 @@
   - [`textContent`](#textContent)
   - [`compiler`](#compiler)
   - [`parser`](#parser)
-  - [`postPlugins`](#postPlugins)
+  - [`plugins`](#plugins)
   - [`sanitizeSchema`](#sanitizeSchema)
   - [`marks`](#marks)
 - [API](#api)
@@ -241,23 +241,30 @@ const doc = unifiedDoc({
 });
 ```
 
-### `postPlugins`
-Private plugins are used internally by the `doc`.  Public/post plugins are applied after private plugins and add further features to the `doc`.  Post plugins should be [rehype][]-based and use the `PluggableList` interface e.g. `[plugin1, [plugin2, plugin2Options]]`.  They should also avoid mutating or affecting the `textContent` of a `doc`.
+### `plugins`
+Private plugins are used internally by the `doc`.  Public [rehype][] plugins can be specified to add further features to the `doc`.  These plugins should use the `PluggableList` interface e.g. `[plugin1, [plugin2, plugin2Options]]`.  They should also avoid mutating or affecting the `textContent` of a `doc` to best ensure that internal APIs that rely on the `textContent` (e.g. searching, marking) are well-behaved.
+
+`plugins` can be appled as `prePlugins` or `postPlugins`, where they are applied before or after private plugins respectively.  Private methods such as `textContent()` and `parse()` will not incorporate `hast` modifications introduced by `postPlugins`.  They may incorporate modifications introduced by `prePlugins`.  Depending requirements and behaviors of public plugins, you may use the two interchangeably to satisfy your use cases.
 
 #### Example
 ```js
+import highlight from 'rehype-highlight'
+import toc from 'rehype-toc'
+
 const doc = unifiedDoc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   postPlugins: [
-    [anchorLinks],
-    [toc, tocOptions],
+    [toc, { cssClasses; { list: 'custom-list'} }],
+  ],
+  prePlugins: [
+    [highlight, { ignoreMissing: true }],
   ],
 });
 ```
 
 ### `sanitizeSchema`
-By default, a `doc` will be safely sanitized.  You can supply a custom schema to apply custom sanitization.  Please see the [`hast-util-sanitize`][hast-util-sanitize] package for more details.  Sanitization rules are applied before `postPlugins` and the following schema values control special rules:
+By default, a `doc` will be safely sanitized.  You can supply a custom schema to apply custom sanitization.  Please see the [`hast-util-sanitize`][hast-util-sanitize] package for more details.  Sanitization rules are applied before `plugins` and the following schema values control special rules:
 - `{}`: safe sanitization (default value)
 - `null`: No sanitization
 
@@ -482,6 +489,7 @@ Wrappers implement the `unified-doc` interface in other interfaces.  Wrappers sh
 - **`knowledge`**: Abstract human information that is acquired and shared among humans.
 - **`mark`**: An object describing how `textContent` in a `doc` should be marked.
 - **`mimeType`**: A standard used to identify the nature and format for the associated `content`.
+- **`plugins`**: [rehype][] plugins that further enhance the `doc`.
 - **`sanitizeSchema`**: A schema describing custom sanitzation rules. A `doc` is safely sanitized by default.
 - **`searchAlgorithm`**: A function that takes a query string with configurable options, and returns search results when searching across the `textContent` in a `doc`.  Search algorithms should be implemented with a unified search interface when attached to a `doc`.
 - **`searchResult`**: An object with offsets to indicate where the matched value occurs when searching against the `textContent` of a `doc`.

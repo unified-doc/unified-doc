@@ -13,6 +13,7 @@ export default function unifiedDoc(options = {}) {
     marks = [],
     parsers = {},
     postPlugins = [],
+    prePlugins = [],
     sanitizeSchema = {},
     searchAlgorithm = searchMicromatch,
     searchOptions = {},
@@ -28,6 +29,7 @@ export default function unifiedDoc(options = {}) {
     marks,
     parsers,
     postPlugins,
+    prePlugins,
     sanitizeSchema,
     vfile,
   });

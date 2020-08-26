@@ -34,6 +34,7 @@ export function createProcessor(options = {}) {
     marks = [],
     parsers = defaultParsers,
     postPlugins = [],
+    prePlugins = [],
     sanitizeSchema,
     vfile,
   } = options;
@@ -54,7 +55,8 @@ export function createProcessor(options = {}) {
     processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
   }
 
-  // apply private plugins -> post plugins -> compiler (order matters)
+  // apply prePlugins -> private plugins -> post plugins -> compiler (order matters)
+  processor.use(prePlugins);
   processor.use(pluginfy(mark), marks);
   processor.use(() => extractTextContent);
   processor.use(postPlugins);

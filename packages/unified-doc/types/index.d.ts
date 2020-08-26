@@ -58,8 +58,10 @@ export interface Options {
   marks?: Mark[];
   /** specify new parsers or override existing parsers with this map */
   parsers?: Parsers;
-  /** apply plugins to further customize the `doc`.  These plugins are applied after internal plugins (hence the 'post' prefix), and will not affect private APIs such as `textContent` and `parse` */
+  /** apply plugins to further customize the `doc`.  These plugins are applied after private plugins (hence the 'post' prefix).  Private methods such as `textContent()` and `parse()` will not incorporate `hast` modifications introduced by these plugins. */
   postPlugins?: PluggableList;
+  /** apply plugins to further customize the `doc`.  These plugins are applied before private plugins (hence the 'pre' prefix).  Private methods such as `textContent()` and `parse()` may incorporate `hast` modifications introduced by these plugins. */
+  prePlugins?: PluggableList;
   /** provide a sanitize schema for sanitizing the `doc`.  By default, the `doc` is safely sanitized.  If `null` is provided as a value, the `doc` will not be sanitized. */
   sanitizeSchema?: SanitizeSchema | null;
   /** attach a search algorithm that implements the `SearchAlgorithm` interface to support custom search behaviors on a `doc` */

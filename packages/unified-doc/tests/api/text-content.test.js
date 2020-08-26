@@ -42,7 +42,7 @@ describe('api.textContent', () => {
     expect(doc.textContent()).toEqual(jsonContent);
   });
 
-  it('ignores effects of post plugins even if plugins affect the parsed hast tree', () => {
+  it('ignores the effects of postPlugins even if they affect the parsed hast tree', () => {
     const doc1 = api({
       content: '# Heading 1 with **bold** text',
       filename: 'doc.md',
@@ -58,5 +58,23 @@ describe('api.textContent', () => {
       1,
     );
     expect(doc2.textContent()).toEqual('Heading 1 with bold text');
+  });
+
+  it('includes the effects of prePlugins', () => {
+    const doc1 = api({
+      content: '# Heading 1 with **bold** text',
+      filename: 'doc.md',
+    });
+    expect(doc1.textContent()).toEqual('Heading 1 with bold text');
+
+    const doc2 = api({
+      content: '# Heading 1 with **bold** text',
+      filename: 'doc.md',
+      prePlugins: [toc],
+    });
+    expect(JSON.stringify(doc2.parse()).match(/toc/gi).length).toBeGreaterThan(
+      1,
+    );
+    expect(doc2.textContent()).toEqual('Heading 1 with bold textHeading 1 with bold text');
   });
 });

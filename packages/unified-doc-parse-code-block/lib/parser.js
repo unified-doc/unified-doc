@@ -35,23 +35,26 @@ export default function parser(doc, options = {}) {
     ],
   };
 
+  const pre = {
+    type: 'element',
+    tagName: 'pre',
+    position,
+    children: [code],
+  };
+
   const { language } = options;
   if (language) {
     code.properties = {
-      className: `language-${language}`,
+      className: [`language-${language}`],
+    };
+    pre.properties = {
+      className: [`language-${language}`],
     };
   }
 
   return {
     type: 'root',
-    children: [
-      {
-        type: 'element',
-        tagName: 'pre',
-        position,
-        children: [code],
-      },
-    ],
+    children: [pre],
     position,
   };
 }

@@ -41,6 +41,9 @@ expect(processor.parse(content)).toEqual({
           offset: 41,
         },
       },
+      properties: {
+        className: 'language-js',
+      },
       children: [
         {
           type: 'element',
@@ -56,6 +59,9 @@ expect(processor.parse(content)).toEqual({
               line: 5,
               offset: 41,
             },
+          },
+          properties: {
+            className: 'language-js',
           },
           children: [
             {
@@ -75,9 +81,6 @@ expect(processor.parse(content)).toEqual({
               },
             },
           ],
-          properties: {
-            className: 'language-js',
-          },
         },
       ],
     },
@@ -134,7 +137,7 @@ interface Options {
 }
 ```
 
-When the `language` option is provided, attach the equivalent `language` to the CSS class name of the `code` node.  Note that this is recommended by the [HTML 5 spec][code-element] to semantically inform the language of the computer code that is being marked up.  It is also used as an identifier for syntax highlighting libraries (e.g. [`highlight.js`][highlightjs] or [`prism.js`][prismjs]) to highlight code content.
+When the `language` option is provided, attach the equivalent `language` to the CSS class name of the `pre` and `code` nodes.  Note that this is recommended by the [HTML 5 spec][code-element] to semantically inform the language of the computer code that is being marked up.  It is also used as an identifier for syntax highlighting libraries (e.g. [`highlight.js`][highlightjs] or [`prism.js`][prismjs]) to highlight code content.
 
 
 <!-- Definitions -->

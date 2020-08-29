@@ -1,6 +1,6 @@
 {
   "name": "unified-doc-util-mark",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "unified-doc hast util to mark text nodes.",
   "license": "MIT",
   "homepage": "https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-util-mark",

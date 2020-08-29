@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.0.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.1.1...unified-doc@3.0.0) (2020-08-29)
+
+
+### feature
+
+* **unified-doc:** support parsing of code files into code blocks ([d82930b](https://github.com/unified-doc/unified-doc/commit/d82930bb921993a833cf4e4159d7ea9bd394f9ac))
+
+
+### BREAKING CHANGES
+
+* **unified-doc:** - Remove formal support of `text`/`json` parser in favor of a generic `codeBlock` parser.  Previous `hast` layout for parsed text content will now include an additional `<pre>` + `<code>` nodes.
+- Apply `sanitize` step after all plugins (this is recommended by `unified`) and makes sense.  This will break behaviors for marked nodes (since `data-mark-id` are now removed with the default safe sanitization rules).  It is possible to whitelist these and retrieve the old behaviors if specific sanitize schema is applied.  More info will be provided for this in relating documentation.
+
+
+
+
+
 ## [2.1.1](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.1.0...unified-doc@2.1.1) (2020-08-26)
 
 

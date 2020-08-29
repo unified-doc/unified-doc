@@ -13,7 +13,7 @@ npm install unified-doc-types
 ## Use
 
 ```ts
-import { FileData, Mark, SearchResult } from 'unified-doc';
+import { FileData, Mark, SearchResult } from 'unified-doc-types';
 
 const fileData: FileData = {
   content: '> **some** markdown content',

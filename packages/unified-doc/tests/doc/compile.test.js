@@ -1,12 +1,12 @@
 import { createElement } from 'react';
 import rehype2react from 'rehype-react';
 
-import api from '../../lib/api';
+import Doc from '../../lib/doc';
 import { markdownContent } from '../fixtures';
 
-describe('api.compile', () => {
+describe('doc.compile', () => {
   it('compiles to stringified HTML if no compiler is provided', () => {
-    const doc = api({
+    const doc = Doc({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -18,7 +18,7 @@ describe('api.compile', () => {
   });
 
   it('transforms to React if a React compiler is provided', () => {
-    const doc = api({
+    const doc = Doc({
       compiler: [[rehype2react, { createElement }]],
       content: markdownContent,
       filename: 'doc.md',

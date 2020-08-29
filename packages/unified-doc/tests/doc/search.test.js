@@ -1,9 +1,9 @@
-import api from '../../lib/api';
+import Doc from '../../lib/doc';
 import { htmlContent } from '../fixtures';
 
-describe('api.search', () => {
+describe('doc.search', () => {
   it('searches with the default search algorithm and options (micromatch)', () => {
-    const doc = api({
+    const doc = Doc({
       content: htmlContent,
       filename: 'doc.html',
     });
@@ -32,7 +32,7 @@ describe('api.search', () => {
 
   it('applies minQueryLength option', () => {
     expect(
-      api({
+      Doc({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { minQueryLength: 1 },
@@ -42,7 +42,7 @@ describe('api.search', () => {
       { start: 10, end: 12, value: 'nt', snippet: ['some\nconte', 'nt', ''] },
     ]);
     expect(
-      api({
+      Doc({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { minQueryLength: 3 },
@@ -52,7 +52,7 @@ describe('api.search', () => {
 
   it('applies snippetOffsetPadding option', () => {
     expect(
-      api({
+      Doc({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { snippetOffsetPadding: 0 },
@@ -62,7 +62,7 @@ describe('api.search', () => {
       { start: 10, end: 12, value: 'nt', snippet: ['', 'nt', ''] },
     ]);
     expect(
-      api({
+      Doc({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { snippetOffsetPadding: 2 },
@@ -72,7 +72,7 @@ describe('api.search', () => {
       { start: 10, end: 12, value: 'nt', snippet: ['te', 'nt', ''] },
     ]);
     expect(
-      api({
+      Doc({
         content: htmlContent,
         filename: 'doc.html',
         searchOptions: { snippetOffsetPadding: 5 },
@@ -96,7 +96,7 @@ describe('api.search', () => {
         },
       ];
     }
-    const doc = api({
+    const doc = Doc({
       content: htmlContent,
       filename: 'doc.html',
       searchAlgorithm: searchCustom,

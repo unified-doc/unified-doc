@@ -55,7 +55,7 @@ The following diagram provides a visual summary of the design principles.
 
 ```
 # Create a unified doc instance
-unifiedDoc({ content }) -> doc
+Doc({ content }) -> doc
 
 # Access unified document APIs through unified hast syntax tree
 doc.parse()* -> hast
@@ -131,7 +131,7 @@ const file4 = 'file.pdf'; // application/pdf (unsupported parser, defaults to st
 The `textContent` of a `doc` is the concatenation of all text nodes of its `hast` content representation.  The `textContent` is free of markup and metadata, and represents 'pure' content that is used in many internal `doc` APIs (e.g. searching and marking).
 
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -160,7 +160,7 @@ The `doc` provides ways to output relevant `fileData` for other extensions.  Sin
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -218,7 +218,7 @@ A `compiler` compiles a `hast` tree into a [`vfile`][vfile] that storing the com
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -231,7 +231,7 @@ A [`parser`][parser] is responsible for parsing string `content` into a `hast` t
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   parsers: {
@@ -251,7 +251,7 @@ Private plugins are used internally by the `doc`.  Public [rehype][] plugins can
 import highlight from 'rehype-highlight'
 import toc from 'rehype-toc'
 
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   postPlugins: [
@@ -270,7 +270,7 @@ By default, a `doc` will be safely sanitized.  You can supply a custom schema to
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   sanitizeSchema: {
@@ -308,7 +308,7 @@ interface Mark {
 Along with various stylistic properties (e.g. `classNames`, `style`, `dataset`), the `doc`'s mark algorithm should be able to insert `mark` nodes where matches occur.  The mark algorithm is done through a `hast` utility that returns a new `hast` tree with marked nodes.  Subsequent rendering of the document with marked nodes is easily implemented without further cost.
 
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   marks: [
@@ -342,7 +342,7 @@ Returns `FileData` for the specified extension.  This is a useful way to convert
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -405,7 +405,7 @@ Returns `SearchResultSnippet` based on the provided `query` string and search `o
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -454,7 +454,7 @@ Returns the `textContent` of a `doc`.  This content is the concatenated value of
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });

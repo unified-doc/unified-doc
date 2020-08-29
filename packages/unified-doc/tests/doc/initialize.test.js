@@ -1,9 +1,9 @@
-import api from '../../lib/api';
+import Doc from '../../lib/doc';
 import { markdownContent } from '../fixtures';
 
-describe('initialize', () => {
+describe('doc.initialize', () => {
   it('initializes the public attributes and API methods', () => {
-    const doc = api({
+    const doc = Doc({
       content: markdownContent,
       filename: 'doc.md',
     });

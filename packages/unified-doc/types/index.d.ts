@@ -101,4 +101,4 @@ export interface SearchResultSnippet extends SearchResult {
 /**
  * The core function that returns a `doc` instance with unified document APIs
  */
-export default function unifiedDoc(options: Options): Doc;
+export default function Doc(options: Options): Doc;

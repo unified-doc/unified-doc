@@ -12,11 +12,11 @@ npm install unified-doc
 A unified API to easily work with documents of supported content types.
 
 ```js
-import unifiedDoc from 'unified-doc';
+import Doc from 'unified-doc';
 
 // easily initialize a `doc` instance with access to document APIs.
 // any supported content type benefits from the same APIs.
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -78,7 +78,7 @@ expect(doc.compile()).toBeInstanceOf(VFile); // vfile instance
 ```
 
 ## API
-- [`unifiedDoc(options)`](#unifiedDocoptions)
+- [`Doc(options)`](#Docoptions)
 - [`doc.compile()`](#doccompile)
 - [`doc.file([extension])`](#docfileextension)
 - [`doc.parse()`](#docparse)
@@ -88,7 +88,7 @@ expect(doc.compile()).toBeInstanceOf(VFile); // vfile instance
 
 A `doc` refers to an instance of `unified-doc`.
 
-### `unifiedDoc(options)`
+### `Doc(options)`
 
 Initialize a `doc` instance that provides a set of useful methods to working with documents.  Any supported content type benefits from the API methods.  As of the time of this writing, `unified-doc` supports the following content types:
 - `.html`
@@ -99,17 +99,17 @@ Future content types such as `.csv`, `.xml`, `.docx`, `.pdf` will be supported.
 
 ```js
 // initialize as markdown content
-const doc1 = unifiedDoc({
+const doc1 = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
 // initialize as html content
-const doc2 = unifiedDoc({
+const doc2 = Doc({
   content: '<blockquote><strong>some</strong> markdown content</blockquote>',
   filename: 'doc.html',
 });
 // initialize as code content
-const doc3 = unifiedDoc({
+const doc3 = Doc({
   content: 'var hello = "world";';
   filename: 'doc.js',
 });
@@ -133,7 +133,7 @@ Returns `FileData` for the specified extension.  This is a useful way to convert
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -212,7 +212,7 @@ Returns `SearchResultSnippet` based on the provided `query` string and search `o
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -261,7 +261,7 @@ Returns the `textContent` of a `doc`.  This content is the concatenated value of
 
 #### Example
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
 });
@@ -301,7 +301,7 @@ interface Options {
 #### Example
 The following is an example of a doc with custom configurations.
 ```js
-const doc = unifiedDoc({
+const doc = Doc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   compiler: [ // attach a custom compiler for custom content rendering

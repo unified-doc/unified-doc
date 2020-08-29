@@ -57,6 +57,7 @@
     "prettier": true,
     "rules": {
       "capitalized-comments": "off",
+      "new-cap": "off",
       "no-warning-comments": "off",
       "padding-line-between-statements": "off"
     }

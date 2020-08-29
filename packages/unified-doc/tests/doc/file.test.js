@@ -1,13 +1,13 @@
-import api from '../../lib/api';
+import Doc from '../../lib/doc';
 import { markdownContent } from '../fixtures';
 
-describe('api.file', () => {
+describe('doc.file', () => {
   it('returns the source file if no extension is provided', () => {
-    const doc = api({
+    const doc = Doc({
       content: markdownContent,
       filename: 'doc.md',
     });
-    const file = doc.file();
+    const file = doc.file(null);
     expect(file.content).toEqual(markdownContent);
     expect(file.extension).toEqual('.md');
     expect(file.name).toEqual('doc.md');
@@ -16,7 +16,7 @@ describe('api.file', () => {
   });
 
   it('returns a text file with only textContent when ".txt" extension is provided', () => {
-    const doc = api({
+    const doc = Doc({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -30,7 +30,7 @@ describe('api.file', () => {
   });
 
   it('returns a html file when ".html" extension is provided', () => {
-    const doc = api({
+    const doc = Doc({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -51,7 +51,7 @@ describe('api.file', () => {
       { id: 'b', start: 2, end: 8 },
       { id: 'c', start: 8, end: 10 },
     ];
-    const doc1 = api({
+    const doc1 = Doc({
       content: markdownContent,
       filename: 'doc.md',
       marks,
@@ -64,7 +64,7 @@ describe('api.file', () => {
     expect(content1).toContain('id="user-content-b"');
     expect(content1).toContain('id="user-content-c"');
 
-    const doc2 = api({
+    const doc2 = Doc({
       content: markdownContent,
       filename: 'doc.md',
       marks,

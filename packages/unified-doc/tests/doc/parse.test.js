@@ -1,10 +1,10 @@
-import api from '../../lib/api';
+import Doc from '../../lib/doc';
 import { htmlContent, markdownContent } from '../fixtures';
 
 // only test the for a valid hast tree since hast is implemented/tested in "unified"
-describe('api.parse', () => {
+describe('doc.parse', () => {
   it('parses markdown file extension into a hast tree', () => {
-    const doc = api({
+    const doc = Doc({
       content: markdownContent,
       filename: 'doc.md',
     });
@@ -16,7 +16,7 @@ describe('api.parse', () => {
   });
 
   it('parses html file extension into a hast tree', () => {
-    const doc = api({
+    const doc = Doc({
       content: htmlContent,
       filename: 'doc.html',
     });
@@ -26,7 +26,7 @@ describe('api.parse', () => {
   });
 
   it('parses any file extension into a code block with extension specified as the code language if its underlying mime type cannot be associated with a parser', () => {
-    const doc1 = api({
+    const doc1 = Doc({
       content: 'var a = 3;',
       filename: 'doc.js',
       sanitizeSchema: { attributes: { '*': ['className'] } },
@@ -46,7 +46,7 @@ describe('api.parse', () => {
       'var a = 3;',
     );
 
-    const doc2 = api({
+    const doc2 = Doc({
       content: htmlContent,
       filename: 'doc.unsupported-extension',
       sanitizeSchema: { attributes: { '*': ['className'] } },
@@ -67,7 +67,7 @@ describe('api.parse', () => {
     );
 
     // no extension
-    const doc3 = api({
+    const doc3 = Doc({
       content: htmlContent,
       filename: 'doc',
       sanitizeSchema: { attributes: { '*': ['className'] } },
@@ -95,7 +95,7 @@ describe('api.parse', () => {
         };
       };
     };
-    const doc = api({
+    const doc = Doc({
       content: htmlContent,
       filename: 'doc.html',
       parsers: {

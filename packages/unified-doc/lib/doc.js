@@ -5,7 +5,7 @@ import { getFileData } from './file';
 import { createProcessor } from './processor';
 import { getSnippets } from './search';
 
-export default function unifiedDoc(options = {}) {
+export default function Doc(options = {}) {
   const {
     compiler,
     content,
@@ -41,7 +41,7 @@ export default function unifiedDoc(options = {}) {
   function file(extension) {
     return getFileData({
       extension,
-      hast: parse(),
+      hast: this.parse(),
       vfile,
     });
   }
@@ -55,7 +55,7 @@ export default function unifiedDoc(options = {}) {
     if (query.length < minQueryLength) {
       return [];
     }
-    const content = textContent();
+    const content = this.textContent();
     const searchResults = searchAlgorithm(content, query, options);
     return getSnippets({
       content,

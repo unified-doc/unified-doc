@@ -90,7 +90,12 @@ A `doc` refers to an instance of `unified-doc`.
 
 ### `unifiedDoc(options)`
 
-Initialize a `doc` instance that provides a set of useful methods to working with documents.  Any supported content type benefits from the API methods.  As of the time of this writing, `unified-doc` supports `.html`, `.md`, `.txt` content types but future support of popular content types are in active development (e.g. `.xml`, `.json`, `.csv`, `.docx`)!
+Initialize a `doc` instance that provides a set of useful methods to working with documents.  Any supported content type benefits from the API methods.  As of the time of this writing, `unified-doc` supports the following content types:
+- `.html`
+- `.md`
+- parsing most code file content (e.g. `.js`, `.py`) into code blocks.
+
+Future content types such as `.csv`, `.xml`, `.docx`, `.pdf` will be supported.
 
 ```js
 // initialize as markdown content
@@ -103,10 +108,10 @@ const doc2 = unifiedDoc({
   content: '<blockquote><strong>some</strong> markdown content</blockquote>',
   filename: 'doc.html',
 });
-// initialize as text content
+// initialize as code content
 const doc3 = unifiedDoc({
-  content: '<blockquote><strong>some</strong> markdown content</blockquote>',
-  filename: 'doc.txt',
+  content: 'var hello = "world";';
+  filename: 'doc.js',
 });
 ```
 

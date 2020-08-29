@@ -274,7 +274,7 @@ const doc = unifiedDoc({
   content: '> **some** markdown content',
   filename: 'doc.md',
   sanitizeSchema: {
-    { attributes: { '*': ['style'] } }; // only allow styles
+    { attributes: { '*': ['className', 'style'] } }; // only allow styles and classname
   },
 });
 ```

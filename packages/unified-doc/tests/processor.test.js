@@ -37,27 +37,44 @@ describe('processor', () => {
     it('compiles differently based on file extension despite having identical source content', () => {
       const processor1 = createProcessor({
         vfile: vfile({
-          basename: 'doc.txt',
-          contents: markdownContent,
-        }),
-      });
-      expect(processor1.compile().contents).toEqual(markdownContent);
-
-      const processor2 = createProcessor({
-        vfile: vfile({
           basename: 'doc.md',
           contents: markdownContent,
         }),
       });
-      expect(processor2.compile().contents).toContain('<blockquote>');
+      expect(processor1.compile().contents).toContain('<blockquote>');
 
-      const processor3 = createProcessor({
+      const processor2 = createProcessor({
         vfile: vfile({
           basename: 'doc.html',
           contents: markdownContent,
         }),
       });
+      expect(processor2.compile().contents).toContain(markdownContent);
+
+      const processor3 = createProcessor({
+        vfile: vfile({
+          basename: 'doc.unsupported-extension',
+          contents: markdownContent,
+        }),
+      });
       expect(processor3.compile().contents).toContain(markdownContent);
+      expect(processor3.compile().contents).toContain('</pre>');
+      expect(processor3.compile().contents).toContain('</code>');
+      expect(processor3.compile().contents).toContain(
+        'language-unsupported-extension',
+      );
+
+      // no extension
+      const processor4 = createProcessor({
+        vfile: vfile({
+          basename: 'doc',
+          contents: markdownContent,
+        }),
+      });
+      expect(processor4.compile().contents).toContain(markdownContent);
+      expect(processor4.compile().contents).toContain('</pre>');
+      expect(processor4.compile().contents).toContain('</code>');
+      expect(processor4.compile().contents).not.toContain('language');
     });
 
     it('compiles result using a custom compiler (react)', () => {

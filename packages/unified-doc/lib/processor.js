@@ -7,19 +7,15 @@ import stringify from 'rehype-stringify';
 import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import unified from 'unified';
-import json from 'unified-doc-parse-json';
-import text from 'unified-doc-parse-text';
+import codeBlock from 'unified-doc-parse-code-block';
 import mark from 'unified-doc-util-mark';
 
 import { mimeTypes } from './enums';
 import { inferMimeType } from './file';
 
-// TODO: support customizations of default parsers with parserOptions
-const defaultParsers = {
+const supportedParsers = {
   [mimeTypes.HTML]: [html],
-  [mimeTypes.JSON]: [[json, { classNames: ['hljs', 'language-json'] }]],
   [mimeTypes.MARKDOWN]: [markdown, remark2rehype],
-  [mimeTypes.TEXT]: [text],
 };
 
 const pluginfy = (transform) => (...args) => (tree) => transform(tree, ...args);
@@ -32,7 +28,7 @@ export function createProcessor(options = {}) {
   const {
     compiler = stringify,
     marks = [],
-    parsers = defaultParsers,
+    parsers = supportedParsers,
     postPlugins = [],
     prePlugins = [],
     sanitizeSchema,
@@ -40,26 +36,29 @@ export function createProcessor(options = {}) {
   } = options;
 
   const mergedParsers = {
-    ...defaultParsers,
+    ...supportedParsers,
     ...parsers,
   };
 
-  // create unified processor and apply parser against inferred mime type
+  const defaultParser = [[codeBlock, { language: vfile.extname.slice(1) }]];
+
+  // create unified processor and apply a corresponding inferred parser
   const processor = unified();
   const mimeType = inferMimeType(vfile.basename);
-  const parser = mergedParsers[mimeType] || mergedParsers[mimeTypes.TEXT];
+  const parser = mergedParsers[mimeType] || defaultParser;
   processor.use(parser);
 
-  // sanitize the tree
-  if (sanitizeSchema) {
-    processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
-  }
-
-  // apply prePlugins -> private plugins -> post plugins -> compiler (order matters)
+  // apply prePlugins -> private plugins -> post plugins
   processor.use(prePlugins);
   processor.use(pluginfy(mark), marks);
   processor.use(() => extractTextContent);
   processor.use(postPlugins);
+
+  // sanitize the tree after all plugins
+  if (sanitizeSchema) {
+    processor.use(pluginfy(sanitize), deepmerge(gh, sanitizeSchema));
+  }
+
   processor.use(compiler);
 
   function compile() {

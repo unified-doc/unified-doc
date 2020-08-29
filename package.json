@@ -19,8 +19,7 @@
   },
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
-    "unified-doc-parse-json": "file:packages/unified-doc-parse-json",
-    "unified-doc-parse-text": "file:packages/unified-doc-parse-text",
+    "unified-doc-parse-code-block": "file:packages/unified-doc-parse-code-block",
     "unified-doc-search-micromatch": "file:packages/unified-doc-search-micromatch",
     "unified-doc-types": "file:packages/unified-doc-types",
     "unified-doc-util-mark": "file:packages/unified-doc-util-mark",

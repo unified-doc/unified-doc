@@ -51,17 +51,31 @@ describe('api.file', () => {
       { id: 'b', start: 2, end: 8 },
       { id: 'c', start: 8, end: 10 },
     ];
-    const doc = api({
+    const doc1 = api({
       content: markdownContent,
       filename: 'doc.md',
       marks,
     });
-    const htmlFile = doc.file('.html');
-    const { content } = htmlFile;
-    expect(content).toContain('<mark');
-    expect(content).toContain('</mark>');
-    expect(content).toContain('data-mark-id="a"');
-    expect(content).toContain('data-mark-id="b"');
-    expect(content).toContain('data-mark-id="c"');
+    const content1 = doc1.file('.html').content;
+    expect(content1).toContain('<mark');
+    expect(content1).toContain('</mark>');
+    expect(content1).not.toContain('data-mark-id');
+    expect(content1).toContain('id="user-content-a"');
+    expect(content1).toContain('id="user-content-b"');
+    expect(content1).toContain('id="user-content-c"');
+
+    const doc2 = api({
+      content: markdownContent,
+      filename: 'doc.md',
+      marks,
+      sanitizeSchema: null,
+    });
+    const content2 = doc2.file('.html').content;
+    expect(content2).not.toContain('user-content');
+    expect(content2).toContain('<mark');
+    expect(content2).toContain('</mark>');
+    expect(content2).toContain('data-mark-id="a"');
+    expect(content2).toContain('data-mark-id="b"');
+    expect(content2).toContain('data-mark-id="c"');
   });
 });

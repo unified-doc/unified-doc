@@ -39,8 +39,7 @@ Unified document APIs for Node, CLI, DOM.
 
 ### Parsers
 Parsers parse source content into [`hast`][hast] trees.
-- [`unified-doc-parse-json`][unified-doc-parse-json]
-- [`unified-doc-parse-text`][unified-doc-parse-text]
+- [`unified-doc-parse-code-block`][unified-doc-parse-code-block]
 
 ### Search Algorithms
 Search algorithms use a unified search interface to return search results based on the provided `query` when searching across a document's `textContent`.
@@ -101,8 +100,7 @@ npm run publish
 [unified-doc]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc
 [unified-doc-cli]: https://github.com/unified-doc/unified-doc-cli
 [unified-doc-dom]: https://github.com/unified-doc/unified-doc-dom
-[unified-doc-parse-json]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-parse-json
-[unified-doc-parse-text]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-parse-text
+[unified-doc-parse-code-block]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-parse-code-block
 [unified-doc-react]: https://github.com/unified-doc/unified-doc-react
 [unified-doc-search-micromatch]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-search-micromatch
 [unified-doc-types]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc-types

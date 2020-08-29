@@ -5,7 +5,6 @@ export const extensionTypes = {
 
 export const mimeTypes = {
   HTML: 'text/html',
-  JSON: 'application/json',
   MARKDOWN: 'text/markdown',
   TEXT: 'text/plain',
 };

@@ -1,0 +1,31 @@
+{
+  "name": "unified-doc-parse-code-block",
+  "version": "1.0.0",
+  "description": "unified-doc parser to parse content into a hast tree with a single code block node.",
+  "license": "MIT",
+  "homepage": "https://github.com/chrisrzhou/unified-doc/tree/main/packages/unified-doc-parse-code-block",
+  "repository": "https://github.com/unified-doc/unified-doc",
+  "bugs": "https://github.com/chrisrzhou/unified-doc/issues",
+  "author": "Chris Zhou <chrisrzhou@pm.me> (https://chrisrzhou.io)",
+  "keywords": [
+    "unified",
+    "doc",
+    "parse",
+    "code",
+    "block",
+    "document",
+    "file",
+    "content",
+    "unist",
+    "hast",
+    "html"
+  ],
+  "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "source": "index.js",
+  "typings": "types/index.d.ts",
+  "files": [
+    "dist",
+    "types"
+  ]
+}

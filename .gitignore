@@ -11,5 +11,6 @@ node_modules
 *.swo
 
 # project
+.env
 package-lock.json
 dist

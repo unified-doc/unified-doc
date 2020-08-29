@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.1](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.0...unified-doc@3.0.1) (2020-08-29)
+
+
+### Bug Fixes
+
+* **unified-doc:** update type from `Doc` ->  `DocInstance` ([dcecac9](https://github.com/unified-doc/unified-doc/commit/dcecac9bcd8a5de62138b33378a822c28e9848a0))
+
+
+
+
+
 # [3.0.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@2.1.1...unified-doc@3.0.0) (2020-08-29)
 
 

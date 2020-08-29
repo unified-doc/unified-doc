@@ -1,5 +1,3 @@
-import toc from 'rehype-toc';
-
 import Doc from '../../lib/doc';
 import { htmlContent, markdownContent } from '../fixtures';
 
@@ -39,37 +37,5 @@ describe('doc.textContent', () => {
       filename: 'doc',
     });
     expect(doc3.textContent()).toEqual(markdownContent);
-  });
-
-  it('ignores the effects of postPlugins even if they affect the parsed hast tree', () => {
-    const doc1 = Doc({
-      content: '# Heading 1 with **bold** text',
-      filename: 'doc.md',
-    });
-    expect(doc1.textContent()).toEqual('Heading 1 with bold text');
-
-    const doc2 = Doc({
-      content: '# Heading 1 with **bold** text',
-      filename: 'doc.md',
-      postPlugins: [toc],
-    });
-    expect(doc2.textContent()).toEqual('Heading 1 with bold text');
-  });
-
-  it('includes the effects of prePlugins', () => {
-    const doc1 = Doc({
-      content: '# Heading 1 with **bold** text',
-      filename: 'doc.md',
-    });
-    expect(doc1.textContent()).toEqual('Heading 1 with bold text');
-
-    const doc2 = Doc({
-      content: '# Heading 1 with **bold** text',
-      filename: 'doc.md',
-      prePlugins: [toc],
-    });
-    expect(doc2.textContent()).toEqual(
-      'Heading 1 with bold textHeading 1 with bold text',
-    );
   });
 });

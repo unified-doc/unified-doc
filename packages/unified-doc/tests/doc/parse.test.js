@@ -35,7 +35,7 @@ describe('doc.parse', () => {
     expect(hast1).toHaveProperty('children.0.tagName', 'pre');
     expect(hast1).toHaveProperty('children.0.children.0.tagName', 'code');
     expect(hast1).toHaveProperty('children.0.children.0.properties', {
-      className: 'language-js',
+      className: ['language-js'],
     });
     expect(hast1).toHaveProperty(
       'children.0.children.0.children.0.type',
@@ -55,7 +55,7 @@ describe('doc.parse', () => {
     expect(hast2).toHaveProperty('children.0.tagName', 'pre');
     expect(hast2).toHaveProperty('children.0.children.0.tagName', 'code');
     expect(hast2).toHaveProperty('children.0.children.0.properties', {
-      className: 'language-unsupported-extension',
+      className: ['language-unsupported-extension'],
     });
     expect(hast2).toHaveProperty(
       'children.0.children.0.children.0.type',

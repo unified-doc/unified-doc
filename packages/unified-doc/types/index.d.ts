@@ -26,7 +26,7 @@ export {
 /**
  * An instance of `unified-doc` exposing unified document API methods
  */
-export interface Doc {
+export interface DocInstance {
   /** compiles the content into results that can be used for rendering */
   compile: () => VFile;
   /** returns file data corresponding to the specified extension (e.g. '.html', '.txt') */
@@ -101,4 +101,4 @@ export interface SearchResultSnippet extends SearchResult {
 /**
  * The core function that returns a `doc` instance with unified document APIs
  */
-export default function Doc(options: Options): Doc;
+export default function Doc(options: Options): DocInstance;

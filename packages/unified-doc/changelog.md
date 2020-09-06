@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.5](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.4...unified-doc@3.0.5) (2020-09-06)
+
+
+### Bug Fixes
+
+* **unified-doc:** fix `getFileData` by excluding text content in `head` nodes ([5b8f57c](https://github.com/unified-doc/unified-doc/commit/5b8f57cbd0b941660218ae58aeea9f6834825d55))
+
+
+
+
+
 ## [3.0.4](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.3...unified-doc@3.0.4) (2020-08-29)
 
 **Note:** Version bump only for package unified-doc

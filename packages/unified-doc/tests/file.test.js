@@ -57,7 +57,7 @@ describe('file', () => {
         hast,
         vfile: vfile({
           basename: 'doc.md',
-          contents: markdownContent,
+          contents: 'unused',
         }),
       });
       expect(fileData.content).not.toEqual('some markdown content');
@@ -68,13 +68,50 @@ describe('file', () => {
       expect(fileData.type).toEqual('text/plain');
     });
 
+    it('excludes content in the <head /> node', () => {
+      const hast = {
+        type: 'root',
+        children: [
+          {
+            type: 'element',
+            tagName: 'head',
+            children: [
+              {
+                type: 'text',
+                value: 'head content should be excluded.',
+              },
+            ],
+          },
+          {
+            type: 'element',
+            tagName: 'body',
+            children: [
+              {
+                type: 'text',
+                value: 'body content should be included.',
+              },
+            ],
+          },
+        ],
+      };
+      const fileData = getFileData({
+        extension: '.txt',
+        hast,
+        vfile: vfile({
+          basename: 'doc.html',
+          contents: 'unused',
+        }),
+      });
+      expect(fileData.content).toEqual('body content should be included.');
+    });
+
     it('returns html file data when ".html" extension is provided', () => {
       const fileData = getFileData({
         extension: '.html',
         hast,
         vfile: vfile({
           basename: 'doc.html',
-          contents: markdownContent,
+          contents: 'unused',
         }),
       });
       expect(fileData.content).not.toEqual(markdownContent);

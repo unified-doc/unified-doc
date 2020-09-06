@@ -1,7 +1,6 @@
 import deepmerge from 'deepmerge';
 import sanitize from 'hast-util-sanitize';
 import gh from 'hast-util-sanitize/lib/github.json';
-import toString from 'hast-util-to-string';
 import html from 'rehype-parse';
 import stringify from 'rehype-stringify';
 import markdown from 'remark-parse';
@@ -12,6 +11,7 @@ import mark from 'unified-doc-util-mark';
 
 import { mimeTypes } from './enums';
 import { inferMimeType } from './file';
+import { toText } from './hast';
 
 const supportedParsers = {
   [mimeTypes.HTML]: [html],
@@ -21,7 +21,7 @@ const supportedParsers = {
 const pluginfy = (transform) => (...args) => (tree) => transform(tree, ...args);
 
 function extractTextContent(hast, file) {
-  file.data.textContent = toString(hast);
+  file.data.textContent = toText(hast);
 }
 
 export function createProcessor(options = {}) {

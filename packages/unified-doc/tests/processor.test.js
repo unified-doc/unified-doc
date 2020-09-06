@@ -167,6 +167,17 @@ describe('processor', () => {
     expect(processor.textContent()).toEqual('\nsome markdown content\n');
   });
 
+  it('returns textContent without content in the head node', () => {
+    const processor = createProcessor({
+      vfile: vfile({
+        basename: 'doc.html',
+        contents:
+          '<html><head><style>head content should be included excluded.</style></head><body>body content should be included.</body></html>',
+      }),
+    });
+    expect(processor.textContent()).toEqual('body content should be included.');
+  });
+
   it('returns textContent of parsed tree ignoring effects of post plugins', () => {
     const processor = createProcessor({
       vfile: vfile({

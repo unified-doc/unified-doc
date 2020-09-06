@@ -1,9 +1,8 @@
 import toHtml from 'hast-util-to-html';
-import toString from 'hast-util-to-string';
 import mime from 'mime-types';
-import filter from 'unist-util-filter';
 
 import { extensionTypes, mimeTypes } from './enums';
+import { toText } from './hast';
 
 export function inferMimeType(filename) {
   return mime.lookup(filename) || mimeTypes.TEXT;
@@ -23,8 +22,7 @@ export function getFileData({
       break;
     }
     case extensionTypes.TEXT: {
-      // @ts-ignore
-      content = toString(filter(hast, (node) => node.tagName !== 'head'));
+      content = toText(hast);
       break;
     }
     default: {

@@ -77,8 +77,14 @@ describe('file', () => {
             tagName: 'head',
             children: [
               {
-                type: 'text',
-                value: 'head content should be excluded.',
+                type: 'element',
+                tagName: 'style',
+                children: [
+                  {
+                    type: 'text',
+                    value: 'head content should be excluded.',
+                  },
+                ],
               },
             ],
           },

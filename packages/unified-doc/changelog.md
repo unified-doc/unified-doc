@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.0.6](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.5...unified-doc@3.0.6) (2020-09-06)
+
+
+### Bug Fixes
+
+* **unified-doc:** share common `getTextContent` implementation to blacklist text nodes in `head` node ([e81ba5c](https://github.com/unified-doc/unified-doc/commit/e81ba5ce18c04d0798d8283d7949cd0045b9ff88))
+
+
+
+
+
 ## [3.0.5](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.4...unified-doc@3.0.5) (2020-09-06)
 
 

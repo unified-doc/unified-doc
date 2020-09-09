@@ -3,6 +3,11 @@ import vfile from 'vfile';
 import { hast, markdownContent } from './fixtures';
 import { inferMimeType, getFileData } from '../lib/file';
 
+const unusedVile = vfile({
+  basename: 'doc.md',
+  contents: 'unused',
+})
+
 describe('file', () => {
   // only test the default mime type since other behaviors are implemented/tested in "mime" package.
   describe(inferMimeType, () => {
@@ -55,10 +60,7 @@ describe('file', () => {
       const fileData = getFileData({
         extension: '.txt',
         hast,
-        vfile: vfile({
-          basename: 'doc.md',
-          contents: 'unused',
-        }),
+        vfile: unusedVile,
       });
       expect(fileData.content).not.toEqual('some markdown content');
       expect(fileData.content).toEqual('\nsome markdown content\n');
@@ -103,10 +105,7 @@ describe('file', () => {
       const fileData = getFileData({
         extension: '.txt',
         hast,
-        vfile: vfile({
-          basename: 'doc.html',
-          contents: 'unused',
-        }),
+        vfile: unusedVile,
       });
       expect(fileData.content).toEqual('body content should be included.');
     });
@@ -115,10 +114,7 @@ describe('file', () => {
       const fileData = getFileData({
         extension: '.html',
         hast,
-        vfile: vfile({
-          basename: 'doc.html',
-          contents: 'unused',
-        }),
+        vfile: unusedVile,
       });
       expect(fileData.content).not.toEqual(markdownContent);
       expect(fileData.content).toEqual(
@@ -128,6 +124,19 @@ describe('file', () => {
       expect(fileData.name).toEqual('doc.html');
       expect(fileData.stem).toEqual('doc');
       expect(fileData.type).toEqual('text/html');
+    });
+
+    it('returns markdown file data when ".md" extension is provided', () => {
+      const fileData = getFileData({
+        extension: '.md',
+        hast,
+        vfile: unusedVile,
+      });
+      expect(fileData.content).toEqual('> **some** markdown content');
+      expect(fileData.extension).toEqual('.md');
+      expect(fileData.name).toEqual('doc.md');
+      expect(fileData.stem).toEqual('doc');
+      expect(fileData.type).toEqual('text/markdown');
     });
   });
 });

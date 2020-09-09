@@ -85,6 +85,7 @@ expect(doc.compile()).toBeInstanceOf(VFile); // vfile instance
 - [`doc.search(query[, options])`](#docsearchquery-options)
 - [`doc.textContent()`](#doctextContent)
 - [`options`](#options)
+- [`enums`](#enums)
 
 A `doc` refers to an instance of `unified-doc`.
 
@@ -129,7 +130,7 @@ Returns the results of the compiled content based on the `compiler` attached to 
 ```ts
 function file(extension?: string): FileData;
 ```
-Returns `FileData` for the specified extension.  This is a useful way to convert and output different file formats.  Supported extensions include `'.html'`, `'.txt'`.  If no extension is provided, the source file should be returned.  Future extensions can be implemented, providing a powerful way to convert file formats for any supported content type
+Returns `FileData` for the specified extension.  This is a useful way to convert and output different file formats.  Supported extensions include `'.html'`, `'.txt'`, `.md`.  If no extension is provided, the source file should be returned.  Future extensions can be implemented, providing a powerful way to convert file formats for any supported content type
 
 #### Example
 ```js
@@ -154,6 +155,15 @@ expect(doc.file('.html')).toEqual({
   name: 'doc.html',
   stem: 'doc',
   type: 'text/html',
+});
+
+// export file as markdown
+expect(doc.file('.markdown')).toEqual({
+  content: '> **some** markdown content',
+  extension: '.md',
+  name: 'doc.md',
+  stem: 'doc',
+  type: 'text/markdown',
 });
 
 // export file as text (only textContent is extracted)
@@ -376,6 +386,22 @@ interface SearchOptions {
   /** return snippets padded with extra characters on the left/right of the matched value based on the specified padding length */
   snippetOffsetPadding?: number;
 }
+```
+
+### `enums`
+The following enums indicate `mimeTypes` for supported parsers and `extensionTypes` for supported file conversion targets.
+
+```ts
+const extensionTypes = {
+  HTML: '.html',
+  MARKDOWN: '.md',
+  TEXT: '.txt',
+};
+
+const mimeTypes = {
+  HTML: 'text/html',
+  MARKDOWN: 'text/markdown',
+};
 ```
 
 <!-- Definitions -->

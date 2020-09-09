@@ -102,3 +102,13 @@ export interface SearchResultSnippet extends SearchResult {
  * The core function that returns a `doc` instance with unified document APIs
  */
 export default function Doc(options: Options): DocInstance;
+
+/**
+ * Extension types for supported file conversion target format
+ */
+export const extensionTypes: Record<string, string>;
+
+/**
+ * Mime types for supported parsers
+ */
+export const mimeTypes: Record<string, string>;

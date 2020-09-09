@@ -1,11 +1,13 @@
 import toHtml from 'hast-util-to-html';
+import toMdast from 'hast-util-to-mdast';
+import toMarkdown from 'mdast-util-to-markdown';
 import mime from 'mime-types';
 
-import { extensionTypes, mimeTypes } from './enums';
+import { extensionTypes } from './enums';
 import { toText } from './hast';
 
 export function inferMimeType(filename) {
-  return mime.lookup(filename) || mimeTypes.TEXT;
+  return mime.lookup(filename) || 'text/plain';
 }
 
 export function getFileData({
@@ -19,6 +21,10 @@ export function getFileData({
   switch (extensionType) {
     case extensionTypes.HTML: {
       content = toHtml(hast);
+      break;
+    }
+    case extensionTypes.MARKDOWN: {
+      content = toMarkdown(toMdast(hast));
       break;
     }
     case extensionTypes.TEXT: {

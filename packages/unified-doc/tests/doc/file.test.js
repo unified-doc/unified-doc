@@ -1,5 +1,5 @@
 import Doc from '../../lib/doc';
-import { markdownContent } from '../fixtures';
+import { htmlContent, markdownContent } from '../fixtures';
 
 describe('doc.file', () => {
   it('returns the source file if no extension is provided', () => {
@@ -78,4 +78,18 @@ describe('doc.file', () => {
     expect(content2).toContain('data-mark-id="b"');
     expect(content2).toContain('data-mark-id="c"');
   });
+
+  it('returns a markdown file when ".md" extension is provided', () => {
+    const doc = Doc({
+      content: htmlContent,
+      filename: 'doc.html',
+    });
+    const file = doc.file('.md');
+    expect(file.content).toEqual('> **some** content');
+    expect(file.extension).toEqual('.md');
+    expect(file.name).toEqual('doc.md');
+    expect(file.stem).toEqual('doc');
+    expect(file.type).toEqual('text/markdown');
+  });
+
 });

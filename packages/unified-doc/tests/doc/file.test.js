@@ -91,5 +91,4 @@ describe('doc.file', () => {
     expect(file.stem).toEqual('doc');
     expect(file.type).toEqual('text/markdown');
   });
-
 });

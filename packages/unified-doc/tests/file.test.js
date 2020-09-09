@@ -6,7 +6,7 @@ import { inferMimeType, getFileData } from '../lib/file';
 const unusedVile = vfile({
   basename: 'doc.md',
   contents: 'unused',
-})
+});
 
 describe('file', () => {
   // only test the default mime type since other behaviors are implemented/tested in "mime" package.

@@ -181,6 +181,14 @@ expect(doc.file('.html')).toEqual({
   type: 'text/html',
 });
 
+expect(doc.file('.md')).toEqual({
+  content: '> **some** markdown content',
+  extension: '.md',
+  name: 'doc.md',
+  stem: 'doc',
+  type: 'text/markdown',
+});
+
 expect(doc.file('.txt')).toEqual({
   content: 'some markdown content',
   extension: '.txt',
@@ -338,7 +346,7 @@ Returns the results of the compiled content based on the `compiler` attached to 
 ```ts
 function file(extension?: string): FileData;
 ```
-Returns `FileData` for the specified extension.  This is a useful way to convert and output different file formats.  Supported extensions include `'.html'`, `'.txt'`.  If no extension is provided, the source file should be returned.  Future extensions can be implemented, providing a powerful way to convert file formats for any supported content type.
+Returns `FileData` for the specified extension.  This is a useful way to convert and output different file formats.  Currently supported extensions include `'.html'`, `'.txt'`, `'.md'`.  If no extension is provided, the source file should be returned.  Future extensions can be implemented, providing a powerful way to convert file formats for any supported content type.
 
 #### Example
 ```js
@@ -364,6 +372,16 @@ expect(doc.file('.html')).toEqual({
   stem: 'doc',
   type: 'text/html',
 });
+
+// returns corresponding markdown file
+expect(doc.file('.md')).toEqual({
+  content: '> **some** markdown content',
+  extension: '.md',
+  name: 'doc.md',
+  stem: 'doc',
+  type: 'text/markdown',
+});
+
 
 // returns only the textContent in a .txt file
 expect(doc.file('.txt')).toEqual({

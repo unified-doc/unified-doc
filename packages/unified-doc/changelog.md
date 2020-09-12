@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.3.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.2.2...unified-doc@3.3.0) (2020-09-12)
+
+
+### Features
+
+* **unified-doc:** support `doc.file('.xml')` exporting to xml. ([bbe45da](https://github.com/unified-doc/unified-doc/commit/bbe45daeef29e70eb353e897a6be2e6abcaeff86))
+
+
+
+
+
 ## [3.2.2](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.2.1...unified-doc@3.2.2) (2020-09-12)
 
 **Note:** Version bump only for package unified-doc

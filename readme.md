@@ -5,6 +5,7 @@ unified document APIs.
 
 ## Contents
 - [Intro](#intro)
+- [Document Formats](#document-formats)
 - [Spec](#spec)
 - [Packages](#packages)
 - [Development](#development)
@@ -24,6 +25,25 @@ With `unified-doc`, we can easily
 - retrieve useful representations of the document (e.g. source, html, text, syntax tree).
 - enrich the document through an ecosystem of plugins.
 - evolve with interoperable web technologies.
+
+### Document formats
+
+`unified-doc` currently supports, and will eventually support, the following document formats (and relating [mime types][]):
+
+#### Non-markup formats
+Non-markup docments are trivially rendered into a code block that can be easily highlighted by JS syntax highlighting libraries e.g. `.txt`, `.json`, `.js`, `.css`, `.sh`, `.py`, `.r`, `.cpp` etc).
+
+#### Markup formats
+Markup formats are supported by implementing parsers that parse the respective source content into unified [hast][] syntax tree.  The [unified][] community is largely credited for implementation of such parsers.
+- [x] `.html`
+- [x] `.md`
+- [x] `.csv`
+- [ ] `.docx`
+- [ ] `.epub`
+- [ ] `.pdf`
+- [ ] `.mathml`
+- [ ] `.rtf`
+- [ ] `.tex`
 
 ## Spec
 Please refer to the [Spec](./spec.md) documentation for more details on goals, definitions, and implementations in `unified-doc`.
@@ -97,6 +117,7 @@ npm run publish
 
 <!-- Definitions -->
 [hast]: https://github.com/syntax-tree/hast
+[mime types]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
 [unified]: https://github.com/unifiedjs
 [unified-doc]: https://github.com/unified-doc/unified-doc/tree/main/packages/unified-doc
 [unified-doc-cli]: https://github.com/unified-doc/unified-doc-cli

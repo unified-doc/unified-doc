@@ -23,7 +23,6 @@ export function getMarkedNodes(nodeSegments, appliedMarkIds = new Set()) {
           properties.id = id; // add id to first marked node
           appliedMarkIds.add(id);
         }
-        // @ts-ignore: TODO fix types
         markedNode = h('mark', properties, markedNode);
       });
 

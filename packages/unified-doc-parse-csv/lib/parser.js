@@ -7,6 +7,7 @@ export default function parser(doc, options = {}) {
       type: 'element',
       tagName: 'table',
       children: [],
+      properties: {},
     };
   }
 

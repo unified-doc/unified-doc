@@ -7,5 +7,5 @@ export { Options };
  */
 export default function parse(
   /** Configurable options (compatible with tdast-util-to-hast-table's options) */
-  options?: Options
+  options?: Options,
 ): void;

@@ -91,4 +91,19 @@ describe('doc.file', () => {
     expect(file.stem).toEqual('doc');
     expect(file.type).toEqual('text/markdown');
   });
+
+  it('returns well-formed xml (no self-closing tags) file when ".xml" extension is provided', () => {
+    const doc = Doc({
+      content: '<div><img src="testsrc" /></div>',
+      filename: 'doc.html',
+    });
+    const file = doc.file('.xml');
+    expect(file.content).toContain('xmlns="http://www.w3.org/1999/xhtml"');
+    expect(file.content).toContain('</img>');
+    expect(file.content).not.toContain('/>');
+    expect(file.extension).toEqual('.xml');
+    expect(file.name).toEqual('doc.xml');
+    expect(file.stem).toEqual('doc');
+    expect(file.type).toEqual('application/xml');
+  });
 });

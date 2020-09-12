@@ -42,6 +42,7 @@
     "hast-util-to-html": "^7.1.1",
     "hast-util-to-mdast": "^7.1.1",
     "hast-util-to-string": "^1.0.4",
+    "hast-util-to-xast": "^1.0.1",
     "mdast-util-to-markdown": "^0.2.0",
     "mime-types": "^2.1.27",
     "rehype-parse": "^7.0.1",
@@ -54,6 +55,7 @@
     "unified-doc-search-micromatch": "file:../unified-doc-search-micromatch",
     "unified-doc-types": "file:../unified-doc-types",
     "unified-doc-util-mark": "file:../unified-doc-util-mark",
-    "vfile": "^4.2.0"
+    "vfile": "^4.2.0",
+    "xast-util-to-xml": "^1.0.0"
   }
 }

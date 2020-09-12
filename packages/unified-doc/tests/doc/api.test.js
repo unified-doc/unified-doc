@@ -21,6 +21,7 @@ describe('api', () => {
       HTML: '.html',
       MARKDOWN: '.md',
       TEXT: '.txt',
+      XML: '.xml',
     });
   });
 

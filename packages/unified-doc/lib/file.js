@@ -1,7 +1,9 @@
 import toHtml from 'hast-util-to-html';
 import toMdast from 'hast-util-to-mdast';
+import toXast from 'hast-util-to-xast';
 import toMarkdown from 'mdast-util-to-markdown';
 import mime from 'mime-types';
+import toXml from 'xast-util-to-xml';
 
 import { extensionTypes } from './enums';
 import { toText } from './hast';
@@ -29,6 +31,10 @@ export function getFileData({
     }
     case extensionTypes.TEXT: {
       content = toText(hast);
+      break;
+    }
+    case extensionTypes.XML: {
+      content = toXml(toXast(hast));
       break;
     }
     default: {

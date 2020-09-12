@@ -1,6 +1,6 @@
 {
   "name": "unified-doc-parse-csv",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "unified-doc parser to parse csv into a hast table node (RFC-4180 compliant)",
   "license": "MIT",
   "homepage": "https://github.com/chrisrzhou/unified-doc/tree/main/packages/unified-doc-parse-csv",

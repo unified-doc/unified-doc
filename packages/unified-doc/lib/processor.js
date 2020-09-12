@@ -7,6 +7,7 @@ import markdown from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import unified from 'unified';
 import codeBlock from 'unified-doc-parse-code-block';
+import csv from 'unified-doc-parse-csv';
 import mark from 'unified-doc-util-mark';
 
 import { mimeTypes } from './enums';
@@ -14,6 +15,7 @@ import { inferMimeType } from './file';
 import { toText } from './hast';
 
 const supportedParsers = {
+  [mimeTypes.CSV]: [csv],
   [mimeTypes.HTML]: [html],
   [mimeTypes.MARKDOWN]: [markdown, remark2rehype],
 };

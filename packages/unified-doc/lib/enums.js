@@ -5,6 +5,7 @@ export const extensionTypes = {
 };
 
 export const mimeTypes = {
+  CSV: 'text/csv',
   HTML: 'text/html',
   MARKDOWN: 'text/markdown',
 };

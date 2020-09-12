@@ -13,13 +13,14 @@
     "dev": "lerna exec --parallel 'microbundle watch'",
     "lint": "xo --fix; tsc",
     "test": "jest --watch packages",
-    "test:ci": "jest",
+    "test:run": "jest",
     "prepare": "npm run clean; npm run build",
     "publish": "lerna publish"
   },
   "dependencies": {
     "unified-doc": "file:packages/unified-doc",
     "unified-doc-parse-code-block": "file:packages/unified-doc-parse-code-block",
+    "unified-doc-parse-csv": "file:packages/unified-doc-parse-csv",
     "unified-doc-search-micromatch": "file:packages/unified-doc-search-micromatch",
     "unified-doc-types": "file:packages/unified-doc-types",
     "unified-doc-util-mark": "file:packages/unified-doc-util-mark",
@@ -44,7 +45,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm prepare; npm run lint; npm run test:ci"
+      "pre-push": "npm prepare; npm run lint; npm run test:run"
     }
   },
   "prettier": {

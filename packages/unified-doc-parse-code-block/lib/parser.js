@@ -43,14 +43,13 @@ export default function parser(doc, options = {}) {
   };
 
   const { language } = options;
-  if (language) {
-    code.properties = {
-      className: [`language-${language}`],
-    };
-    pre.properties = {
-      className: [`language-${language}`],
-    };
-  }
+  const languageClassName = `language-${language || 'txt'}`;
+  code.properties = {
+    className: [languageClassName],
+  };
+  pre.properties = {
+    className: [languageClassName],
+  };
 
   return {
     type: 'root',

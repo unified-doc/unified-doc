@@ -39,11 +39,17 @@ describe(parser, () => {
           type: 'element',
           tagName: 'pre',
           position,
+          properties: {
+            className: ['language-txt'],
+          },
           children: [
             {
               type: 'element',
               tagName: 'code',
               position,
+              properties: {
+                className: ['language-txt'],
+              },
               children: [
                 {
                   type: 'text',

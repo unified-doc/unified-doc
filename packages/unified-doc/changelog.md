@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.2.1](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.2.0...unified-doc@3.2.1) (2020-09-12)
+
+
+### Bug Fixes
+
+* **unified-doc:** apply fixes from `unified-doc-parse-code-block` to ensure `language-txt` is always attached to the codeblock by default. ([be5ac7d](https://github.com/unified-doc/unified-doc/commit/be5ac7dc7fbcc40607f7408e31418a94f381a485))
+
+
+
+
+
 # [3.2.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.1.0...unified-doc@3.2.0) (2020-09-12)
 
 

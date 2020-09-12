@@ -42,7 +42,7 @@
     "hast-util-to-html": "^7.1.1",
     "hast-util-to-mdast": "^7.1.1",
     "hast-util-to-string": "^1.0.4",
-    "mdast-util-to-markdown": "^0.1.1",
+    "mdast-util-to-markdown": "^0.2.0",
     "mime-types": "^2.1.27",
     "rehype-parse": "^7.0.1",
     "rehype-stringify": "^8.0.0",

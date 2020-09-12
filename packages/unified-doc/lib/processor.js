@@ -15,7 +15,7 @@ import { inferMimeType } from './file';
 import { toText } from './hast';
 
 const supportedParsers = {
-  [mimeTypes.CSV]: [csv],
+  [mimeTypes.CSV]: [[csv, { header: true }]],
   [mimeTypes.HTML]: [html],
   [mimeTypes.MARKDOWN]: [markdown, remark2rehype],
 };

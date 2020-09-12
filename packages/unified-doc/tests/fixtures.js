@@ -125,6 +125,9 @@ export const hast = {
   },
 };
 
+export const csvContent =
+  'row0col0,row0col1,row0col2\nrow1col0,row1col1,row1col2';
+
 export const htmlContent =
   '<blockquote><strong>some</strong>\ncontent</blockquote>';
 

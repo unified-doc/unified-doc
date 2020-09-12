@@ -75,7 +75,9 @@ describe('doc.parse', () => {
     const hast3 = doc3.parse();
     expect(hast3).toHaveProperty('children.0.tagName', 'pre');
     expect(hast3).toHaveProperty('children.0.children.0.tagName', 'code');
-    expect(hast3).toHaveProperty('children.0.children.0.properties', {});
+    expect(hast3).toHaveProperty('children.0.children.0.properties.className', [
+      'language-txt',
+    ]);
     expect(hast3).toHaveProperty(
       'children.0.children.0.children.0.type',
       'text',

@@ -84,7 +84,7 @@ describe('processor', () => {
         expect(contents).toContain('language-unsupported-extension');
       });
 
-      it('compiles content without extension to a codeblock with no language attached', () => {
+      it('compiles content without extension to a codeblock with default text language attached', () => {
         const processor = createProcessor({
           vfile: vfile({
             basename: 'doc',
@@ -95,7 +95,7 @@ describe('processor', () => {
         expect(contents).toContain(markdownContent);
         expect(contents).toContain('</pre>');
         expect(contents).toContain('</code>');
-        expect(contents).not.toContain('language');
+        expect(contents).toContain('language-txt');
       });
 
       it('compiles result using a custom compiler (react)', () => {

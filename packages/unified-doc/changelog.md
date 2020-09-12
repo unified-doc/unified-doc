@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.2.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.1.0...unified-doc@3.2.0) (2020-09-12)
+
+
+### Features
+
+* **unified-doc:** integrate unified-doc-parse-csv ([0e2246d](https://github.com/unified-doc/unified-doc/commit/0e2246d09c3e7ca49ab9a71fdd31f0caf53604c1))
+
+
+
+
+
 # [3.1.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.6...unified-doc@3.1.0) (2020-09-09)
 
 

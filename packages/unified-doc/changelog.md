@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [3.1.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.6...unified-doc@3.1.0) (2020-09-09)
+
+
+### Features
+
+* **unified-doc:** support `doc.file('.md')` extension type. ([2b22a1a](https://github.com/unified-doc/unified-doc/commit/2b22a1a692ddf799452c15c60701037e9234b009))
+
+
+
+
+
 ## [3.0.6](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.0.5...unified-doc@3.0.6) (2020-09-06)
 
 

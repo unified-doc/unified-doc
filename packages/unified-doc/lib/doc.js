@@ -1,9 +1,12 @@
 import searchMicromatch from 'unified-doc-search-micromatch';
 import _vfile from 'vfile';
 
+import { extensionTypes, mimeTypes } from './enums';
 import { getFileData } from './file';
 import { createProcessor } from './processor';
 import { getSnippets } from './search';
+
+export { extensionTypes, mimeTypes };
 
 export default function Doc(options = {}) {
   const {

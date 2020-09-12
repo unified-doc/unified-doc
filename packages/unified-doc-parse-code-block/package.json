@@ -1,6 +1,6 @@
 {
   "name": "unified-doc-parse-code-block",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "unified-doc parser to parse content into a hast tree with a single code block node.",
   "license": "MIT",
   "homepage": "https://github.com/chrisrzhou/unified-doc/tree/main/packages/unified-doc-parse-code-block",

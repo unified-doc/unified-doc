@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.1](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.3.0...unified-doc@3.3.1) (2020-09-13)
+
+
+### Bug Fixes
+
+* **unified-doc:** always ensure `html` node is included in `doc.file('.xml')` ([67da7f7](https://github.com/unified-doc/unified-doc/commit/67da7f7455eb260f623c92378f3f1a78f270cad5))
+* **unified-doc:** disable named exports until microbundle supports mixed exports ([e29cf61](https://github.com/unified-doc/unified-doc/commit/e29cf619e4e62ee72e16c84456c120d0bb8691a6))
+
+
+
+
+
 # [3.3.0](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.2.2...unified-doc@3.3.0) (2020-09-12)
 
 

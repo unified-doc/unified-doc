@@ -1,3 +1,4 @@
+import raw from 'hast-util-raw';
 import toHtml from 'hast-util-to-html';
 import toMdast from 'hast-util-to-mdast';
 import toXast from 'hast-util-to-xast';
@@ -34,7 +35,9 @@ export function getFileData({
       break;
     }
     case extensionTypes.XML: {
-      content = toXml(toXast(hast));
+      // always ensure hast has a html parent node.  clean/dedupe with hast-util-raw
+      const clean = raw({ type: 'element', tagName: 'html', children: [hast] });
+      content = toXml(toXast(clean));
       break;
     }
     default: {

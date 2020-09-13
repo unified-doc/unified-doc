@@ -96,11 +96,22 @@ describe('doc.file', () => {
     const doc = Doc({
       content: '<div><img src="testsrc" /></div>',
       filename: 'doc.html',
+      sanitizeSchema: null,
     });
     const file = doc.file('.xml');
-    expect(file.content).toContain('xmlns="http://www.w3.org/1999/xhtml"');
+
+    // always includes html, body, head tag
+    expect(file.content).toContain(
+      '<html xmlns="http://www.w3.org/1999/xhtml">',
+    );
+    expect(file.content).toContain('<body>');
+    expect(file.content).toContain('<head>');
+
+    // no self-closing tags
     expect(file.content).toContain('</img>');
     expect(file.content).not.toContain('/>');
+
+    // file details
     expect(file.extension).toEqual('.xml');
     expect(file.name).toEqual('doc.xml');
     expect(file.stem).toEqual('doc');

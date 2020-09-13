@@ -130,7 +130,7 @@ Returns the results of the compiled content based on the `compiler` attached to 
 ```ts
 function file(extension?: string): FileData;
 ```
-Returns `FileData` for the specified extension.  This is a useful way to convert and output different file formats.  Supported extensions include `'.html'`, `'.txt'`, `.md`.  If no extension is provided, the source file should be returned.  Future extensions can be implemented, providing a powerful way to convert file formats for any supported content type
+Returns `FileData` for the specified extension.  This is a useful way to convert and output different file formats.  Supported extensions include `'.html'`, `'.txt'`, `.md`, `.xml`.  If no extension is provided, the source file should be returned.  Future extensions can be implemented, providing a powerful way to convert file formats for any supported content type
 
 #### Example
 ```js
@@ -173,6 +173,15 @@ expect(doc.file('.txt')).toEqual({
   name: 'doc.txt',
   stem: 'doc',
   type: 'text/plain',
+});
+
+// export file as html-compatible xml
+expect(doc.file('.xml')).toEqual({
+  content: '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body><blockquote><p><strong>some</strong> markdown content</p></blockquote></body></html>',
+  extension: '.xml',
+  name: 'doc.xml',
+  stem: 'doc',
+  type: 'application/xml',
 });
 ```
 

@@ -38,6 +38,7 @@
   ],
   "dependencies": {
     "deepmerge": "^4.2.2",
+    "hast-util-raw": "^6.0.1",
     "hast-util-sanitize": "^3.0.0",
     "hast-util-to-html": "^7.1.1",
     "hast-util-to-mdast": "^7.1.1",

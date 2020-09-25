@@ -15,6 +15,16 @@ describe('doc.parse', () => {
     expect(hast).toHaveProperty('children.0.children.1.tagName', 'p');
   });
 
+  it('parses markdown file extension into a hast tree (GFM)', () => {
+    const doc = Doc({
+      content: '|a|b|c|\n|---|---|---|\n|1|2|3|',
+      filename: 'doc.md',
+    });
+    const hast = doc.parse();
+    expect(hast).toHaveProperty('children.0.tagName', 'table');
+    expect(hast).toHaveProperty('children.0.children.1.tagName', 'thead');
+  });
+
   it('parses html file extension into a hast tree', () => {
     const doc = Doc({
       content: htmlContent,

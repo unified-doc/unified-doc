@@ -2,6 +2,7 @@ import raw from 'hast-util-raw';
 import toHtml from 'hast-util-to-html';
 import toMdast from 'hast-util-to-mdast';
 import toXast from 'hast-util-to-xast';
+import gfm from 'mdast-util-gfm';
 import toMarkdown from 'mdast-util-to-markdown';
 import mime from 'mime-types';
 import toXml from 'xast-util-to-xml';
@@ -27,7 +28,7 @@ export function getFileData({
       break;
     }
     case extensionTypes.MARKDOWN: {
-      content = toMarkdown(toMdast(hast));
+      content = toMarkdown(toMdast(hast), { extensions: [gfm.toMarkdown()] });
       break;
     }
     case extensionTypes.TEXT: {

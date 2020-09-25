@@ -55,6 +55,16 @@ describe('processor', () => {
         expect(processor.compile().contents).toContain('<blockquote>');
       });
 
+      it('compiles markdown content (GFM)', () => {
+        const processor = createProcessor({
+          vfile: vfile({
+            basename: 'doc.md',
+            contents: '|a|b|c|\n|---|---|---|\n|1|2|3|',
+          }),
+        });
+        expect(processor.compile().contents).toContain('<table>');
+      });
+
       it('compiles csv content', () => {
         const processor = createProcessor({
           vfile: vfile({

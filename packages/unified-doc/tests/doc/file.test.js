@@ -92,6 +92,20 @@ describe('doc.file', () => {
     expect(file.type).toEqual('text/markdown');
   });
 
+  it('returns a markdown file when ".md" extension is provided (GFM)', () => {
+    const doc = Doc({
+      content:
+        '<table><thead><tr><th>a</th><th>b</th></tr><tbody><tr><td>1</td><td>2</td></tr></tbody></table>',
+      filename: 'doc.html',
+    });
+    const file = doc.file('.md');
+    expect(file.content).toEqual('| a | b |\n| - | - |\n| 1 | 2 |');
+    expect(file.extension).toEqual('.md');
+    expect(file.name).toEqual('doc.md');
+    expect(file.stem).toEqual('doc');
+    expect(file.type).toEqual('text/markdown');
+  });
+
   it('returns well-formed xml (no self-closing tags) file when ".xml" extension is provided', () => {
     const doc = Doc({
       content: '<div><img src="testsrc" /></div>',

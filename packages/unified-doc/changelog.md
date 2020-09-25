@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [3.3.2](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.3.1...unified-doc@3.3.2) (2020-09-25)
+
+
+### Bug Fixes
+
+* support gfm for converted markdown file data.  add tests ([0b4538a](https://github.com/unified-doc/unified-doc/commit/0b4538a364f928c12b8a589670313f733ac15a93))
+
+
+
+
+
 ## [3.3.1](https://github.com/unified-doc/unified-doc/compare/unified-doc@3.3.0...unified-doc@3.3.1) (2020-09-13)
 
 
